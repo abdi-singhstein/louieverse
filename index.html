@@ -15,23 +15,62 @@
   flex-wrap: wrap;
 }
 
+.profile-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0 10px;
+  position: relative;
+  z-index: 1;
+  flex-wrap: nowrap;
+}
+
 .pfp {
-  width: 56px;
-  height: 56px;
+  width: 52px !important;
+  height: 52px !important;
+  min-width: 52px !important;
+  min-height: 52px !important;
+  max-width: 52px !important;
+  max-height: 52px !important;
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
   border: 2px solid rgba(255,255,255,.18);
-  box-shadow: 0 8px 22px rgba(0,0,0,.30);
+  box-shadow: 0 8px 20px rgba(0,0,0,.30);
   background: rgba(255,255,255,.06);
-  flex: 0 0 auto;
-}
-}
+  flex: 0 0 52px;
 }
 
 .profile-text {
   flex: 1;
-  min-width: 220px;
+  min-width: 0;
+}
+
+@media (max-width: 650px) {
+  .pfp {
+    width: 60px !important;
+    height: 60px !important;
+    min-width: 60px !important;
+    min-height: 60px !important;
+    max-width: 60px !important;
+    max-height: 60px !important;
+    flex: 0 0 60px;
+  }
+
+  .profile-row {
+    gap: 12px;
+    margin: 12px 0 8px;
+  }
+
+  .name {
+    font-size: 1.65rem;
+    line-height: 1;
+  }
+
+  .meta {
+    font-size: 0.82rem;
+  }
+}
 }
   <style>
     :root {
