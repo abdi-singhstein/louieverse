@@ -924,7 +924,7 @@ function renderCharacters() {
       ${character.background}
       ${character.role}
       ${character.description}
-      ${character.tags.join(" ")}
+      ${(character.tags || []).join(" ")}
     `.toLowerCase();
 
     return text.includes(search) && (tier === "all" || character.tier === tier);
