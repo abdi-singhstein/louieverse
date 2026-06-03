@@ -5,6 +5,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Louieverse Rankings</title>
+  .profile-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 16px 0 10px;
+  position: relative;
+  z-index: 1;
+  flex-wrap: wrap;
+}
+
+.pfp {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255,255,255,.18);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  background: rgba(255,255,255,.06);
+  flex: 0 0 auto;
+}
+
+.profile-text {
+  flex: 1;
+  min-width: 220px;
+}
   <style>
     :root {
       --bg:#070712;
@@ -372,6 +397,7 @@ main {
         background: "Romani-English",
         tier: "S++",
         score: 100,
+        pfp: "images/louie.jpg",
         role: "True Adam / Verse Originator",
         description: "Louie is the Romani-English true Adam of the Louieverse and the original inspiration behind the entire timeline. The verse was built brick by brick through his entertaining gym lives, iconic personality, and former friendship with Itstruly0ver. Without Louie, there is no Louieverse, making him the undisputed central figure and highest-ranked character in the ranking system. Known for his crazy physique, legendary gym presence, and unforgettable live moments, Louie produced some of the most important scenes in verse history, including the iconic “Ben, pack it in mate” moment and instantly blocking Abdi after he joined his live and said “Big fan, man.”",
         tags: ["True Adam", "Gym Lives", "Final Boss", "GTA Arc", "Favourite Frame"],
@@ -384,6 +410,7 @@ main {
         background: "Irish-British",
         tier: "S+",
         score: 94,
+        pfp: "images/oprylite.jpg",
         role: "Founder / AI King",
         description: "OPryLite is one of the founder figures of the Louieverse, known for being chronically online, innovative, and the undisputed AI king. He is famous for having some of the best content ideas in the verse and for exposing Fatih, which gave him major influence and lore importance. His biggest lore moment came when he and Framemogger banned NeckPill’s DMs, triggering the first Louieverse Civil War. This caused Yuvtaj to break away and create the BPverse, but the independence movement was short-lived. OPryLite infiltrated the BPverse and crushed the rebellion, proving his strategic dominance.",
         tags: ["Founder", "AI King", "BPverse Crusher", "Fatih Exposer", "Strategist"],
@@ -396,6 +423,7 @@ main {
         background: "Israeli-Somali-Indian",
         tier: "S+",
         score: 92,
+        pfp: "images/abdi-singhstein.jpg",
         role: "Lore Architect / Anti-Larp Enforcer",
         description: "Abdi Singhstein is an Israeli-Somali-Indian Louieverse icon and one of the most OG, active, and influential members in the entire timeline. Known for being a legendary AI user, an original comment spammer, and even having a video reposted by Cookie King, Abdi has built one of the strongest reputations in the verse. He is the main figure responsible for confronting Yuvtaj over his larp, helping create and spread the Yuvtaj lore that became one of the most important storylines in Louieverse history. His influence includes creating the group Louieverse picture, building new Callum’s Fitness lore, creating chad rankings, and spreading the news about Fatih.",
         tags: ["Legend", "AI User", "Comment Spammer", "Yuvtaj Lore", "Cookie King Repost"],
@@ -408,6 +436,7 @@ main {
         background: "Moroccan-Dutch",
         tier: "S",
         score: 84,
+        pfp: "images/framemogger.jpg",
         role: "Founder / Former Viral Hitmaker",
         description: "Framemogger is a Moroccan-Dutch founder of the Louieverse and one of the true OGs of the verse. Alongside OPryLite, he helped establish the early Louieverse order and created the first viral hit in verse history. His biggest early arc came from starting beef with NeckPill and exposing his pre-ascension pictures, which pushed NeckPill toward the newly formed BPverse. Known for being explosive, controversial, resilient, active, and frame-blessed, Framemogger carried massive aura during the first era. However, his unexplained exit from the Louieverse damaged his loyalty score, and he now lives a post-verse civilian arc working in Maastricht.",
         tags: ["Founder", "Frame Blessed", "First Viral Hit", "Civil War Arc", "Left the Verse"],
@@ -420,6 +449,7 @@ main {
         background: "Indian, living in London",
         tier: "A",
         score: 82,
+        pfp: "images/yuvtaj.jpg",
         role: "BPverse Separatist / Lore-Density Merchant",
         description: "Yuvtaj is an Indian boy living in London and one of the most lore-dense characters in the Louieverse. His age is heavily disputed in the lore, with his claims becoming part of the wider Yuvtaj storyline. He became a major figure by creating the BPverse separatist movement. After breaking away from the Louieverse, his attempted independence arc was crushed by OPryLite. Known for wavy hair, GCSE Computer Science, regular barbershop appearances, 42% attendance debuff, Italian larp arc, disputed ancestry claims, and being spotted in a London barbershop by Abdi Singhstein, Yuvtaj is a central meme-lore figure.",
         tags: ["BPverse", "Italian Larp Arc", "42% Attendance", "Barbershop Sighting", "GCSE CS"],
@@ -457,6 +487,7 @@ main {
         tier: "A",
         score: 78,
         role: "Gymmaxxed JordanLite",
+        pfp: "images/angelus.jpg",
         description: "Angelus is an Austrian-Slovenian OG of the Louieverse, best described as a gymmaxxed JordanLite with strong physique stats, blonde hair, and blue eyes. Known for spamming videos in the group chat, talking about past experiences with his ex, asking for gym cycle advice, and consuming dangerous amounts of caffeine, Angelus brings a mix of gym-bro aura and emotional side-quest energy. His funniest lore moment came when Abdi trolled him after Angelus asked whether his heart would explode if he pinned topical minoxidil and GHK-Cu.",
         tags: ["Gymmaxxed", "JordanLite", "Caffeine Arc", "Ex-Thinking Debuff", "OG"],
         stats: { Chad: 8, Frame: 8, Face: 8, Aura: 7, Intelligence: 6, Meme: 8, Lore: 7, Loyalty: 8 }
@@ -667,12 +698,15 @@ main {
             <span class="tier-badge">${character.tier} Tier</span>
           </div>
 
-          <h2 class="name">${character.name}</h2>
-
-          <div class="meta">
-            Age: ${character.age} • ${character.background} • ${character.role}
-          </div>
-
+         <div class="profile-row">
+  ${character.pfp ? `<img class="pfp" src="${character.pfp}" alt="${character.name} PFP">` : ""}
+  <div class="profile-text">
+    <h2 class="name">${character.name}</h2>
+    <div class="meta">
+      Age: ${character.age} • ${character.background} • ${character.role}
+    </div>
+  </div>
+</div>
           <p class="description">${character.description}</p>
 
           <div class="tags">
