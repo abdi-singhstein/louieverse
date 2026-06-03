@@ -826,7 +826,7 @@
           ${imageOrInitials(character, "profile-pfp")}
 
           <div class="profile-info">
-            <div class="profile-name">${character.name}</div>
+            <div class="profile-name">#${character.rank} ${character.name}</div>
             <div class="profile-role">${character.title || "Title coming soon"}</div>
           </div>
 
@@ -862,7 +862,7 @@
 
           <div>
             <div class="rank-badge">#${character.rank} • ${character.score}/100</div>
-            <h2 class="name">${character.name}</h2>
+            <h2 class="name">#${character.rank} ${character.name}</h2>
             <div class="meta">${character.title || "Title coming soon"}</div>
             <div class="meta">Age: ${character.age} • ${character.background}</div>
             <div class="meta">${character.tier} Tier • ${character.role}</div>
