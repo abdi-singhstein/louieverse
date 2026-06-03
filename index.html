@@ -1,335 +1,366 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Louieverse Chad Rankings</title>
-
+  <title>Louieverse Rankings</title>
   <style>
     :root {
-      --bg: #07070c;
-      --card: #151522;
-      --card2: #1f2033;
-      --text: #f5f5ff;
-      --muted: #b9b9cf;
-      --gold: #ffd166;
-      --purple: #8f5cff;
-      --red: #ff5c7a;
-      --green: #55e6a5;
-      --line: rgba(255,255,255,0.12);
+      --bg:#070712;
+      --card:#151528;
+      --card2:#20203a;
+      --text:#f7f4ff;
+      --muted:#bcb6d4;
+      --gold:#ffd166;
+      --purple:#8f5cff;
+      --red:#ff5c7a;
+      --green:#55e6a5;
+      --line:rgba(255,255,255,.13);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+```
+* {
+  box-sizing:border-box;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(143, 92, 255, 0.25), transparent 35%),
-        radial-gradient(circle at top right, rgba(255, 92, 122, 0.18), transparent 30%),
-        var(--bg);
-      color: var(--text);
-    }
+html {
+  scroll-behavior:smooth;
+}
 
-    header {
-      text-align: center;
-      padding: 45px 18px 30px;
-      border-bottom: 1px solid var(--line);
-    }
+body {
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left,rgba(143,92,255,.25),transparent 35%),
+    radial-gradient(circle at top right,rgba(255,92,122,.16),transparent 30%),
+    var(--bg);
+}
 
-    h1 {
-      margin: 0;
-      font-size: clamp(2.5rem, 8vw, 5.5rem);
-      letter-spacing: -0.07em;
-      text-transform: uppercase;
-    }
+header {
+  text-align:center;
+  padding:48px 18px 32px;
+  border-bottom:1px solid var(--line);
+}
 
-    .subtitle {
-      max-width: 850px;
-      margin: 14px auto 0;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 1rem;
-    }
+h1 {
+  margin:0;
+  font-size:clamp(2.5rem,8vw,5.7rem);
+  letter-spacing:-.08em;
+  text-transform:uppercase;
+  line-height:.95;
+}
 
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-      padding: 16px;
-      background: rgba(7, 7, 12, 0.82);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
-    }
+.subtitle {
+  max-width:880px;
+  margin:16px auto 0;
+  color:var(--muted);
+  line-height:1.6;
+}
 
-    input, select {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.07);
-      color: var(--text);
-      padding: 12px 14px;
-      border-radius: 12px;
-      font-size: 0.95rem;
-      outline: none;
-    }
+.topbar {
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  padding:15px;
+  background:rgba(7,7,18,.86);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
 
-    input {
-      width: min(420px, 90vw);
-    }
+input, select {
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.07);
+  color:var(--text);
+  padding:12px 14px;
+  border-radius:13px;
+  font-size:.95rem;
+  outline:none;
+}
 
-    select {
-      cursor: pointer;
-    }
+input {
+  width:min(450px,90vw);
+}
 
-    main {
-      width: min(1200px, calc(100% - 24px));
-      margin: 28px auto 70px;
-    }
+select {
+  cursor:pointer;
+}
 
-    .legend {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      margin-bottom: 24px;
-    }
+option {
+  background:#11111e;
+  color:white;
+}
 
-    .legend-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 16px;
-      text-align: center;
-    }
+main {
+  width:min(1220px,calc(100% - 24px));
+  margin:28px auto 70px;
+}
 
-    .legend-card strong {
-      color: var(--gold);
-      display: block;
-      font-size: 1.4rem;
-      margin-bottom: 4px;
-    }
+.method {
+  background:linear-gradient(135deg,rgba(143,92,255,.18),rgba(255,92,122,.10));
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:20px;
+  margin-bottom:24px;
+  box-shadow:0 18px 70px rgba(0,0,0,.22);
+}
 
-    .ranking-grid {
-      display: grid;
-      gap: 18px;
-    }
+.method h2 {
+  margin:0 0 8px;
+  color:var(--gold);
+  letter-spacing:-.03em;
+}
 
-    .character-card {
-      background: linear-gradient(135deg, var(--card2), var(--card));
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: 20px;
-      box-shadow: 0 18px 70px rgba(0,0,0,0.24);
-      position: relative;
-      overflow: hidden;
-    }
+.method p {
+  margin:0;
+  color:var(--muted);
+  line-height:1.6;
+}
 
-    .character-card::after {
-      content: "";
-      position: absolute;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.05);
-      right: -70px;
-      top: -70px;
-    }
+.quick-ranks {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:14px;
+}
 
-    .character-card.rank-1 {
-      border-color: rgba(255, 209, 102, 0.75);
-      box-shadow: 0 0 55px rgba(255, 209, 102, 0.18);
-    }
+.quick-ranks a {
+  text-decoration:none;
+  color:var(--text);
+  background:rgba(255,255,255,.07);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:8px 10px;
+  font-size:.85rem;
+}
 
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      position: relative;
-      z-index: 1;
-    }
+.quick-ranks a:hover {
+  border-color:var(--gold);
+  color:var(--gold);
+}
 
-    .rank-badge {
-      background: var(--gold);
-      color: #111;
-      font-weight: 900;
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-size: 0.9rem;
-    }
+.ranking-grid {
+  display:grid;
+  gap:18px;
+}
 
-    .tier-badge {
-      background: rgba(143, 92, 255, 0.2);
-      color: #ddd3ff;
-      border: 1px solid rgba(143, 92, 255, 0.5);
-      font-weight: 900;
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-size: 0.9rem;
-    }
+.character-card {
+  background:linear-gradient(135deg,var(--card2),var(--card));
+  border:1px solid var(--line);
+  border-radius:25px;
+  padding:20px;
+  box-shadow:0 18px 70px rgba(0,0,0,.26);
+  position:relative;
+  overflow:hidden;
+}
 
-    .name {
-      font-size: clamp(1.8rem, 5vw, 3rem);
-      margin: 14px 0 8px;
-      letter-spacing: -0.05em;
-      position: relative;
-      z-index: 1;
-    }
+.character-card::after {
+  content:"";
+  position:absolute;
+  width:190px;
+  height:190px;
+  border-radius:50%;
+  background:rgba(255,255,255,.045);
+  right:-75px;
+  top:-75px;
+  pointer-events:none;
+}
 
-    .meta {
-      color: var(--gold);
-      font-weight: bold;
-      margin-bottom: 12px;
-      position: relative;
-      z-index: 1;
-    }
+.rank-1 {
+  border-color:rgba(255,209,102,.8);
+  box-shadow:0 0 65px rgba(255,209,102,.18);
+}
 
-    .description {
-      color: var(--muted);
-      line-height: 1.55;
-      font-size: 0.98rem;
-      position: relative;
-      z-index: 1;
-    }
+.card-top {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  align-items:flex-start;
+  position:relative;
+  z-index:1;
+}
 
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 16px 0;
-      position: relative;
-      z-index: 1;
-    }
+.rank-badge {
+  background:var(--gold);
+  color:#121212;
+  font-weight:900;
+  padding:10px 14px;
+  border-radius:999px;
+  font-size:.9rem;
+}
 
-    .tag {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
-      border-radius: 999px;
-      padding: 7px 10px;
-      font-size: 0.82rem;
-    }
+.tier-badge {
+  background:rgba(143,92,255,.22);
+  color:#ded4ff;
+  border:1px solid rgba(143,92,255,.55);
+  font-weight:900;
+  padding:10px 14px;
+  border-radius:999px;
+  font-size:.9rem;
+}
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 10px;
-      margin-top: 16px;
-      position: relative;
-      z-index: 1;
-    }
+.name {
+  font-size:clamp(1.8rem,5vw,3.05rem);
+  margin:15px 0 8px;
+  letter-spacing:-.055em;
+  position:relative;
+  z-index:1;
+}
 
-    .stat {
-      background: rgba(0,0,0,0.18);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 10px;
-    }
+.meta {
+  color:var(--gold);
+  font-weight:bold;
+  margin-bottom:12px;
+  position:relative;
+  z-index:1;
+  line-height:1.4;
+}
 
-    .stat-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 7px;
-      color: var(--muted);
-      font-size: 0.88rem;
-    }
+.description {
+  color:var(--muted);
+  line-height:1.58;
+  font-size:.98rem;
+  position:relative;
+  z-index:1;
+  margin-bottom:0;
+}
 
-    .stat-row strong {
-      color: var(--text);
-    }
+.tags {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:16px 0;
+  position:relative;
+  z-index:1;
+}
 
-    .bar {
-      height: 8px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.09);
-      overflow: hidden;
-    }
+.tag {
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:.82rem;
+}
 
-    .fill {
-      height: 100%;
-      width: var(--value);
-      background: linear-gradient(90deg, var(--red), var(--gold), var(--green));
-      border-radius: 999px;
-    }
+.stats {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(205px,1fr));
+  gap:10px;
+  margin-top:16px;
+  position:relative;
+  z-index:1;
+}
 
-    .footer {
-      text-align: center;
-      color: var(--muted);
-      margin-top: 30px;
-      font-size: 0.9rem;
-    }
+.stat {
+  background:rgba(0,0,0,.20);
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:10px;
+}
 
-    @media (max-width: 650px) {
-      header {
-        padding-top: 34px;
-      }
+.stat-row {
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:7px;
+  color:var(--muted);
+  font-size:.88rem;
+}
 
-      .character-card {
-        padding: 16px;
-      }
+.stat-row strong {
+  color:var(--text);
+}
 
-      .name {
-        font-size: 2rem;
-      }
-    }
+.bar {
+  height:8px;
+  border-radius:999px;
+  background:rgba(255,255,255,.09);
+  overflow:hidden;
+}
+
+.fill {
+  height:100%;
+  width:var(--value);
+  background:linear-gradient(90deg,var(--red),var(--gold),var(--green));
+  border-radius:999px;
+}
+
+.footer {
+  text-align:center;
+  color:var(--muted);
+  margin-top:30px;
+  font-size:.9rem;
+  line-height:1.5;
+}
+
+@media (max-width:650px) {
+  header {
+    padding-top:34px;
+  }
+
+  .character-card {
+    padding:16px;
+  }
+
+  .name {
+    font-size:2rem;
+  }
+}
+```
+
   </style>
 </head>
 
 <body>
   <header>
-    <h1>Louieverse Chad Rankings</h1>
+    <h1>Louieverse Rankings</h1>
     <p class="subtitle">
-      The official unofficial Louieverse ranking board. Rankings are mostly based on lore importance,
-      activity, aura, meme value, strategy, loyalty, and overall verse impact.
+      The official unofficial Louieverse character board. Rankings are based mainly on lore importance,
+      activity, aura, loyalty, meme value, influence, and impact on the timeline.
     </p>
   </header>
 
   <section class="topbar">
-    <input id="searchInput" type="text" placeholder="Search characters, lore, traits..." />
+    <input id="searchInput" type="text" placeholder="Search characters, lore, roles, tags..." />
     <select id="tierFilter">
       <option value="all">All tiers</option>
       <option value="S++">S++ Tier</option>
       <option value="S+">S+ Tier</option>
       <option value="S">S Tier</option>
       <option value="A">A Tier</option>
+      <option value="B+">B+ Tier</option>
+      <option value="B">B Tier</option>
+      <option value="C+">C+ Tier</option>
       <option value="C">C Tier</option>
     </select>
   </section>
 
   <main>
-    <section class="legend">
-      <div class="legend-card">
-        <strong>35%</strong>
-        Lore Importance
-      </div>
-      <div class="legend-card">
-        <strong>20%</strong>
-        Aura
-      </div>
-      <div class="legend-card">
-        <strong>15%</strong>
-        Meme Value
-      </div>
-      <div class="legend-card">
-        <strong>15%</strong>
-        Intelligence / Strategy
-      </div>
-      <div class="legend-card">
-        <strong>15%</strong>
-        Chad / Face / Frame
-      </div>
+    <section class="method">
+      <h2>Ranking Method</h2>
+      <p>
+        This ranking is mostly about <strong>lore importance</strong>, not just looks or chad stats.
+        Founders, OG members, major conflict figures, loyal defenders, and characters who changed the
+        timeline rank higher. Physical stats, meme value, activity, and aura still matter, but they do
+        not automatically beat major story impact.
+      </p>
+      <div class="quick-ranks" id="quickRanks"></div>
     </section>
 
-    <section id="rankingGrid" class="ranking-grid"></section>
+```
+<section id="rankingGrid" class="ranking-grid"></section>
 
-    <p class="footer">
-      Parody lore page. All rankings are based on Louieverse storyline importance, not real-life worth.
-    </p>
+<p class="footer">
+  Parody lore page. Rankings are based on Louieverse storyline importance, not real-life worth.
+</p>
+```
+
   </main>
 
   <script>
@@ -342,18 +373,9 @@
         tier: "S++",
         score: 100,
         role: "True Adam / Verse Originator",
-        description: "Louie is the 23-year-old Romani-English true Adam of the Louieverse and the original inspiration behind the entire timeline. The verse was built brick by brick through his entertaining gym lives, iconic personality, and former friendship with Cieran. Without Louie, there is no Louieverse, making him the undisputed central figure and highest-ranked character in the entire ranking system. Known for his crazy physique, legendary gym presence, and unforgettable live moments, Louie has produced some of the most important quotes and scenes in verse history. His funniest lore includes the iconic “Ben, pack it in mate” moment and instantly blocking Abdi after Abdi joined his live and said “Big fan, man.” Although the verse jokes about narrow clavicles, his frame is still considered the favourite frame because his aura carries it.",
+        description: "Louie is the Romani-English true Adam of the Louieverse and the original inspiration behind the entire timeline. The verse was built brick by brick through his entertaining gym lives, iconic personality, and former friendship with Itstruly0ver. Without Louie, there is no Louieverse, making him the undisputed central figure and highest-ranked character in the ranking system. Known for his crazy physique, legendary gym presence, and unforgettable live moments, Louie produced some of the most important scenes in verse history, including the iconic “Ben, pack it in mate” moment and instantly blocking Abdi after he joined his live and said “Big fan, man.”",
         tags: ["True Adam", "Gym Lives", "Final Boss", "GTA Arc", "Favourite Frame"],
-        stats: {
-          Chad: 10,
-          Frame: 8,
-          Face: 9,
-          Aura: 10,
-          Intelligence: 7,
-          Meme: 10,
-          Lore: 10,
-          Loyalty: 10
-        }
+        stats: { Chad: 10, Frame: 8, Face: 9, Aura: 10, Intelligence: 7, Meme: 10, Lore: 10, Loyalty: 10 }
       },
       {
         rank: 2,
@@ -363,18 +385,9 @@
         tier: "S+",
         score: 94,
         role: "Founder / AI King",
-        description: "OPryLite is one of the founder figures of the Louieverse, known for being chronically online, innovative, and the undisputed AI king. He is famous for having some of the best content ideas in the verse and for exposing Fatih, which gave him major influence and lore importance. His biggest lore moment came when he and Framemogger banned NeckPill’s DMs, triggering the first Louieverse Civil War. This caused Yuvtaj to break away and create the BPverse, but the independence movement was short-lived. OPryLite infiltrated the BPverse and crushed the rebellion, proving his strategic dominance. Despite his 5'8, 60kg frame debuff and the infamous estrogen-ordering incident, his AI skill, content power, and central role in Louieverse history make him a clear S+ tier character.",
+        description: "OPryLite is one of the founder figures of the Louieverse, known for being chronically online, innovative, and the undisputed AI king. He is famous for having some of the best content ideas in the verse and for exposing Fatih, which gave him major influence and lore importance. His biggest lore moment came when he and Framemogger banned NeckPill’s DMs, triggering the first Louieverse Civil War. This caused Yuvtaj to break away and create the BPverse, but the independence movement was short-lived. OPryLite infiltrated the BPverse and crushed the rebellion, proving his strategic dominance.",
         tags: ["Founder", "AI King", "BPverse Crusher", "Fatih Exposer", "Strategist"],
-        stats: {
-          Chad: 8,
-          Frame: 5,
-          Face: 8,
-          Aura: 9,
-          Intelligence: 10,
-          Meme: 10,
-          Lore: 10,
-          Loyalty: 9
-        }
+        stats: { Chad: 8, Frame: 5, Face: 8, Aura: 9, Intelligence: 10, Meme: 10, Lore: 10, Loyalty: 9 }
       },
       {
         rank: 3,
@@ -384,18 +397,9 @@
         tier: "S+",
         score: 92,
         role: "Lore Architect / Anti-Larp Enforcer",
-        description: "Abdi Singhstein is an 18-year-old Israeli-Somali-Indian Louieverse icon and one of the most OG, active, and influential members in the entire timeline. Known for being a legendary AI user, an original comment spammer, and even having a video reposted by Cookie King, Abdi has built one of the strongest reputations in the verse. He is also the main figure responsible for confronting Yuvtaj over his larp, helping create and spread the Yuvtaj lore that became one of the most important storylines in Louieverse history. Abdi’s influence stretches across multiple arcs: creating the group Louieverse picture, helping build new Callum’s Fitness lore, creating chad rankings, and spreading the news about the Fatih controversy. Smart, strong, funny, handsome, and almost permanently active, Abdi has no major weakness in the current lore system.",
+        description: "Abdi Singhstein is an Israeli-Somali-Indian Louieverse icon and one of the most OG, active, and influential members in the entire timeline. Known for being a legendary AI user, an original comment spammer, and even having a video reposted by Cookie King, Abdi has built one of the strongest reputations in the verse. He is the main figure responsible for confronting Yuvtaj over his larp, helping create and spread the Yuvtaj lore that became one of the most important storylines in Louieverse history. His influence includes creating the group Louieverse picture, building new Callum’s Fitness lore, creating chad rankings, and spreading the news about Fatih.",
         tags: ["Legend", "AI User", "Comment Spammer", "Yuvtaj Lore", "Cookie King Repost"],
-        stats: {
-          Chad: 9,
-          Frame: 8,
-          Face: 9,
-          Aura: 10,
-          Intelligence: 9,
-          Meme: 10,
-          Lore: 10,
-          Loyalty: 10
-        }
+        stats: { Chad: 9, Frame: 8, Face: 9, Aura: 10, Intelligence: 9, Meme: 10, Lore: 10, Loyalty: 10 }
       },
       {
         rank: 4,
@@ -405,18 +409,9 @@
         tier: "S",
         score: 84,
         role: "Founder / Former Viral Hitmaker",
-        description: "Framemogger is a 17-year-old Moroccan-Dutch founder of the Louieverse and one of the true OGs of the entire verse. Alongside OPryLite, he helped establish the early Louieverse order and created the first viral hit in verse history, giving him permanent founder status. His biggest early arc came from starting beef with NeckPill and exposing his pre-ascension pictures, which pushed NeckPill toward the newly formed BPverse. Known for being explosive, controversial, resilient, highly active, and frame-blessed, Framemogger carried massive aura during the first era of the verse. His lore is boosted further by the testosterone-ordering arc, his Belle Delphine obsession, and his e-girl communications. However, his unexplained exit from the Louieverse damaged his loyalty score, with rumours suggesting the eye-leak incident may have caused his disappearance. He now lives a post-verse civilian arc working in Maastricht, but his founder status and viral history keep him ranked high.",
+        description: "Framemogger is a Moroccan-Dutch founder of the Louieverse and one of the true OGs of the verse. Alongside OPryLite, he helped establish the early Louieverse order and created the first viral hit in verse history. His biggest early arc came from starting beef with NeckPill and exposing his pre-ascension pictures, which pushed NeckPill toward the newly formed BPverse. Known for being explosive, controversial, resilient, active, and frame-blessed, Framemogger carried massive aura during the first era. However, his unexplained exit from the Louieverse damaged his loyalty score, and he now lives a post-verse civilian arc working in Maastricht.",
         tags: ["Founder", "Frame Blessed", "First Viral Hit", "Civil War Arc", "Left the Verse"],
-        stats: {
-          Chad: 8,
-          Frame: 9,
-          Face: 8,
-          Aura: 8,
-          Intelligence: 8,
-          Meme: 10,
-          Lore: 9,
-          Loyalty: 4
-        }
+        stats: { Chad: 8, Frame: 9, Face: 8, Aura: 8, Intelligence: 8, Meme: 10, Lore: 9, Loyalty: 4 }
       },
       {
         rank: 5,
@@ -426,108 +421,208 @@
         tier: "A",
         score: 82,
         role: "BPverse Separatist / Lore-Density Merchant",
-        description: "Yuvtaj is an Indian boy living in London and one of the most lore-dense characters in the Louieverse. His age is heavily disputed in the lore, with his claims becoming part of the wider Yuvtaj storyline. Yuvtaj remains a major figure due to his role in creating the BPverse separatist movement. After breaking away from the Louieverse, his attempted independence arc was ultimately crushed by OPryLite, making him one of the most important rebel characters in the timeline. Known for wavy hair, GCSE Computer Science, regular barbershop appearances, and the infamous 42% attendance debuff, Yuvtaj carries some of the funniest storylines in the verse. His Italian larp arc, disputed ancestry claims, and London barbershop sighting by Abdi Singhstein turned him into a central meme-lore figure. While his frame and chad stats hold him back, his meme value and unique character arc make him a clear top 10 character overall.",
+        description: "Yuvtaj is an Indian boy living in London and one of the most lore-dense characters in the Louieverse. His age is heavily disputed in the lore, with his claims becoming part of the wider Yuvtaj storyline. He became a major figure by creating the BPverse separatist movement. After breaking away from the Louieverse, his attempted independence arc was crushed by OPryLite. Known for wavy hair, GCSE Computer Science, regular barbershop appearances, 42% attendance debuff, Italian larp arc, disputed ancestry claims, and being spotted in a London barbershop by Abdi Singhstein, Yuvtaj is a central meme-lore figure.",
         tags: ["BPverse", "Italian Larp Arc", "42% Attendance", "Barbershop Sighting", "GCSE CS"],
-        stats: {
-          Chad: 5,
-          Frame: 4,
-          Face: 6,
-          Aura: 7,
-          Intelligence: 6,
-          Meme: 10,
-          Lore: 9,
-          Loyalty: 3
-        }
+        stats: { Chad: 5, Frame: 4, Face: 6, Aura: 7, Intelligence: 6, Meme: 10, Lore: 9, Loyalty: 3 }
       },
       {
         rank: 6,
+        name: "Itstruly0ver",
+        age: "19",
+        background: "British-Italian-Irish",
+        tier: "A",
+        score: 81,
+        role: "Pre-Lore Remnant / Severed Link to Louie’s Past",
+        description: "Itstruly0ver is a pre-Louieverse figure and one of Louie’s early close friends from before the verse was officially formed. Before Louie became the central myth of the Louieverse, Itstruly0ver belonged to his original private world, making him one of the strongest links to Louie’s pre-lore identity. When OPryLite began shaping the Louieverse around Louie, tension grew between Louie’s old private world and the new mythologised version being built by the verse. Itstruly0ver eventually cut ties with Louie, marking a clear emotional break between Louie’s past life and the emerging system. He now lives a normal online life outside the lore, playing Roblox, with his gym sighting by Abdi serving as a modern cameo.",
+        tags: ["Pre-Lore", "Louie Past", "Roblox Arc", "Gym Sighting", "Origin Figure"],
+        stats: { Chad: 6, Frame: 6, Face: 6, Aura: 7, Intelligence: 6, Meme: 7, Lore: 9, Loyalty: 4 }
+      },
+      {
+        rank: 7,
         name: "Jack",
         age: "17",
         background: "English-Indian, from Nottingham",
         tier: "A",
-        score: 81,
+        score: 80,
         role: "Loyal OG / Inner Circle",
-        description: "Jack is a 17-year-old English-Indian member from Nottingham and one of the most loyal OG figures in the Louieverse. As one of the closest people to Louie, Jack has major inner-circle status, giving him a high lore-importance rating even though he is not always the most active character. Unlike others who left, broke away, or switched sides during conflicts, Jack remained connected to the Louieverse through every major arc. Known for working at McDonald’s to save up for his test, Jack has a grounded civilian grind arc that makes him feel more stable than many of the chaos-based characters. His funniest lore moment came from believing Yuvtaj was 12 and thinking he played Brawl Stars in Mumbai, adding strong meme value to his profile. His loyalty, closeness to Louie, and OG status place him firmly in A tier.",
+        description: "Jack is an English-Indian member from Nottingham and one of the most loyal OG figures in the Louieverse. As one of the closest people to Louie, Jack has major inner-circle status, giving him high lore importance even though he is not always active. Unlike others who left, broke away, or switched sides during conflicts, Jack remained connected through every major arc. Known for working at McDonald’s to save up for his test, he has a grounded civilian grind arc. His funniest lore moment came from believing Yuvtaj was 12 and thinking he played Brawl Stars in Mumbai.",
         tags: ["Loyal OG", "Louie Inner Circle", "McDonald's Arc", "Brawl Stars Lore", "Nottingham"],
-        stats: {
-          Chad: 7,
-          Frame: 7,
-          Face: 7,
-          Aura: 7,
-          Intelligence: 7,
-          Meme: 8,
-          Lore: 9,
-          Loyalty: 10
-        }
+        stats: { Chad: 7, Frame: 7, Face: 7, Aura: 7, Intelligence: 7, Meme: 8, Lore: 9, Loyalty: 10 }
       },
       {
-        rank: 7,
+        rank: 8,
         name: "Angelus",
         age: "16",
         background: "Austrian-Slovenian",
         tier: "A",
         score: 78,
         role: "Gymmaxxed JordanLite",
-        description: "Angelus is a 16-year-old Austrian-Slovenian OG of the Louieverse, best described as a gymmaxxed JordanLite with strong physique stats, blonde hair, and blue eyes. Known for spamming videos in the group chat, talking about his past experiences with his ex, asking for gym cycle advice, and consuming dangerous amounts of caffeine, Angelus brings a mix of gym-bro aura and emotional side-quest energy to the verse. His funniest lore moment came when Abdi trolled him after Angelus asked whether his heart would explode if he pinned topical minoxidil and GHK-Cu, creating one of the stranger health-panic arcs in the Louieverse. Despite strong chad, frame, and face stats, Angelus is held back by the 5'0 big-glasses debuff and the ex-thinking arc. Still, his OG status, physique, and meme moments make him a strong A-tier character.",
+        description: "Angelus is an Austrian-Slovenian OG of the Louieverse, best described as a gymmaxxed JordanLite with strong physique stats, blonde hair, and blue eyes. Known for spamming videos in the group chat, talking about past experiences with his ex, asking for gym cycle advice, and consuming dangerous amounts of caffeine, Angelus brings a mix of gym-bro aura and emotional side-quest energy. His funniest lore moment came when Abdi trolled him after Angelus asked whether his heart would explode if he pinned topical minoxidil and GHK-Cu.",
         tags: ["Gymmaxxed", "JordanLite", "Caffeine Arc", "Ex-Thinking Debuff", "OG"],
-        stats: {
-          Chad: 8,
-          Frame: 8,
-          Face: 8,
-          Aura: 7,
-          Intelligence: 6,
-          Meme: 8,
-          Lore: 7,
-          Loyalty: 8
-        }
+        stats: { Chad: 8, Frame: 8, Face: 8, Aura: 7, Intelligence: 6, Meme: 8, Lore: 7, Loyalty: 8 }
       },
       {
-        rank: 8,
+        rank: 9,
+        name: "Bigblair",
+        age: "19",
+        background: "Scottish",
+        tier: "A",
+        score: 76,
+        role: "The Scottish Mogger / External Creator Figure",
+        description: "Bigblair is a Scottish modern-era creator figure known as The Scottish Mogger. Unlike the original OG members, he entered the Louieverse later and built his reputation through external visibility rather than foundational involvement. His influence comes mainly from looksmaxxing and creator-culture spaces. Although very inactive within the Louieverse itself, he has by far the largest following in the verse at 37k, giving him unmatched reach and audience power. His ranking is carried by visibility, mogger aura, and creator influence, but held back by low activity and weaker direct involvement in core lore.",
+        tags: ["Scottish Mogger", "37k Following", "Creator", "Looksmaxxing", "Inactive"],
+        stats: { Chad: 8, Frame: 8, Face: 8, Aura: 8, Intelligence: 7, Meme: 7, Lore: 7, Reach: 10 }
+      },
+      {
+        rank: 10,
         name: "Bogdan",
         age: "16",
         background: "Moldovan, living in the UK",
         tier: "A",
         score: 76,
         role: "Frame-Maxxed OG",
-        description: "Bogdan is a 16-year-old Moldovan living in the UK and one of the OG members of the Louieverse. Known for being frame-maxxed and physique-maxxed, he brings raw physical presence to the verse and stands out as one of the strongest build-based characters. His raw milk enjoyer arc adds to his traditional strength aura, making him feel like a naturally powerful side boss. Recently, Bogdan joined Callum’s Fitness tough-mogging playground picture as the fourth member, giving him renewed relevance in the current Louieverse timeline. Although he is not as active as some of the louder characters, his frame, strength, and physique stats carry his ranking hard. Bogdan may not dominate the lore through drama, but in pure physical scaling he is one of the most dangerous members of the verse.",
+        description: "Bogdan is a Moldovan member living in the UK and one of the OG members of the Louieverse. Known for being frame-maxxed and physique-maxxed, he brings raw physical presence to the verse and stands out as one of the strongest build-based characters. His raw milk enjoyer arc adds to his traditional strength aura. Recently, Bogdan joined Callum’s Fitness tough-mogging playground picture as the fourth member, giving him renewed relevance. Although he is not as active as some louder characters, his frame, strength, and physique stats carry his ranking hard.",
         tags: ["Frame-Maxxed", "Physique-Maxxed", "Raw Milk", "Callum Fitness Arc", "Strong"],
-        stats: {
-          Chad: 8,
-          Frame: 10,
-          Face: 7,
-          Aura: 8,
-          Intelligence: 6,
-          Meme: 6,
-          Lore: 7,
-          Loyalty: 8
-        }
+        stats: { Chad: 8, Frame: 10, Face: 7, Aura: 8, Intelligence: 6, Meme: 6, Lore: 7, Loyalty: 8 }
       },
       {
-        rank: 9,
+        rank: 11,
+        name: "Goyprince",
+        age: "18",
+        background: "Kurdish, living in Germany",
+        tier: "B+",
+        score: 75,
+        role: "Fatih Downfall Figure / BPverse-Linked Creator",
+        description: "Goyprince is a Kurdish member living in Germany and one of the newer but more impactful figures connected to the Louieverse-BPverse timeline. Known for LM content creation and strong edit-making ability, he gained major relevance after mogging Fatih in both an edit and on live. His biggest lore contribution came from helping reveal the truth during the Fatih controversy, making him one of the key figures involved in Fatih’s collapse across both the Louieverse and BPverse. Although fairly inactive in the main Louieverse group chats, he remains active in the BPverse.",
+        tags: ["Fatih Downfall", "Content Creator", "BPverse Active", "Mogged Fatih", "Germany"],
+        stats: { Chad: 7, Frame: 7, Face: 8, Aura: 8, Intelligence: 7, Meme: 8, Lore: 8, Content: 9 }
+      },
+      {
+        rank: 12,
+        name: "wetwipe",
+        age: "17",
+        background: "British, from York",
+        tier: "B+",
+        score: 74,
+        role: "Modern Era Ascender",
+        description: "wetwipe is a British member from York and one of the fastest-rising modern-era figures in the Louieverse. His influence comes from fast growth, increasing involvement, and real-time relevance rather than founding-era history. His most important canon moment is the Opry Escape Incident, where he helped OPryLite safely escape during a chaotic conflict involving Louie’s sister. This boosted his reputation and linked him directly to protecting the Architect Founder. Outside conflict lore, wetwipe is known for gym, self-improvement, and ascending ideology. His progress is complicated by ongoing legal battles, keeping him somewhat distant from full central involvement.",
+        tags: ["Modern Era", "Opry Escape", "Gym", "Ascending", "York"],
+        stats: { Chad: 7, Frame: 7, Face: 6, Aura: 7, Intelligence: 7, Meme: 8, Lore: 7, Potential: 9 }
+      },
+      {
+        rank: 13,
+        name: "Bukoz",
+        age: "14",
+        background: "Polish",
+        tier: "B+",
+        score: 74,
+        role: "The Forgotten OG / Forgotten Defender",
+        description: "Bukoz is a Polish early-era member of the Louieverse, best known as The Forgotten OG. Although he rarely participates in modern events, his historical presence gives him a respected place in the timeline. His most important contribution came during the Fatih controversy arc, where he helped defend the Louieverse during one of its more unstable moments. This gave him real loyalty value and separated him from passive background members. While Bukoz does not have the activity or major current storyline of higher-ranked characters, his OG status and defensive role keep him above lower-tier side characters.",
+        tags: ["Forgotten OG", "Polish", "Defender", "Fatih Arc", "Old Guard"],
+        stats: { Chad: 5, Frame: 5, Face: 5, Aura: 6, Intelligence: 6, Meme: 6, Lore: 7, Loyalty: 8 }
+      },
+      {
+        rank: 14,
+        name: "Rhys",
+        age: "14",
+        background: "British",
+        tier: "B+",
+        score: 73,
+        role: "The Observer / OG Information Access",
+        description: "Rhys is a British member known as The Observer of the Louieverse. Unlike louder characters who start conflicts, lead factions, or shape major outcomes, Rhys operates as a passive witness to the system. He is consistently aware of events but rarely intervenes directly, making his role informational rather than dominant. His key feat is being one of the only members with access to both the BPverse and Louieverse during times of conflict. This gave him rare cross-faction awareness and made him valuable as a detached observer during unstable periods.",
+        tags: ["Observer", "OG", "Cross-Faction Access", "BPverse", "Information"],
+        stats: { Chad: 5, Frame: 5, Face: 5, Aura: 5, Intelligence: 7, Meme: 6, Lore: 7, Access: 9 }
+      },
+      {
+        rank: 15,
+        name: "NeckPill",
+        age: "22",
+        background: "USA",
+        tier: "B",
+        score: 72,
+        role: "Fractured Optimizer / Failed Challenger",
+        description: "NeckPill entered the Louieverse as a strong self-improvement thinker, focused on discipline, optimization, and ideological intensity. For a time, he built real influence through his ideas. As conflict grew between him and the founding structure led by OPryLite and Framemogger, the Louieverse entered the Containment Conflict. NeckPill attempted to rally support from his own network, challenging founder control, but the effort failed. His fall was worsened by the face-leak incident after his fallout with Framemogger, repeated DM bans across several accounts, and groupchat instability. He now exists as a fractured optimizer shaped by a failed challenge against the system he tried to overthrow.",
+        tags: ["Optimizer", "Containment Conflict", "Failed Challenger", "DM Bans", "Fallen Ideologue"],
+        stats: { Chad: 6, Frame: 6, Face: 5, Aura: 7, Intelligence: 8, Meme: 8, Lore: 8, Loyalty: 2 }
+      },
+      {
+        rank: 16,
+        name: "Khaleim",
+        age: "14",
+        background: "Romani-Indian",
+        tier: "B",
+        score: 71,
+        role: "The Newgen Prince",
+        description: "Khaleim is a Romani-Indian member of the newer generation of the Louieverse, known as The Newgen Prince. Unlike more chaotic or controversial newcomers, Khaleim gained positive reception early, giving him strong future potential if development continues. His lore includes being picked on by Yuvtaj and recently leaving the BPverse group chat, suggesting a possible break away from the separatist side of the timeline. Although he remains inactive in some older Louieverse group chats, his positive reputation and newgen status keep him relevant.",
+        tags: ["Newgen Prince", "Romani-Indian", "Clean Slate", "Left BPverse GC", "Potential"],
+        stats: { Chad: 6, Frame: 6, Face: 7, Aura: 7, Intelligence: 7, Meme: 6, Lore: 6, Potential: 9 }
+      },
+      {
+        rank: 17,
+        name: "Fakecel",
+        age: "17",
+        background: "Greek, account created in Turkey",
+        tier: "B",
+        score: 70,
+        role: "BPverse Defector",
+        description: "Fakecel is a Greek character whose account was created in Turkey, giving him a strange cross-border digital origin story within the Louieverse. Despite the name “Fakecel,” his actual stats are not low, with a good physique, Greek phenotype, and enough frame power to mog Fatih on his story. His biggest lore issue is loyalty. Fakecel left the Louieverse to join the BPverse and became known for glazing Yuvtaj. His repeated banned-DMs arc, happening three separate times, adds strong meme value but also makes him unstable as a long-term member.",
+        tags: ["Defector", "Greek Pheno", "Frame-Mogged Fatih", "BPverse", "Banned DMs"],
+        stats: { Chad: 7, Frame: 8, Face: 7, Aura: 6, Intelligence: 6, Meme: 8, Lore: 7, Loyalty: 2 }
+      },
+      {
+        rank: 18,
+        name: "shoppers",
+        age: "Unknown",
+        background: "Unknown",
+        tier: "C+",
+        score: 67,
+        role: "The Merchant King",
+        description: "shoppers is a very new Louieverse figure known as The Merchant King. Unlike the major warriors, founders, defectors, or controversy characters, shoppers operates through connection, trade, and indirect influence. His power comes from access rather than domination: knowing people, resources, and information across multiple parts of the verse. Although he has not been around long enough to gain OG status, shoppers has already shown activity and network value, giving him decent modern-era relevance. His influence is decentralized but widespread.",
+        tags: ["Merchant King", "Newgen", "Network", "Trade", "Active"],
+        stats: { Chad: 5, Frame: 5, Face: 5, Aura: 6, Intelligence: 7, Meme: 7, Lore: 6, Network: 8 }
+      },
+      {
+        rank: 19,
+        name: "Jestercel",
+        age: "Unknown",
+        background: "Unknown",
+        tier: "C+",
+        score: 66,
+        role: "The Fool Prophet",
+        description: "Jestercel is one of the newest members of the Louieverse and a chaotic figure known as The Fool Prophet. He appears humorous, unpredictable, and unserious, often acting more like a joke character than a serious power player. However, his reputation is complicated by the fact that some of his random statements occasionally end up aligning with real events, giving him an accidental prophecy aura. His lore is boosted by Goatis reposts, primal enthusiast energy, and the sense that nobody fully knows whether he is joking or somehow seeing the future.",
+        tags: ["Fool Prophet", "Newgen", "Goatis Reposts", "Primal", "Chaotic"],
+        stats: { Chad: 5, Frame: 5, Face: 5, Aura: 7, Intelligence: 6, Meme: 9, Lore: 6, Prophecy: 8 }
+      },
+      {
+        rank: 20,
         name: "Fatih",
         age: "23",
         background: "Turkish, living in Germany",
         tier: "C",
         score: 61,
         role: "Exiled Controversy Character",
-        description: "Fatih is a 23-year-old Turkish figure living in Germany, often described in Louieverse jokes as “pushing 30.” Once part of the wider verse ecosystem, he was later exposed by OPryLite during a major controversy arc and became effectively omitted from the Louieverse. Known for TikTok Lives, ragebaiting, and villain-sidequest energy, Fatih remains one of the most controversial characters in the timeline. His biggest storyline came from his mog-off rivalry with Goyprince, where Goyprince emerged as the victor after posting evidence that turned both the Louieverse and BPverse against Fatih. Although he has some cunning and strong ragebait ability, his controversy debuff and exile from the verse severely damage his ranking. Fatih is not a high-chad character, but his meme value and villain-lore significance keep him relevant.",
+        description: "Fatih is a Turkish figure living in Germany, often described in Louieverse jokes as “pushing 30.” Once part of the wider verse ecosystem, he was later exposed by OPryLite during a major controversy arc and became effectively omitted from the Louieverse. Known for TikTok Lives, ragebaiting, and villain-sidequest energy, Fatih remains one of the most controversial characters in the timeline. His biggest storyline came from his mog-off rivalry with Goyprince, where Goyprince emerged as the victor after posting evidence that turned both the Louieverse and BPverse against Fatih.",
         tags: ["Exiled", "Ragebaiter", "TikTok Lives", "Goyprince Rivalry", "Controversy Arc"],
-        stats: {
-          Chad: 3,
-          Frame: 4,
-          Face: 3,
-          Aura: 5,
-          Intelligence: 3,
-          Meme: 8,
-          Lore: 7,
-          Loyalty: 1
-        }
+        stats: { Chad: 3, Frame: 4, Face: 3, Aura: 5, Intelligence: 3, Meme: 8, Lore: 7, Loyalty: 1 }
+      },
+      {
+        rank: 21,
+        name: "26",
+        age: "Unknown",
+        background: "Mystery",
+        tier: "C",
+        score: 58,
+        role: "Exiled Villain / BPverse Burden",
+        description: "26 is one of the most mysterious exile figures in the Louieverse. With an unknown age, unknown background, and limited confirmed information, his identity is defined less by personal feats and more by the controversy surrounding his removal. After being kicked from central spaces, 26 became an exiled villain figure whose presence remains controversial even outside the main Louieverse structure. Despite having almost no clear strengths or positive feats, 26 remains relevant because Yuvtaj continues to keep him inside the BPverse despite widespread opposition to the decision. He is considered bad within the verse, though not as severe as Fatih.",
+        tags: ["Mystery", "Exiled", "BPverse Burden", "Villain", "Controversy"],
+        stats: { Chad: 2, Frame: 3, Face: 3, Aura: 5, Intelligence: 4, Meme: 6, Lore: 6, Mystery: 8 }
       }
     ];
 
     const grid = document.getElementById("rankingGrid");
     const searchInput = document.getElementById("searchInput");
     const tierFilter = document.getElementById("tierFilter");
+    const quickRanks = document.getElementById("quickRanks");
 
     function createStat(name, value) {
       return `
@@ -543,6 +638,12 @@
       `;
     }
 
+    function renderQuickRanks() {
+      quickRanks.innerHTML = characters.slice(0, 10).map(character => `
+        <a href="#rank-${character.rank}">#${character.rank} ${character.name}</a>
+      `).join("");
+    }
+
     function renderCharacters() {
       const search = searchInput.value.toLowerCase();
       const tier = tierFilter.value;
@@ -556,14 +657,11 @@
           ${character.tags.join(" ")}
         `.toLowerCase();
 
-        const matchesSearch = text.includes(search);
-        const matchesTier = tier === "all" || character.tier === tier;
-
-        return matchesSearch && matchesTier;
+        return text.includes(search) && (tier === "all" || character.tier === tier);
       });
 
       grid.innerHTML = filtered.map(character => `
-        <article class="character-card ${character.rank === 1 ? "rank-1" : ""}">
+        <article id="rank-${character.rank}" class="character-card ${character.rank === 1 ? "rank-1" : ""}">
           <div class="card-top">
             <span class="rank-badge">#${character.rank} • ${character.score}/100</span>
             <span class="tier-badge">${character.tier} Tier</span>
@@ -591,7 +689,9 @@
     searchInput.addEventListener("input", renderCharacters);
     tierFilter.addEventListener("change", renderCharacters);
 
+    renderQuickRanks();
     renderCharacters();
   </script>
+
 </body>
 </html>
