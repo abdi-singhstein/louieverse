@@ -1,79 +1,11 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Louieverse Rankings</title>
 
-<style>
-.profile-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin: 16px 0 10px;
-  position: relative;
-  z-index: 1;
-  flex-wrap: wrap;
-}
-
-.profile-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 12px 0 10px;
-  position: relative;
-  z-index: 1;
-  flex-wrap: nowrap;
-}
-
-.pfp {
-  width: 52px !important;
-  height: 52px !important;
-  min-width: 52px !important;
-  min-height: 52px !important;
-  max-width: 52px !important;
-  max-height: 52px !important;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center;
-  border: 2px solid rgba(255,255,255,.18);
-  box-shadow: 0 8px 20px rgba(0,0,0,.30);
-  background: rgba(255,255,255,.06);
-  flex: 0 0 52px;
-}
-
-.profile-text {
-  flex: 1;
-  min-width: 0;
-}
-
-@media (max-width: 650px) {
-  .pfp {
-    width: 60px !important;
-    height: 60px !important;
-    min-width: 60px !important;
-    min-height: 60px !important;
-    max-width: 60px !important;
-    max-height: 60px !important;
-    flex: 0 0 60px;
-  }
-
-  .profile-row {
-    gap: 12px;
-    margin: 12px 0 8px;
-  }
-
-  .name {
-    font-size: 1.65rem;
-    line-height: 1;
-  }
-
-  .meta {
-    font-size: 0.82rem;
-  }
-}
-  
+  <style>
     :root {
       --bg:#070712;
       --card:#151528;
@@ -87,447 +19,358 @@
       --line:rgba(255,255,255,.13);
     }
 
-* {
-  box-sizing:border-box;
-}
+    * {
+      box-sizing:border-box;
+    }
 
-html {
-  scroll-behavior:smooth;
-}
+    html {
+      scroll-behavior:smooth;
+    }
 
-body {
-  margin:0;
-  font-family:Arial, Helvetica, sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(circle at top left,rgba(143,92,255,.25),transparent 35%),
-    radial-gradient(circle at top right,rgba(255,92,122,.16),transparent 30%),
-    var(--bg);
-}
+    body {
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left,rgba(143,92,255,.25),transparent 35%),
+        radial-gradient(circle at top right,rgba(255,92,122,.16),transparent 30%),
+        var(--bg);
+    }
 
-header {
-  text-align:center;
-  padding:48px 18px 32px;
-  border-bottom:1px solid var(--line);
-}
+    header {
+      text-align:center;
+      padding:48px 18px 32px;
+      border-bottom:1px solid var(--line);
+    }
 
-h1 {
-  margin:0;
-  font-size:clamp(2.5rem,8vw,5.7rem);
-  letter-spacing:-.08em;
-  text-transform:uppercase;
-  line-height:.95;
-}
+    h1 {
+      margin:0;
+      font-size:clamp(2.5rem,8vw,5.7rem);
+      letter-spacing:-.08em;
+      text-transform:uppercase;
+      line-height:.95;
+    }
 
-.subtitle {
-  max-width:880px;
-  margin:16px auto 0;
-  color:var(--muted);
-  line-height:1.6;
-}
+    .subtitle {
+      max-width:880px;
+      margin:16px auto 0;
+      color:var(--muted);
+      line-height:1.6;
+    }
 
-.topbar {
-  position:sticky;
-  top:0;
-  z-index:20;
-  display:flex;
-  gap:12px;
-  justify-content:center;
-  flex-wrap:wrap;
-  padding:15px;
-  background:rgba(7,7,18,.86);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line);
-}
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:20;
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+      padding:15px;
+      background:rgba(7,7,18,.86);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--line);
+    }
 
-input, select {
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.07);
-  color:var(--text);
-  padding:12px 14px;
-  border-radius:13px;
-  font-size:.95rem;
-  outline:none;
-}
+    input, select {
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.07);
+      color:var(--text);
+      padding:12px 14px;
+      border-radius:13px;
+      font-size:.95rem;
+      outline:none;
+    }
 
-input {
-  width:min(450px,90vw);
-}
+    input {
+      width:min(450px,90vw);
+    }
 
-select {
-  cursor:pointer;
-}
+    select {
+      cursor:pointer;
+    }
 
-option {
-  background:#11111e;
-  color:white;
-}
+    option {
+      background:#11111e;
+      color:white;
+    }
 
-main {
-  width:min(1220px,calc(100% - 24px));
-  margin:28px auto 70px;
-}
+    main {
+      width:min(1220px,calc(100% - 24px));
+      margin:28px auto 70px;
+    }
 
-.method {
-  background:linear-gradient(135deg,rgba(143,92,255,.18),rgba(255,92,122,.10));
-  border:1px solid var(--line);
-  border-radius:24px;
-  padding:20px;
-  margin-bottom:24px;
-  box-shadow:0 18px 70px rgba(0,0,0,.22);
-}
+    .method {
+      background:linear-gradient(135deg,rgba(143,92,255,.18),rgba(255,92,122,.10));
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:20px;
+      margin-bottom:24px;
+      box-shadow:0 18px 70px rgba(0,0,0,.22);
+    }
 
-.method h2 {
-  margin:0 0 8px;
-  color:var(--gold);
-  letter-spacing:-.03em;
-}
+    .method h2 {
+      margin:0 0 8px;
+      color:var(--gold);
+      letter-spacing:-.03em;
+    }
 
-.method p {
-  margin:0;
-  color:var(--muted);
-  line-height:1.6;
-}
+    .method p {
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+    }
 
-.quick-ranks {
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:14px;
-}
+    .quick-ranks {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:14px;
+    }
 
-.quick-ranks a {
-  text-decoration:none;
-  color:var(--text);
-  background:rgba(255,255,255,.07);
-  border:1px solid var(--line);
-  border-radius:999px;
-  padding:8px 10px;
-  font-size:.85rem;
-}
+    .quick-ranks a {
+      text-decoration:none;
+      color:var(--text);
+      background:rgba(255,255,255,.07);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:8px 10px;
+      font-size:.85rem;
+    }
 
-.quick-ranks a:hover {
-  border-color:var(--gold);
-  color:var(--gold);
-}
+    .quick-ranks a:hover {
+      border-color:var(--gold);
+      color:var(--gold);
+    }
 
-.ranking-grid {
-  display:grid;
-  gap:18px;
-}
+    .profile-list {
+      display:grid;
+      gap:14px;
+    }
 
-.character-card {
-  background:linear-gradient(135deg,var(--card2),var(--card));
-  border:1px solid var(--line);
-  border-radius:25px;
-  padding:20px;
-  box-shadow:0 18px 70px rgba(0,0,0,.26);
-  position:relative;
-  overflow:hidden;
-}
+    .profile-card {
+      display:flex;
+      align-items:center;
+      gap:14px;
+      text-decoration:none;
+      color:var(--text);
+      background:linear-gradient(135deg,var(--card2),var(--card));
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:14px;
+      box-shadow:0 14px 45px rgba(0,0,0,.22);
+      transition:transform .15s ease, border-color .15s ease;
+    }
 
-.character-card::after {
-  content:"";
-  position:absolute;
-  width:190px;
-  height:190px;
-  border-radius:50%;
-  background:rgba(255,255,255,.045);
-  right:-75px;
-  top:-75px;
-  pointer-events:none;
-}
+    .profile-card:hover {
+      transform:translateY(-2px);
+      border-color:var(--gold);
+    }
 
-.rank-1 {
-  border-color:rgba(255,209,102,.8);
-  box-shadow:0 0 65px rgba(255,209,102,.18);
-}
+    .profile-pfp, .big-pfp {
+      border-radius:50%;
+      object-fit:cover;
+      border:2px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.08);
+      flex-shrink:0;
+    }
 
-.card-top {
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-  align-items:flex-start;
-  position:relative;
-  z-index:1;
-}
+    .profile-pfp {
+      width:58px;
+      height:58px;
+    }
 
-.rank-badge {
-  background:var(--gold);
-  color:#121212;
-  font-weight:900;
-  padding:10px 14px;
-  border-radius:999px;
-  font-size:.9rem;
-}
+    .profile-info {
+      flex:1;
+      min-width:0;
+    }
 
-.tier-badge {
-  background:rgba(143,92,255,.22);
-  color:#ded4ff;
-  border:1px solid rgba(143,92,255,.55);
-  font-weight:900;
-  padding:10px 14px;
-  border-radius:999px;
-  font-size:.9rem;
-}
+    .profile-name {
+      font-size:1.25rem;
+      font-weight:900;
+      margin-bottom:4px;
+      letter-spacing:-.03em;
+    }
 
-.name {
-  font-size:clamp(1.8rem,5vw,3.05rem);
-  margin:15px 0 8px;
-  letter-spacing:-.055em;
-  position:relative;
-  z-index:1;
-}
+    .profile-role {
+      color:var(--muted);
+      font-size:.9rem;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
 
-.meta {
-  color:var(--gold);
-  font-weight:bold;
-  margin-bottom:12px;
-  position:relative;
-  z-index:1;
-  line-height:1.4;
-}
+    .profile-rating {
+      font-weight:900;
+      color:#121212;
+      background:var(--gold);
+      border-radius:999px;
+      padding:8px 11px;
+      white-space:nowrap;
+    }
 
-.description {
-  color:var(--muted);
-  line-height:1.58;
-  font-size:.98rem;
-  position:relative;
-  z-index:1;
-  margin-bottom:0;
-}
+    .full-profile {
+      display:none;
+      background:linear-gradient(135deg,var(--card2),var(--card));
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:22px;
+      box-shadow:0 18px 70px rgba(0,0,0,.26);
+    }
 
-.tags {
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin:16px 0;
-  position:relative;
-  z-index:1;
-}
+    .full-profile.active {
+      display:block;
+    }
 
-.tag {
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.06);
-  color:var(--text);
-  border-radius:999px;
-  padding:7px 10px;
-  font-size:.82rem;
-}
+    .back-button {
+      display:inline-block;
+      margin-bottom:18px;
+      color:var(--gold);
+      text-decoration:none;
+      font-weight:900;
+    }
 
-.stats {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(205px,1fr));
-  gap:10px;
-  margin-top:16px;
-  position:relative;
-  z-index:1;
-}
+    .profile-header {
+      display:flex;
+      gap:18px;
+      align-items:center;
+      margin-bottom:18px;
+    }
 
-.stat {
-  background:rgba(0,0,0,.20);
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:10px;
-}
+    .big-pfp {
+      width:105px;
+      height:105px;
+      border-width:3px;
+    }
 
-.stat-row {
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:7px;
-  color:var(--muted);
-  font-size:.88rem;
-}
+    .rank-badge {
+      display:inline-block;
+      background:var(--gold);
+      color:#121212;
+      font-weight:900;
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:.9rem;
+      margin-bottom:8px;
+    }
 
-.stat-row strong {
-  color:var(--text);
-}
+    .name {
+      font-size:clamp(1.8rem,5vw,3.05rem);
+      margin:6px 0 8px;
+      letter-spacing:-.055em;
+    }
 
-.bar {
-  height:8px;
-  border-radius:999px;
-  background:rgba(255,255,255,.09);
-  overflow:hidden;
-}
+    .meta {
+      color:var(--gold);
+      font-weight:bold;
+      margin-bottom:7px;
+      line-height:1.4;
+    }
 
-.fill {
-  height:100%;
-  width:var(--value);
-  background:linear-gradient(90deg,var(--red),var(--gold),var(--green));
-  border-radius:999px;
-}
+    .description {
+      color:var(--muted);
+      line-height:1.58;
+      font-size:.98rem;
+      margin-bottom:0;
+    }
 
-.footer {
-  text-align:center;
-  color:var(--muted);
-  margin-top:30px;
-  font-size:.9rem;
-  line-height:1.5;
-}
+    .tags {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:16px 0;
+    }
 
-@media (max-width: 650px) {
-  header {
-    padding-top: 34px;
-  }
+    .tag {
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      border-radius:999px;
+      padding:7px 10px;
+      font-size:.82rem;
+    }
 
-  .character-card {
-    padding: 14px;
-  }
+    .stats {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(205px,1fr));
+      gap:10px;
+      margin-top:16px;
+    }
 
-  .profile-row {
-    gap: 12px;
-    margin: 12px 0 8px;
-    flex-wrap: nowrap;
-    align-items: center;
-  }
+    .stat {
+      background:rgba(0,0,0,.20);
+      border:1px solid var(--line);
+      border-radius:15px;
+      padding:10px;
+    }
 
-  .pfp {
-    width: 58px;
-    height: 58px;
-    border-width: 2px;
-  }
+    .stat-row {
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:7px;
+      color:var(--muted);
+      font-size:.88rem;
+    }
 
-  .profile-text {
-    min-width: 0;
-  }
+    .stat-row strong {
+      color:var(--text);
+    }
 
-  .name {
-    font-size: 1.7rem;
-    line-height: 1;
-  }
+    .bar {
+      height:8px;
+      border-radius:999px;
+      background:rgba(255,255,255,.09);
+      overflow:hidden;
+    }
 
-  .meta {
-    font-size: 0.82rem;
-  }
-}
-.profile-list {
-  display: grid;
-  gap: 14px;
-}
+    .fill {
+      height:100%;
+      width:var(--value);
+      background:linear-gradient(90deg,var(--red),var(--gold),var(--green));
+      border-radius:999px;
+    }
 
-.profile-card {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  text-decoration: none;
-  color: var(--text);
-  background: linear-gradient(135deg, var(--card2), var(--card));
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  padding: 14px;
-  box-shadow: 0 14px 45px rgba(0,0,0,.22);
-  transition: transform .15s ease, border-color .15s ease;
-}
+    .footer {
+      text-align:center;
+      color:var(--muted);
+      margin-top:30px;
+      font-size:.9rem;
+      line-height:1.5;
+    }
 
-.profile-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--gold);
-}
+    @media (max-width:650px) {
+      header {
+        padding-top:34px;
+      }
 
-.profile-pfp {
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-  border: 2px solid rgba(255,255,255,.16);
-}
+      .profile-card {
+        padding:12px;
+        gap:11px;
+      }
 
-.profile-info {
-  flex: 1;
-  min-width: 0;
-}
+      .profile-pfp {
+        width:52px;
+        height:52px;
+      }
 
-.profile-name {
-  font-size: 1.25rem;
-  font-weight: 900;
-  margin-bottom: 4px;
-  letter-spacing: -0.03em;
-}
+      .profile-name {
+        font-size:1.05rem;
+      }
 
-.profile-role {
-  color: var(--muted);
-  font-size: .9rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+      .profile-rating {
+        font-size:.85rem;
+        padding:7px 9px;
+      }
 
-.profile-rating {
-  font-weight: 900;
-  color: #121212;
-  background: var(--gold);
-  border-radius: 999px;
-  padding: 8px 11px;
-  white-space: nowrap;
-}
+      .profile-header {
+        align-items:flex-start;
+      }
 
-.full-profile {
-  display: none;
-  background: linear-gradient(135deg, var(--card2), var(--card));
-  border: 1px solid var(--line);
-  border-radius: 26px;
-  padding: 22px;
-  box-shadow: 0 18px 70px rgba(0,0,0,.26);
-}
-
-.full-profile.active {
-  display: block;
-}
-
-.profile-header {
-  display: flex;
-  gap: 18px;
-  align-items: center;
-  margin-bottom: 18px;
-}
-
-.big-pfp {
-  width: 105px;
-  height: 105px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid rgba(255,255,255,.18);
-}
-
-.back-button {
-  display: inline-block;
-  margin-bottom: 18px;
-  color: var(--gold);
-  text-decoration: none;
-  font-weight: 900;
-}
-
-@media (max-width: 650px) {
-  .profile-card {
-    padding: 12px;
-    gap: 11px;
-  }
-
-  .profile-pfp {
-    width: 52px;
-    height: 52px;
-  }
-
-  .profile-name {
-    font-size: 1.05rem;
-  }
-
-  .profile-rating {
-    font-size: .85rem;
-    padding: 7px 9px;
-  }
-
-  .profile-header {
-    align-items: flex-start;
-  }
-
-  .big-pfp {
-    width: 82px;
-    height: 82px;
-  }
-}
+      .big-pfp {
+        width:82px;
+        height:82px;
+      }
+    }
   </style>
 </head>
 
@@ -561,20 +404,17 @@ main {
       <p>
         This ranking is mostly about <strong>lore importance</strong>, not just looks or chad stats.
         Founders, OG members, major conflict figures, loyal defenders, and characters who changed the
-        timeline rank higher. Physical stats, meme value, activity, and aura still matter, but they do
-        not automatically beat major story impact.
+        timeline rank higher.
       </p>
       <div class="quick-ranks" id="quickRanks"></div>
     </section>
 
+    <section id="rankingGrid" class="profile-list"></section>
+    <section id="fullProfile" class="full-profile"></section>
 
-<section id="rankingGrid" class="profile-list"></section>
-<section id="fullProfile" class="full-profile"></section>
-
-<p class="footer">
-  Parody lore page. Rankings are based on Louieverse storyline importance, not real-life worth.
-</p>
-
+    <p class="footer">
+      Parody lore page. Rankings are based on Louieverse storyline importance, not real-life worth.
+    </p>
   </main>
 
   <script>
@@ -590,13 +430,13 @@ main {
         pfp: "images/louie.jpg",
         role: "True Adam / Verse Originator",
         title: "Main protagonist",
-        description: "Louie is the Romani-English true Adam of the Louieverse and the original inspiration behind the entire timeline. The verse was built brick by brick through his entertaining gym lives, iconic personality, and former friendship with Itstruly0ver. Without Louie, there is no Louieverse, making him the undisputed central figure and highest-ranked character in the ranking system. Known for his crazy physique, legendary gym presence, and unforgettable live moments, Louie produced some of the most important scenes in verse history, including the iconic “Ben, pack it in mate” moment and instantly blocking Abdi after he joined his live and said “Big fan, man.”",
+        description: "Louie is the Romani-English true Adam of the Louieverse and the original inspiration behind the entire timeline. Without Louie, there is no Louieverse, making him the undisputed central figure.",
         tags: ["True Adam", "Gym Lives", "Final Boss", "GTA Arc", "Favourite Frame"],
         stats: { Chad: 10, Frame: 8, Face: 9, Aura: 10, Intelligence: 7, Meme: 10, Lore: 10, Loyalty: 10 }
       },
       {
         rank: 2,
-        id: "oprylite"
+        id: "oprylite",
         name: "OPryLite",
         age: "17",
         background: "Irish-British",
@@ -604,8 +444,8 @@ main {
         score: 94,
         pfp: "images/oprylite.jpg",
         role: "Founder / AI King",
-        title: "The creator of the verse"
-        description: "OPryLite is one of the founder figures of the Louieverse, known for being chronically online, innovative, and the undisputed AI king. He is famous for having some of the best content ideas in the verse and for exposing Fatih, which gave him major influence and lore importance. His biggest lore moment came when he and Framemogger banned NeckPill’s DMs, triggering the first Louieverse Civil War. This caused Yuvtaj to break away and create the BPverse, but the independence movement was short-lived. OPryLite infiltrated the BPverse and crushed the rebellion, proving his strategic dominance.",
+        title: "The creator of the verse",
+        description: "OPryLite is one of the founder figures of the Louieverse, known for being chronically online, innovative, and the undisputed AI king.",
         tags: ["Founder", "AI King", "BPverse Crusher", "Fatih Exposer", "Strategist"],
         stats: { Chad: 8, Frame: 5, Face: 8, Aura: 9, Intelligence: 10, Meme: 10, Lore: 10, Loyalty: 9 }
       },
@@ -618,24 +458,24 @@ main {
         tier: "S+",
         score: 92,
         pfp: "images/abdi-singhstein.jpg",
-        title: "The Keeper of Structure",
         role: "Lore Architect / Anti-Larp Enforcer",
-        description: "Abdi Singhstein is an Israeli-Somali-Indian Louieverse icon and one of the most OG, active, and influential members in the entire timeline. Known for being a legendary AI user, an original comment spammer, and even having a video reposted by Cookie King, Abdi has built one of the strongest reputations in the verse. He is the main figure responsible for confronting Yuvtaj over his larp, helping create and spread the Yuvtaj lore that became one of the most important storylines in Louieverse history. His influence includes creating the group Louieverse picture, building new Callum’s Fitness lore, creating chad rankings, and spreading the news about Fatih.",
+        title: "The Keeper of Structure",
+        description: "Abdi Singhstein is one of the most OG, active, and influential members in the timeline. He helped create and spread major Yuvtaj lore and built important Louieverse content.",
         tags: ["Legend", "AI User", "Comment Spammer", "Yuvtaj Lore", "Cookie King Repost"],
         stats: { Chad: 9, Frame: 8, Face: 9, Aura: 10, Intelligence: 9, Meme: 10, Lore: 10, Loyalty: 10 }
       },
       {
         rank: 4,
-        id: "framemogger"
+        id: "framemogger",
         name: "Framemogger",
         age: "17",
         background: "Moroccan-Dutch",
         tier: "S",
         score: 84,
         pfp: "images/framemogger.jpg",
-        title: "The Retired Conqueror",
         role: "Founder / Former Viral Hitmaker",
-        description: "Framemogger is a Moroccan-Dutch founder of the Louieverse and one of the true OGs of the verse. Alongside OPryLite, he helped establish the early Louieverse order and created the first viral hit in verse history. His biggest early arc came from starting beef with NeckPill and exposing his pre-ascension pictures, which pushed NeckPill toward the newly formed BPverse. Known for being explosive, controversial, resilient, active, and frame-blessed, Framemogger carried massive aura during the first era. However, his unexplained exit from the Louieverse damaged his loyalty score, and he now lives a post-verse civilian arc working in Maastricht.",
+        title: "The Retired Conqueror",
+        description: "Framemogger is a Moroccan-Dutch founder of the Louieverse and one of the true OGs of the verse. His early viral impact gave him major aura.",
         tags: ["Founder", "Frame Blessed", "First Viral Hit", "Civil War Arc", "Left the Verse"],
         stats: { Chad: 8, Frame: 9, Face: 8, Aura: 8, Intelligence: 8, Meme: 10, Lore: 9, Loyalty: 4 }
       },
@@ -648,9 +488,9 @@ main {
         tier: "A",
         score: 82,
         pfp: "images/yuvtaj.jpg",
-        title: "The Failed Challenger"
         role: "BPverse Separatist / Lore-Density Merchant",
-        description: "Yuvtaj is an Indian boy living in London and one of the most lore-dense characters in the Louieverse. His age is heavily disputed in the lore, with his claims becoming part of the wider Yuvtaj storyline. He became a major figure by creating the BPverse separatist movement. After breaking away from the Louieverse, his attempted independence arc was crushed by OPryLite. Known for wavy hair, GCSE Computer Science, regular barbershop appearances, 42% attendance debuff, Italian larp arc, disputed ancestry claims, and being spotted in a London barbershop by Abdi Singhstein, Yuvtaj is a central meme-lore figure.",
+        title: "The Failed Challenger",
+        description: "Yuvtaj is one of the most lore-dense characters in the Louieverse. His BPverse separatist movement and disputed lore claims made him a central meme figure.",
         tags: ["BPverse", "Italian Larp Arc", "42% Attendance", "Barbershop Sighting", "GCSE CS"],
         stats: { Chad: 5, Frame: 4, Face: 6, Aura: 7, Intelligence: 6, Meme: 10, Lore: 9, Loyalty: 3 }
       },
@@ -663,9 +503,9 @@ main {
         tier: "A",
         score: 81,
         pfp: "",
-        title: "The Truly Over"
         role: "Pre-Lore Remnant / Severed Link to Louie’s Past",
-        description: "Itstruly0ver is a pre-Louieverse figure and one of Louie’s early close friends from before the verse was officially formed. Before Louie became the central myth of the Louieverse, Itstruly0ver belonged to his original private world, making him one of the strongest links to Louie’s pre-lore identity. When OPryLite began shaping the Louieverse around Louie, tension grew between Louie’s old private world and the new mythologised version being built by the verse. Itstruly0ver eventually cut ties with Louie, marking a clear emotional break between Louie’s past life and the emerging system. He now lives a normal online life outside the lore, playing Roblox, with his gym sighting by Abdi serving as a modern cameo.",
+        title: "The Truly Over",
+        description: "Itstruly0ver is a pre-Louieverse figure and one of Louie’s early close friends from before the verse was officially formed.",
         tags: ["Pre-Lore", "Louie Past", "Roblox Arc", "Gym Sighting", "Origin Figure"],
         stats: { Chad: 6, Frame: 6, Face: 6, Aura: 7, Intelligence: 6, Meme: 7, Lore: 9, Loyalty: 4 }
       },
@@ -678,190 +518,189 @@ main {
         tier: "A",
         score: 80,
         pfp: "",
-        title: "The Ascender"
         role: "Loyal OG / Inner Circle",
-        description: "Jack is an English-Indian member from Nottingham and one of the most loyal OG figures in the Louieverse. As one of the closest people to Louie, Jack has major inner-circle status, giving him high lore importance even though he is not always active. Unlike others who left, broke away, or switched sides during conflicts, Jack remained connected through every major arc. Known for working at McDonald’s to save up for his test, he has a grounded civilian grind arc. His funniest lore moment came from believing Yuvtaj was 12 and thinking he played Brawl Stars in Mumbai.",
+        title: "The Ascender",
+        description: "Jack is an English-Indian member from Nottingham and one of the most loyal OG figures in the Louieverse.",
         tags: ["Loyal OG", "Louie Inner Circle", "McDonald's Arc", "Brawl Stars Lore", "Nottingham"],
         stats: { Chad: 7, Frame: 7, Face: 7, Aura: 7, Intelligence: 7, Meme: 8, Lore: 9, Loyalty: 10 }
       },
       {
         rank: 8,
-        id: "angelus"
+        id: "angelus",
         name: "Angelus",
         age: "16",
         background: "Austrian-Slovenian",
         tier: "A",
         score: 78,
-        pfp: "",
-        title: "Austrian Titan",
-        role: "Gymmaxxed JordanLite",
         pfp: "images/angelus.jpg",
-        description: "Angelus is an Austrian-Slovenian OG of the Louieverse, best described as a gymmaxxed JordanLite with strong physique stats, blonde hair, and blue eyes. Known for spamming videos in the group chat, talking about past experiences with his ex, asking for gym cycle advice, and consuming dangerous amounts of caffeine, Angelus brings a mix of gym-bro aura and emotional side-quest energy. His funniest lore moment came when Abdi trolled him after Angelus asked whether his heart would explode if he pinned topical minoxidil and GHK-Cu.",
+        role: "Gymmaxxed JordanLite",
+        title: "Austrian Titan",
+        description: "Angelus is an Austrian-Slovenian OG of the Louieverse, best described as a gymmaxxed JordanLite with strong physique stats.",
         tags: ["Gymmaxxed", "JordanLite", "Caffeine Arc", "Ex-Thinking Debuff", "OG"],
         stats: { Chad: 8, Frame: 8, Face: 8, Aura: 7, Intelligence: 6, Meme: 8, Lore: 7, Loyalty: 8 }
       },
       {
         rank: 9,
-        id: "bigblair"
+        id: "bigblair",
         name: "Bigblair",
         age: "19",
         background: "Scottish",
         tier: "A",
         score: 76,
         pfp: "",
-        title: "The Scottish Mogger"
         role: "The Scottish Mogger / External Creator Figure",
-        description: "Bigblair is a Scottish modern-era creator figure known as The Scottish Mogger. Unlike the original OG members, he entered the Louieverse later and built his reputation through external visibility rather than foundational involvement. His influence comes mainly from looksmaxxing and creator-culture spaces. Although very inactive within the Louieverse itself, he has by far the largest following in the verse at 37k, giving him unmatched reach and audience power. His ranking is carried by visibility, mogger aura, and creator influence, but held back by low activity and weaker direct involvement in core lore.",
+        title: "The Scottish Mogger",
+        description: "Bigblair is a Scottish modern-era creator figure known as The Scottish Mogger. His ranking is carried by visibility, mogger aura, and creator influence.",
         tags: ["Scottish Mogger", "37k Following", "Creator", "Looksmaxxing", "Inactive"],
         stats: { Chad: 8, Frame: 8, Face: 8, Aura: 8, Intelligence: 7, Meme: 7, Lore: 7, Reach: 10 }
       },
       {
         rank: 10,
-        id: "bogdan"
+        id: "bogdan",
         name: "Bogdan",
         age: "16",
         background: "Moldovan, living in the UK",
         tier: "A",
         score: 76,
         pfp: "",
-        title: "The Still Standing"
         role: "Frame-Maxxed OG",
-        description: "Bogdan is a Moldovan member living in the UK and one of the OG members of the Louieverse. Known for being frame-maxxed and physique-maxxed, he brings raw physical presence to the verse and stands out as one of the strongest build-based characters. His raw milk enjoyer arc adds to his traditional strength aura. Recently, Bogdan joined Callum’s Fitness tough-mogging playground picture as the fourth member, giving him renewed relevance. Although he is not as active as some louder characters, his frame, strength, and physique stats carry his ranking hard.",
+        title: "The Still Standing",
+        description: "Bogdan is a Moldovan member living in the UK and one of the OG members of the Louieverse. His frame and physique stats carry his ranking.",
         tags: ["Frame-Maxxed", "Physique-Maxxed", "Raw Milk", "Callum Fitness Arc", "Strong"],
         stats: { Chad: 8, Frame: 10, Face: 7, Aura: 8, Intelligence: 6, Meme: 6, Lore: 7, Loyalty: 8 }
       },
       {
         rank: 11,
-        id: "goyprince"
+        id: "goyprince",
         name: "Goyprince",
         age: "18",
         background: "Kurdish, living in Germany",
         tier: "B+",
         score: 75,
         pfp: "",
-        title: "The Nobody"
         role: "Fatih Downfall Figure / BPverse-Linked Creator",
-        description: "Goyprince is a Kurdish member living in Germany and one of the newer but more impactful figures connected to the Louieverse-BPverse timeline. Known for LM content creation and strong edit-making ability, he gained major relevance after mogging Fatih in both an edit and on live. His biggest lore contribution came from helping reveal the truth during the Fatih controversy, making him one of the key figures involved in Fatih’s collapse across both the Louieverse and BPverse. Although fairly inactive in the main Louieverse group chats, he remains active in the BPverse.",
+        title: "The Nobody",
+        description: "Goyprince is a Kurdish member living in Germany and one of the newer but more impactful figures connected to the Louieverse-BPverse timeline.",
         tags: ["Fatih Downfall", "Content Creator", "BPverse Active", "Mogged Fatih", "Germany"],
         stats: { Chad: 7, Frame: 7, Face: 8, Aura: 8, Intelligence: 7, Meme: 8, Lore: 8, Content: 9 }
       },
       {
         rank: 12,
-        id: "wetwipe"
-        name:"wetwipe",
+        id: "wetwipe",
+        name: "wetwipe",
         age: "17",
         background: "British, from York",
         tier: "B+",
         score: 74,
         pfp: "",
-        title: "Prince Of York"
         role: "Modern Era Ascender",
-        description: "wetwipe is a British member from York and one of the fastest-rising modern-era figures in the Louieverse. His influence comes from fast growth, increasing involvement, and real-time relevance rather than founding-era history. His most important canon moment is the Opry Escape Incident, where he helped OPryLite safely escape during a chaotic conflict involving Louie’s sister. This boosted his reputation and linked him directly to protecting the Architect Founder. Outside conflict lore, wetwipe is known for gym, self-improvement, and ascending ideology. His progress is complicated by ongoing legal battles, keeping him somewhat distant from full central involvement.",
+        title: "Prince Of York",
+        description: "wetwipe is a British member from York and one of the fastest-rising modern-era figures in the Louieverse.",
         tags: ["Modern Era", "Opry Escape", "Gym", "Ascending", "York"],
         stats: { Chad: 7, Frame: 7, Face: 6, Aura: 7, Intelligence: 7, Meme: 8, Lore: 7, Potential: 9 }
       },
       {
         rank: 13,
-        id: "bukoz"
+        id: "bukoz",
         name: "Bukoz",
         age: "14",
         background: "Polish",
         tier: "B+",
         score: 74,
         pfp: "",
-        title: "The forgotten Og"
         role: "The Forgotten OG / Forgotten Defender",
-        description: "Bukoz is a Polish early-era member of the Louieverse, best known as The Forgotten OG. Although he rarely participates in modern events, his historical presence gives him a respected place in the timeline. His most important contribution came during the Fatih controversy arc, where he helped defend the Louieverse during one of its more unstable moments. This gave him real loyalty value and separated him from passive background members. While Bukoz does not have the activity or major current storyline of higher-ranked characters, his OG status and defensive role keep him above lower-tier side characters.",
+        title: "The Forgotten OG",
+        description: "Bukoz is a Polish early-era member of the Louieverse, best known as The Forgotten OG.",
         tags: ["Forgotten OG", "Polish", "Defender", "Fatih Arc", "Old Guard"],
         stats: { Chad: 5, Frame: 5, Face: 5, Aura: 6, Intelligence: 6, Meme: 6, Lore: 7, Loyalty: 8 }
       },
       {
         rank: 14,
-        id: "rhys"
+        id: "rhys",
         name: "Rhys",
         age: "14",
         background: "British",
         tier: "B+",
         score: 73,
         pfp: "",
-        title: "Angeluslite"
         role: "The Observer / OG Information Access",
-        description: "Rhys is a British member known as The Observer of the Louieverse. Unlike louder characters who start conflicts, lead factions, or shape major outcomes, Rhys operates as a passive witness to the system. He is consistently aware of events but rarely intervenes directly, making his role informational rather than dominant. His key feat is being one of the only members with access to both the BPverse and Louieverse during times of conflict. This gave him rare cross-faction awareness and made him valuable as a detached observer during unstable periods.",
+        title: "Angeluslite",
+        description: "Rhys is a British member known as The Observer of the Louieverse, with rare cross-faction awareness.",
         tags: ["Observer", "OG", "Cross-Faction Access", "BPverse", "Information"],
         stats: { Chad: 5, Frame: 5, Face: 5, Aura: 5, Intelligence: 7, Meme: 6, Lore: 7, Access: 9 }
       },
       {
         rank: 15,
-        id: "neckpill"
+        id: "neckpill",
         name: "NeckPill",
         age: "22",
         background: "USA",
         tier: "B",
         score: 72,
         pfp: "",
-        title: "The Victim"
         role: "Fractured Optimizer / Failed Challenger",
-        description: "NeckPill entered the Louieverse as a strong self-improvement thinker, focused on discipline, optimization, and ideological intensity. For a time, he built real influence through his ideas. As conflict grew between him and the founding structure led by OPryLite and Framemogger, the Louieverse entered the Containment Conflict. NeckPill attempted to rally support from his own network, challenging founder control, but the effort failed. His fall was worsened by the face-leak incident after his fallout with Framemogger, repeated DM bans across several accounts, and groupchat instability. He now exists as a fractured optimizer shaped by a failed challenge against the system he tried to overthrow.",
+        title: "The Victim",
+        description: "NeckPill entered the Louieverse as a self-improvement thinker focused on discipline, optimization, and ideological intensity.",
         tags: ["Optimizer", "Containment Conflict", "Failed Challenger", "DM Bans", "Fallen Ideologue"],
         stats: { Chad: 6, Frame: 6, Face: 5, Aura: 7, Intelligence: 8, Meme: 8, Lore: 8, Loyalty: 2 }
       },
       {
         rank: 16,
-        id: "khaleim"
+        id: "khaleim",
         name: "Khaleim",
         age: "14",
         background: "Romani-Indian",
         tier: "B",
         score: 71,
         pfp: "",
-        title: "Louies Predecessor"
         role: "The Newgen Prince",
-        description: "Khaleim is a Romani-Indian member of the newer generation of the Louieverse, known as The Newgen Prince. Unlike more chaotic or controversial newcomers, Khaleim gained positive reception early, giving him strong future potential if development continues. His lore includes being picked on by Yuvtaj and recently leaving the BPverse group chat, suggesting a possible break away from the separatist side of the timeline. Although he remains inactive in some older Louieverse group chats, his positive reputation and newgen status keep him relevant.",
+        title: "Louie’s Predecessor",
+        description: "Khaleim is a Romani-Indian member of the newer generation of the Louieverse, known as The Newgen Prince.",
         tags: ["Newgen Prince", "Romani-Indian", "Clean Slate", "Left BPverse GC", "Potential"],
         stats: { Chad: 6, Frame: 6, Face: 7, Aura: 7, Intelligence: 7, Meme: 6, Lore: 6, Potential: 9 }
       },
       {
         rank: 17,
-        id: "fakecel"
+        id: "fakecel",
         name: "Fakecel",
         age: "17",
         background: "Greek, account created in Turkey",
         tier: "B",
         score: 70,
         pfp: "",
-        title: "The Dark Chancellor"
         role: "BPverse Defector",
-        description: "Fakecel is a Greek character whose account was created in Turkey, giving him a strange cross-border digital origin story within the Louieverse. Despite the name “Fakecel,” his actual stats are not low, with a good physique, Greek phenotype, and enough frame power to mog Fatih on his story. His biggest lore issue is loyalty. Fakecel left the Louieverse to join the BPverse and became known for glazing Yuvtaj. His repeated banned-DMs arc, happening three separate times, adds strong meme value but also makes him unstable as a long-term member.",
+        title: "The Dark Chancellor",
+        description: "Fakecel is a Greek character whose account was created in Turkey, giving him a strange cross-border digital origin story.",
         tags: ["Defector", "Greek Pheno", "Frame-Mogged Fatih", "BPverse", "Banned DMs"],
         stats: { Chad: 7, Frame: 8, Face: 7, Aura: 6, Intelligence: 6, Meme: 8, Lore: 7, Loyalty: 2 }
       },
       {
         rank: 18,
-        id: "shoppers"
+        id: "shoppers",
         name: "shoppers",
         age: "Unknown",
         background: "Unknown",
         tier: "C+",
         score: 67,
         pfp: "",
-        title: "The Casual Observer"
         role: "The Merchant King",
-        description: "shoppers is a very new Louieverse figure known as The Merchant King. Unlike the major warriors, founders, defectors, or controversy characters, shoppers operates through connection, trade, and indirect influence. His power comes from access rather than domination: knowing people, resources, and information across multiple parts of the verse. Although he has not been around long enough to gain OG status, shoppers has already shown activity and network value, giving him decent modern-era relevance. His influence is decentralized but widespread.",
+        title: "The Casual Observer",
+        description: "shoppers is a very new Louieverse figure known as The Merchant King, operating through connection and indirect influence.",
         tags: ["Merchant King", "Newgen", "Network", "Trade", "Active"],
         stats: { Chad: 5, Frame: 5, Face: 5, Aura: 6, Intelligence: 7, Meme: 7, Lore: 6, Network: 8 }
       },
       {
         rank: 19,
-        id: "jestercel"
+        id: "jestercel",
         name: "Jestercel",
         age: "Unknown",
         background: "Unknown",
         tier: "C+",
         score: 66,
         pfp: "",
-        title: "The Background Clown"
         role: "The Fool Prophet",
-        description: "Jestercel is one of the newest members of the Louieverse and a chaotic figure known as The Fool Prophet. He appears humorous, unpredictable, and unserious, often acting more like a joke character than a serious power player. However, his reputation is complicated by the fact that some of his random statements occasionally end up aligning with real events, giving him an accidental prophecy aura. His lore is boosted by Goatis reposts, primal enthusiast energy, and the sense that nobody fully knows whether he is joking or somehow seeing the future.",
+        title: "The Background Clown",
+        description: "Jestercel is one of the newest members of the Louieverse and a chaotic figure known as The Fool Prophet.",
         tags: ["Fool Prophet", "Newgen", "Goatis Reposts", "Primal", "Chaotic"],
         stats: { Chad: 5, Frame: 5, Face: 5, Aura: 7, Intelligence: 6, Meme: 9, Lore: 6, Prophecy: 8 }
       },
@@ -874,9 +713,9 @@ main {
         tier: "C",
         score: 61,
         pfp: "",
-        title: "The Turkish Predator"
         role: "Exiled Controversy Character",
-        description: "Fatih is a Turkish figure living in Germany, often described in Louieverse jokes as “pushing 30.” Once part of the wider verse ecosystem, he was later exposed by OPryLite during a major controversy arc and became effectively omitted from the Louieverse. Known for TikTok Lives, ragebaiting, and villain-sidequest energy, Fatih remains one of the most controversial characters in the timeline. His biggest storyline came from his mog-off rivalry with Goyprince, where Goyprince emerged as the victor after posting evidence that turned both the Louieverse and BPverse against Fatih.",
+        title: "The Exiled Villain",
+        description: "Fatih is a Turkish figure living in Germany and one of the more controversial characters in the timeline. His arc is linked to conflict, ragebait, and rivalry lore.",
         tags: ["Exiled", "Ragebaiter", "TikTok Lives", "Goyprince Rivalry", "Controversy Arc"],
         stats: { Chad: 3, Frame: 4, Face: 3, Aura: 5, Intelligence: 3, Meme: 8, Lore: 7, Loyalty: 1 }
       },
@@ -889,132 +728,165 @@ main {
         tier: "C",
         score: 58,
         pfp: "",
-        title: "The Exiled Number"
         role: "Exiled Villain / BPverse Burden",
-        description: "26 is one of the most mysterious exile figures in the Louieverse. With an unknown age, unknown background, and limited confirmed information, his identity is defined less by personal feats and more by the controversy surrounding his removal. After being kicked from central spaces, 26 became an exiled villain figure whose presence remains controversial even outside the main Louieverse structure. Despite having almost no clear strengths or positive feats, 26 remains relevant because Yuvtaj continues to keep him inside the BPverse despite widespread opposition to the decision. He is considered bad within the verse, though not as severe as Fatih.",
+        title: "The Exiled Number",
+        description: "26 is one of the most mysterious exile figures in the Louieverse, defined more by controversy and removal than personal feats.",
         tags: ["Mystery", "Exiled", "BPverse Burden", "Villain", "Controversy"],
         stats: { Chad: 2, Frame: 3, Face: 3, Aura: 5, Intelligence: 4, Meme: 6, Lore: 6, Mystery: 8 }
       }
     ];
 
-   const grid = document.getElementById("rankingGrid");
-const fullProfile = document.getElementById("fullProfile");
-const searchInput = document.getElementById("searchInput");
-const tierFilter = document.getElementById("tierFilter");
-const quickRanks = document.getElementById("quickRanks");
+    const grid = document.getElementById("rankingGrid");
+    const fullProfile = document.getElementById("fullProfile");
+    const searchInput = document.getElementById("searchInput");
+    const tierFilter = document.getElementById("tierFilter");
+    const quickRanks = document.getElementById("quickRanks");
 
-function safeId(character) {
-  return character.id || character.name.toLowerCase().replaceAll(" ", "-");
-}
+    function safeId(character) {
+      return character.id || character.name.toLowerCase().replaceAll(" ", "-");
+    }
 
-function createStat(name, value) {
-  return `
-    <div class="stat">
-      <div class="stat-row">
-        <span>${name}</span>
-        <strong>${value}/10</strong>
-      </div>
-      <div class="bar">
-        <div class="fill" style="--value:${value * 10}%"></div>
-      </div>
-    </div>
-  `;
-}
+    function initials(name) {
+      return name
+        .split(" ")
+        .map(word => word[0])
+        .join("")
+        .slice(0, 2)
+        .toUpperCase();
+    }
 
-function renderQuickRanks() {
-  quickRanks.innerHTML = characters
-    .slice(0, 10)
-    .map(character => `<a href="#profile-${safeId(character)}">#${character.rank} ${character.name}</a>`)
-    .join("");
-}
+    function pfpSrc(character) {
+      return character.pfp && character.pfp.trim() !== "" ? character.pfp : "";
+    }
 
-function renderCharacters() {
-  const search = searchInput.value.toLowerCase();
-  const tier = tierFilter.value;
+    function imageOrInitials(character, className) {
+      const src = pfpSrc(character);
 
-  const filtered = characters.filter(character => {
-    const text = `
-      ${character.name}
-      ${character.title || ""}
-      ${character.background}
-      ${character.role}
-      ${character.description}
-      ${(character.tags || []).join(" ")}
-    `.toLowerCase();
+      if (!src) {
+        return `
+          <div class="${className}" style="display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--gold);">
+            ${initials(character.name)}
+          </div>
+        `;
+      }
 
-    return text.includes(search) && (tier === "all" || character.tier === tier);
-  });
+      return `
+        <img
+          class="${className}"
+          src="${src}"
+          alt="${character.name}"
+          onerror="this.outerHTML='<div class=&quot;${className}&quot; style=&quot;display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--gold);&quot;>${initials(character.name)}</div>'"
+        >
+      `;
+    }
 
-  grid.style.display = "grid";
-  fullProfile.classList.remove("active");
+    function createStat(name, value) {
+      return `
+        <div class="stat">
+          <div class="stat-row">
+            <span>${name}</span>
+            <strong>${value}/10</strong>
+          </div>
+          <div class="bar">
+            <div class="fill" style="--value:${value * 10}%"></div>
+          </div>
+        </div>
+      `;
+    }
 
-  grid.innerHTML = filtered.map(character => `
-    <a class="profile-card" href="#profile-${safeId(character)}">
-      <img class="profile-pfp" src="${character.pfp || "images/default.png"}" alt="${character.name}">
+    function renderQuickRanks() {
+      quickRanks.innerHTML = characters
+        .slice(0, 10)
+        .map(character => `<a href="#profile-${safeId(character)}">#${character.rank} ${character.name}</a>`)
+        .join("");
+    }
 
-      <div class="profile-info">
-        <div class="profile-name">${character.name}</div>
-        <div class="profile-role">${character.title || "Title coming soon"}</div>
-      </div>
+    function renderCharacters() {
+      const search = searchInput.value.toLowerCase();
+      const tier = tierFilter.value;
 
-      <div class="profile-rating">${character.score}/100</div>
-    </a>
-  `).join("");
-}
+      const filtered = characters.filter(character => {
+        const text = `
+          ${character.name}
+          ${character.title || ""}
+          ${character.background}
+          ${character.role}
+          ${character.description}
+          ${(character.tags || []).join(" ")}
+        `.toLowerCase();
 
-function renderProfileFromHash() {
-  const hash = window.location.hash;
+        return text.includes(search) && (tier === "all" || character.tier === tier);
+      });
 
-  if (!hash.startsWith("#profile-")) {
-    renderCharacters();
-    return;
-  }
+      grid.style.display = "grid";
+      fullProfile.classList.remove("active");
 
-  const id = hash.replace("#profile-", "");
-  const character = characters.find(character => safeId(character) === id);
+      grid.innerHTML = filtered.map(character => `
+        <a class="profile-card" href="#profile-${safeId(character)}">
+          ${imageOrInitials(character, "profile-pfp")}
 
-  if (!character) {
-    renderCharacters();
-    return;
-  }
+          <div class="profile-info">
+            <div class="profile-name">${character.name}</div>
+            <div class="profile-role">${character.title || "Title coming soon"}</div>
+          </div>
 
-  grid.style.display = "none";
-  fullProfile.classList.add("active");
+          <div class="profile-rating">${character.score}/100</div>
+        </a>
+      `).join("");
+    }
 
-  fullProfile.innerHTML = `
-    <a class="back-button" href="#">← Back to rankings</a>
+    function renderProfileFromHash() {
+      const hash = window.location.hash;
 
-    <div class="profile-header">
-      <img class="big-pfp" src="${character.pfp || "images/default.png"}" alt="${character.name}">
+      if (!hash.startsWith("#profile-")) {
+        renderCharacters();
+        return;
+      }
 
-      <div>
-        <div class="rank-badge">#${character.rank} • ${character.score}/100</div>
-        <h2 class="name">${character.name}</h2>
-        <div class="meta">${character.title || "Title coming soon"}</div>
-        <div class="meta">Age: ${character.age} • ${character.background}</div>
-        <div class="meta">${character.tier} Tier • ${character.role}</div>
-      </div>
-    </div>
+      const id = hash.replace("#profile-", "");
+      const character = characters.find(character => safeId(character) === id);
 
-    <p class="description">${character.description}</p>
+      if (!character) {
+        renderCharacters();
+        return;
+      }
 
-    <div class="tags">
-      ${character.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
-    </div>
+      grid.style.display = "none";
+      fullProfile.classList.add("active");
 
-    <div class="stats">
-      ${Object.entries(character.stats).map(([name, value]) => createStat(name, value)).join("")}
-    </div>
-  `;
-}
+      fullProfile.innerHTML = `
+        <a class="back-button" href="#">← Back to rankings</a>
 
-searchInput.addEventListener("input", renderCharacters);
-tierFilter.addEventListener("change", renderCharacters);
-window.addEventListener("hashchange", renderProfileFromHash);
+        <div class="profile-header">
+          ${imageOrInitials(character, "big-pfp")}
 
-renderQuickRanks();
-renderProfileFromHash();
+          <div>
+            <div class="rank-badge">#${character.rank} • ${character.score}/100</div>
+            <h2 class="name">${character.name}</h2>
+            <div class="meta">${character.title || "Title coming soon"}</div>
+            <div class="meta">Age: ${character.age} • ${character.background}</div>
+            <div class="meta">${character.tier} Tier • ${character.role}</div>
+          </div>
+        </div>
+
+        <p class="description">${character.description}</p>
+
+        <div class="tags">
+          ${character.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+        </div>
+
+        <div class="stats">
+          ${Object.entries(character.stats).map(([name, value]) => createStat(name, value)).join("")}
+        </div>
+      `;
+    }
+
+    searchInput.addEventListener("input", renderCharacters);
+    tierFilter.addEventListener("change", renderCharacters);
+    window.addEventListener("hashchange", renderProfileFromHash);
+
+    renderQuickRanks();
+    renderProfileFromHash();
   </script>
-
 </body>
 </html>
