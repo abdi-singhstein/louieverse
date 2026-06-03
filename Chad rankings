@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Louieverse Chad Ranking</title>
+  <style>
+    body {
+      background: #0b0b12;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 45px;
+    }
+    .tier {
+      margin: 25px 0;
+      padding: 20px;
+      border-radius: 15px;
+      background: #181824;
+    }
+    .tier h2 {
+      color: gold;
+    }
+    .character {
+      padding: 10px;
+      margin: 8px 0;
+      background: #252536;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Louieverse Chad Ranking</h1>
+
+  <div class="tier">
+    <h2>S Tier</h2>
+    <div class="character">1. Louie</div>
+    <div class="character">2. Abdi Singhstein</div>
+    <div class="character">3. Framemogger</div>
+    <div class="character">4. OpryLite</div>
+  </div>
+
+  <div class="tier">
+    <h2>A Tier</h2>
+    <div class="character">5. Goyprince</div>
+    <div class="character">6. Yuvtaj</div>
+    <div class="character">7. Bigblair</div>
+    <div class="character">8. Angelus</div>
+    <div class="character">9. 26</div>
+    <div class="character">10. Fatih</div>
+  </div>
+
+  <div class="tier">
+    <h2>B Tier</h2>
+    <div class="character">11. Bogdan</div>
+    <div class="character">12. NeckPill</div>
+    <div class="character">13. Samdawg</div>
+    <div class="character">14. Rhys</div>
+    <div class="character">15. Jack</div>
+    <div class="character">16. Khaleim</div>
+  </div>
+
+  <div class="tier">
+    <h2>C Tier</h2>
+    <div class="character">17. Fakecel</div>
+    <div class="character">18. Bukoz</div>
+    <div class="character">19. Tracey</div>
+  </div>
+
+  <div class="tier">
+    <h2>D Tier</h2>
+    <div class="character">20. Wetwipe</div>
+  </div>
+
+</body>
+</html>
