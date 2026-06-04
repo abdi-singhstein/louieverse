@@ -490,7 +490,7 @@
   </header>
 
   <section class="topbar">
-    <input id="searchInput" type="text" placeholder="Search characters, lore, roles, tags..." />
+    <input id="searchInput" type="text" placeholder="Search character names..." />
     <select id="tierFilter">
       <option value="all">All tiers</option>
       <option value="S++">S++ Tier</option>
@@ -1000,20 +1000,13 @@
     }
 
     function renderCharacters() {
-      const search = searchInput.value.toLowerCase();
+      const search = searchInput.value.toLowerCase().trim();
       const tier = tierFilter.value;
 
       const filtered = characters.filter(character => {
-        const text = `
-          ${character.name}
-          ${character.title || ""}
-          ${character.background}
-          ${character.role}
-          ${character.description}
-          ${(character.tags || []).join(" ")}
-        `.toLowerCase();
+        const name = character.name.toLowerCase();
 
-        return text.includes(search) && (tier === "all" || character.tier === tier);
+        return name.includes(search) && (tier === "all" || character.tier === tier);
       });
 
       grid.style.display = "grid";
@@ -1024,7 +1017,7 @@
         grid.innerHTML = `
           <div class="method">
             <h2>No characters found</h2>
-            <p>Try a different search or tier filter.</p>
+            <p>Try a different name or tier filter.</p>
           </div>
         `;
         return;
