@@ -873,7 +873,11 @@
     const movementGrid = document.getElementById("movementGrid");
 
     function safeId(character) {
-      return character.id || character.name.toLowerCase().replaceAll(" ", "-");
+      return (character.id || character.name)
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
     }
 
     function getChange(character) {
@@ -1016,6 +1020,16 @@
       movementGrid.style.display = "grid";
       fullProfile.classList.remove("active");
 
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="method">
+            <h2>No characters found</h2>
+            <p>Try a different search or tier filter.</p>
+          </div>
+        `;
+        return;
+      }
+
       grid.innerHTML = filtered.map(character => `
         <a class="profile-card" href="#profile-${safeId(character)}">
           ${imageOrInitials(character, "profile-pfp")}
@@ -1072,11 +1086,11 @@
         <p class="description">${character.description}</p>
 
         <div class="tags">
-          ${character.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+          ${(character.tags || []).map(tag => `<span class="tag">${tag}</span>`).join("")}
         </div>
 
         <div class="stats">
-          ${Object.entries(character.stats).map(([name, value]) => createStat(name, value)).join("")}
+          ${Object.entries(character.stats || {}).map(([name, value]) => createStat(name, value)).join("")}
         </div>
       `;
     }
