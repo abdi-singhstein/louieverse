@@ -160,6 +160,68 @@
 
     .news-body strong { color:var(--gold); }
 
+    .countdown-section {
+      background:rgba(255,255,255,.045);
+      border:1px solid rgba(255,209,102,.35);
+      border-radius:24px;
+      padding:24px 18px;
+      margin-bottom:24px;
+      text-align:center;
+      box-shadow:0 18px 70px rgba(0,0,0,.22);
+    }
+
+    .countdown-label {
+      color:var(--gold);
+      font-weight:900;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-size:.9rem;
+      margin-bottom:16px;
+    }
+
+    .countdown-timer {
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .time-box {
+      background:rgba(7,7,18,.85);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:13px 18px;
+      min-width:72px;
+    }
+
+    .time-box span {
+      display:block;
+      font-size:1.75rem;
+      font-weight:900;
+      color:var(--text);
+    }
+
+    .time-box small {
+      display:block;
+      margin-top:6px;
+      color:var(--muted);
+      font-size:.72rem;
+      text-transform:uppercase;
+    }
+
+    .colon {
+      color:var(--gold);
+      font-weight:900;
+      font-size:1.4rem;
+    }
+
+    .countdown-note {
+      color:var(--muted);
+      margin:14px 0 0;
+      font-size:.88rem;
+    }
+
     .method {
       background:linear-gradient(135deg,rgba(143,92,255,.18),rgba(255,92,122,.10));
       border:1px solid var(--line);
@@ -523,6 +585,15 @@
       .news-body p { font-size:.92rem; }
       .news-placeholder { min-height:190px; }
       .news-image { max-height:300px; }
+
+      .time-box {
+        min-width:60px;
+        padding:11px 12px;
+      }
+
+      .time-box span { font-size:1.35rem; }
+
+      .colon { display:none; }
     }
   </style>
 </head>
@@ -574,11 +645,37 @@
       </div>
     </section>
 
+    <section class="countdown-section">
+      <div class="countdown-label">⏱ Next Rankings Update</div>
+      <div class="countdown-timer">
+        <div class="time-box">
+          <span id="days">00</span>
+          <small>Days</small>
+        </div>
+        <div class="colon">:</div>
+        <div class="time-box">
+          <span id="hours">00</span>
+          <small>Hours</small>
+        </div>
+        <div class="colon">:</div>
+        <div class="time-box">
+          <span id="minutes">00</span>
+          <small>Mins</small>
+        </div>
+        <div class="colon">:</div>
+        <div class="time-box">
+          <span id="seconds">00</span>
+          <small>Secs</small>
+        </div>
+      </div>
+      <p class="countdown-note">Daily rankings refresh at 8PM UK time</p>
+    </section>
+
     <section class="method">
       <h2>Ranking Method</h2>
       <p>
         This ranking is mostly about <strong>lore importance</strong>, not just looks or chad stats.
-        Founders, OG members, major conflict figures, loyal defenders, and characters who changed the
+        Founders, OG members, major conflict figures, loyal defenders, iconic meme templates, and characters who changed the
         timeline rank higher.
       </p>
       <div class="quick-ranks" id="quickRanks"></div>
@@ -607,7 +704,7 @@
         pfp: "images/louie.jpg",
         role: "True Adam / Verse Originator",
         title: "Main protagonist",
-        description: "Louie is the true origin point of the Louieverse, the figure everything secretly or openly revolves around. His importance does not come from one single arc, but from the fact that every major conflict, alliance, meme, rivalry, and ranking eventually connects back to him. He is treated as the True Adam of the timeline because without Louie there is no structure, no mythology, and no reason for the rest of the cast to exist as part of one connected verse. His aura comes from being both the central protagonist and the final reference point for everyone else’s status.",
+        description: "Louie is the true origin point of the Louieverse, the figure everything secretly or openly revolves around. His importance does not come from one single arc, but from the fact that every major conflict, alliance, meme, rivalry, edit, live moment, and ranking eventually connects back to him. He is treated as the True Adam of the timeline because without Louie there is no structure, no mythology, and no reason for the rest of the cast to exist as part of one connected verse. His entertaining gym lives, iconic reactions, favourite-frame status, GTA lifestyle arc, and larger-than-life presence made him the natural centre of the entire system. Even when he is not directly involved in a conflict, the conflict normally exists because of what Louie represents. His aura comes from being both the central protagonist and the final reference point for everyone else’s status.",
         tags: ["True Adam", "Gym Lives", "Final Boss", "GTA Arc", "Favourite Frame"],
         stats: { Chad: 10, Frame: 8, Face: 9, Aura: 10, Intelligence: 7, Meme: 10, Lore: 10, Loyalty: 10 }
       },
@@ -623,7 +720,7 @@
         pfp: "images/oprylite.jpg",
         role: "Founder / AI King",
         title: "The creator of the verse",
-        description: "OPryLite is one of the core founder figures and the technical brain behind much of the Louieverse. Known as the AI king, he is the type of character who builds, edits, plans, exposes, and reshapes the timeline from behind the scenes. His lore is tied to creation, strategy, and digital dominance, making him more than just a normal member. OPryLite’s role is important because he turns random moments into structured lore and helps transform the Louieverse from a group of people into an actual mythology with rankings, arcs, enemies, and eras.",
+        description: "OPryLite is one of the core founder figures and the technical brain behind much of the Louieverse. Known as the AI king, he is the type of character who builds, edits, plans, exposes, organises, and reshapes the timeline from behind the scenes. His lore is tied to creation, strategy, digital dominance, and turning random moments into official canon. He helped transform the Louieverse from a loose group of people into an actual mythology with rankings, arcs, enemies, factions, and eras. His biggest influence comes from being able to spot lore potential early, weaponise AI content, expose key figures, and crush separatist movements such as the BPverse rebellion. OPryLite ranks this high because he is not just a character inside the verse; he is one of the architects of how the verse functions.",
         tags: ["Founder", "AI King", "BPverse Crusher", "Fatih Exposer", "Strategist"],
         stats: { Chad: 8, Frame: 7, Face: 8, Aura: 9, Intelligence: 10, Meme: 10, Lore: 10, Loyalty: 9 }
       },
@@ -639,7 +736,7 @@
         pfp: "images/abdi-singhstein.jpg",
         role: "Lore Architect / Anti-Larp Enforcer",
         title: "The Keeper of Structure",
-        description: "Abdi Singhstein is one of the most active and structurally important members of the Louieverse. His role is not just being present, but actively building, spreading, and defending the lore. He is heavily linked to Yuvtaj lore, AI content, reposts, comment spam, anti-larp enforcement, and keeping the timeline organised. Abdi works almost like the historian and propaganda minister of the verse, turning scattered events into official memory. His high rank comes from consistency, loyalty, influence, and the fact that he helped make several characters more relevant simply by documenting and pushing their arcs.",
+        description: "Abdi Singhstein is one of the most active and structurally important members of the Louieverse. His role is not just being present, but actively building, spreading, defending, and documenting the lore. He is heavily linked to Yuvtaj lore, AI content, reposts, comment spam, chad rankings, anti-larp enforcement, Callum’s Fitness developments, and keeping the timeline organised. Abdi works almost like the historian, propaganda minister, and intelligence officer of the verse, turning scattered events into official memory. His confrontation of Yuvtaj’s larp arc made one of the most important meme-lore storylines in the entire system. He also helped create group images, spread Fatih updates, and push characters into relevance simply by documenting and framing their arcs. His high rank comes from consistency, loyalty, influence, and total lore-building output.",
         tags: ["Legend", "AI User", "Comment Spammer", "Yuvtaj Lore", "Cookie King Repost"],
         stats: { Chad: 9, Frame: 8, Face: 9, Aura: 10, Intelligence: 9, Meme: 10, Lore: 10, Loyalty: 10 }
       },
@@ -655,7 +752,7 @@
         pfp: "images/yuvtaj.jpg",
         role: "BPverse Separatist / Lore-Density Merchant",
         title: "The Failed Challenger",
-        description: "Yuvtaj is one of the most lore-dense and chaotic figures in the entire Louieverse. His importance comes from the BPverse separatist arc, disputed claims, Italian larp accusations, school attendance jokes, barbershop sightings, GCSE CS lore, and his ability to accidentally become central to multiple storylines. Yuvtaj is not ranked this high because of dominance, but because his presence creates conflict, memes, and endless discussion. He works almost like a failed challenger figure: someone who tries to build his own side of the timeline, but ends up becoming one of the Louieverse’s most important meme engines.",
+        description: "Yuvtaj is one of the most lore-dense and chaotic figures in the entire Louieverse. His importance comes from the BPverse separatist arc, disputed age claims, Italian larp accusations, school attendance jokes, barbershop sightings, GCSE Computer Science lore, ancestry contradictions, and his ability to accidentally become central to multiple storylines at once. He is not ranked this high because of dominance or loyalty, but because his presence creates conflict, memes, investigations, faction splits, and endless discussion. His failed BPverse independence movement became one of the defining arcs of the verse, especially after OPryLite crushed it. His 42% attendance debuff, London barbershop sighting by Abdi, wavy-hair identity, and larp accusations make him a constant source of storyline energy. Yuvtaj functions as a failed challenger figure: he tries to build his own side of the timeline, but ends up becoming one of the Louieverse’s most valuable meme engines.",
         tags: ["BPverse", "Italian Larp Arc", "42% Attendance", "Barbershop Sighting", "GCSE CS"],
         stats: { Chad: 5, Frame: 4, Face: 6, Aura: 8, Intelligence: 6, Meme: 10, Lore: 10, Loyalty: 3 }
       },
@@ -668,10 +765,10 @@
         background: "Austrian-Slovenian",
         tier: "S",
         score: 84,
-        pfp: "images/angeloos.jpg",
+        pfp: "images/angelus.jpg",
         role: "Gymmaxxed JordanLite",
         title: "Austrian Titan",
-        description: "Angelus is one of the physically strongest aura characters in the Louieverse, known as a gymmaxxed JordanLite figure. His Austrian-Slovenian background, physique stats, caffeine arc, ex-thinking debuff, and 5'7 big-glasses weakness all make him a very distinct member. Angelus is not the biggest political or strategic figure in the lore, but he has strong OG value, real identity, and enough gym aura to climb above several older figures. His role is that of the disciplined titan: someone whose ranking is carried by physique, visual presence, loyalty, and his connection to the older Louieverse era.",
+        description: "Angelus is one of the physically strongest aura characters in the Louieverse, known as a gymmaxxed JordanLite figure and an older-era OG. His Austrian-Slovenian background, blonde-blue-eyed appearance, strong physique, caffeine arc, gym-cycle questions, ex-thinking debuff, and 5'7 big-glasses weakness all make him a very distinct member. Angelus brings a specific kind of gym-bro chaos to the verse: group chat video spam, emotional side quests about his ex, intense health questions, and risky supplement or chemical ideas that lead to trolling from Abdi. His funniest lore moment came when he was trolled after asking whether his heart would explode from pinning topical minoxidil and GHK-Cu. Angelus rises because he has a clear identity, real OG connection, strong physical aura, and direct links to Tatron and Callum’s Fitness visual lore. He is not the biggest strategist, but he is one of the clearest character archetypes in the verse.",
         tags: ["Gymmaxxed", "JordanLite", "Caffeine Arc", "Ex-Thinking Debuff", "OG"],
         stats: { Chad: 8, Frame: 9, Face: 8, Aura: 8, Intelligence: 6, Meme: 8, Lore: 8, Loyalty: 8 }
       },
@@ -687,7 +784,7 @@
         pfp: "images/framemogger.jpg",
         role: "Founder / Former Viral Hitmaker",
         title: "The Retired Conqueror",
-        description: "Framemogger is an original founder and one of the earliest high-impact figures in the Louieverse. His early presence gave the verse a lot of its first major energy, especially through viral moments, frame-based aura, and his role in the early expansion of the group. However, his later disappearance, Zygomatics alias arc, and outsider information-gathering have damaged his current standing. He remains historically important, but his fall from the active core means he now ranks below the members whose current lore and loyalty are stronger.",
+        description: "Framemogger is an original founder and one of the earliest high-impact figures in the Louieverse. Alongside OPryLite, he helped establish the first version of the verse and gave the early timeline much of its initial energy. His early presence was defined by frame-based aura, viral moments, explosive behaviour, controversy, e-girl side quests, and his role in the early conflict with NeckPill. He was central to the first civil-war style arcs, including the events that pushed NeckPill toward collapse and helped shape the BPverse split. However, Framemogger has fallen from his earlier placement because of his sudden unexplained exit from the Louieverse, his Zygomatics alias arc, and his suspicious attempts to gather information from Abdi about new Fatih and Callum’s Fitness lore. His founder status still gives him huge historical importance, but his loyalty and current activity have taken a major hit.",
         tags: ["Founder", "Frame Blessed", "First Viral Hit", "Zygomatics Arc", "Left the Verse"],
         stats: { Chad: 8, Frame: 9, Face: 8, Aura: 8, Intelligence: 8, Meme: 10, Lore: 9, Loyalty: 3 }
       },
@@ -703,7 +800,7 @@
         pfp: "images/bogdan.jpg",
         role: "Frame-Maxxed OG",
         title: "The Still Standing",
-        description: "Bogdan is one of the classic frame-maxxed OG figures of the Louieverse. His Moldovan background, UK connection, raw milk lore, Callum fitness arc, strength, and physique-based reputation make him a very recognisable character. Bogdan’s role is not built around schemes or constant conflict, but around physical presence and old-era loyalty. He rises because his Callum’s Fitness connection, playground mogging presence, and frame-maxxed reputation make him more central to the current visual lore than before.",
+        description: "Bogdan is one of the classic frame-maxxed OG figures of the Louieverse. His Moldovan background, UK connection, raw milk lore, strength, physique-based reputation, and Callum’s Fitness playground-mogging link make him one of the most recognisable physical-aura characters in the ranking. Bogdan’s role is not built around schemes, betrayal, or constant drama; it is built around presence. He represents the strongman archetype of the verse: less politically central than the founders, but respected because of his frame, gym-adjacent lore, raw-milk aura, and original connection to the group. His rise comes from becoming part of the wider Callum’s Fitness visual mythology, where the tough playground picture became a meme template involving Louie, Angelus, and Bogdan. He is not the loudest character, but his physical identity is extremely clear.",
         tags: ["Frame-Maxxed", "Physique-Maxxed", "Raw Milk", "Callum Fitness Arc", "Strong"],
         stats: { Chad: 8, Frame: 10, Face: 7, Aura: 8, Intelligence: 6, Meme: 7, Lore: 8, Loyalty: 8 }
       },
@@ -719,7 +816,7 @@
         pfp: "images/cieran.jpg",
         role: "Pre-Lore Remnant / Severed Link to Louie’s Past",
         title: "The Truly Over",
-        description: "Itstruly0ver is a pre-lore remnant, meaning his importance comes from being connected to Louie before the Louieverse fully became the Louieverse. He represents the older, half-forgotten era of the timeline: Roblox connections, early friendships, gym sightings, and links to Louie’s past before everything became organised into rankings and arcs. He drops slightly because newer active characters have gained more current relevance, but his historical value is still strong because he proves the Louieverse had roots before anyone realised it was becoming a verse.",
+        description: "Itstruly0ver is a pre-lore remnant, meaning his importance comes from being connected to Louie before the Louieverse fully became the Louieverse. He represents the older, half-forgotten era of the timeline: Roblox connections, early friendships, gym sightings, and links to Louie’s past before everything became organised into rankings and arcs. His decision to cut ties with Louie marked an emotional break between Louie’s private past and the public myth of the Louieverse. Itstruly0ver drops slightly because newer active characters have gained more current relevance, but his historical value is still strong because he proves the Louieverse had roots before anyone realised it was becoming a verse. He is not a modern chaos merchant, but he is one of the strongest origin-linked figures in the system.",
         tags: ["Pre-Lore", "Louie Past", "Roblox Arc", "Gym Sighting", "Origin Figure"],
         stats: { Chad: 6, Frame: 6, Face: 6, Aura: 7, Intelligence: 6, Meme: 7, Lore: 9, Loyalty: 4 }
       },
@@ -735,7 +832,7 @@
         pfp: "",
         role: "Loyal OG / Inner Circle",
         title: "The Ascender",
-        description: "Jack is one of the most loyal OG figures and a major inner-circle character. His importance comes from loyalty rather than controversy. Unlike characters who gain relevance through betrayal, larping, or conflict, Jack’s role is built on consistency, friendship, and staying connected to the core group. He drops slightly only because other characters gained stronger current lore, but his Nottingham background, McDonald’s arc, Brawl Stars lore, and inner-circle status still keep him in the top 10.",
+        description: "Jack is one of the most loyal OG figures and a major inner-circle character. His importance comes from loyalty, consistency, and proximity to Louie rather than controversy. Unlike characters who gain relevance through betrayal, larping, conflict, or exile, Jack’s role is built on staying connected to the core group through multiple arcs. His Nottingham background, McDonald’s grind, test-saving storyline, Brawl Stars in Mumbai joke, and inner-circle status make him feel like a grounded but important character. He drops slightly only because characters like Yuvtaj, Angelus, and Bogdan have gained stronger current lore momentum, but Jack remains firmly top 10 because loyalty is one of the highest-valued traits in the Louieverse ranking system.",
         tags: ["Loyal OG", "Louie Inner Circle", "McDonald's Arc", "Brawl Stars Lore", "Nottingham"],
         stats: { Chad: 7, Frame: 7, Face: 7, Aura: 7, Intelligence: 7, Meme: 8, Lore: 8, Loyalty: 10 }
       },
@@ -751,7 +848,7 @@
         pfp: "images/rhys.jpg",
         role: "The Observer / OG Information Access",
         title: "Angeluslite",
-        description: "Rhys is the observer of the Louieverse, a character whose strength comes from information access rather than direct dominance. His British background, Angeluslite title, OG awareness, BPverse connection, and cross-faction knowledge make him useful because he can see multiple sides of the timeline. Rhys rises into the top 10 because observer status, cross-faction access, and OG relevance are now being valued more heavily than raw activity. He is not the loudest character, but he has rare access and a strong information role.",
+        description: "Rhys is the observer of the Louieverse, a character whose strength comes from information access rather than direct dominance. His British background, Angeluslite title, OG awareness, BPverse connection, and cross-faction knowledge make him valuable because he can see multiple sides of the timeline while staying slightly outside the main chaos. Rhys was one of the rare figures with access to both Louieverse and BPverse spaces during periods of conflict, which gave him a unique observer role that most characters never had. He rises into the top 10 because observer status, faction access, and OG relevance are being valued more heavily than raw activity. He is not the loudest, strongest, or most controversial character, but he has rare informational value and a surprisingly important position in the wider structure.",
         tags: ["Observer", "OG", "Cross-Faction Access", "BPverse", "Information"],
         stats: { Chad: 5, Frame: 5, Face: 5, Aura: 6, Intelligence: 7, Meme: 6, Lore: 8, Access: 9 }
       },
@@ -764,10 +861,10 @@
         background: "Scottish",
         tier: "B+",
         score: 75,
-        pfp: "images/callum.jpg",
+        pfp: "images/callums-fitness.jpg",
         role: "Iconic Pose Template / Playground Mogger",
         title: "The Minecraft Stevemaxxer",
-        description: "Callum's Fitness is a 15-year-old Scottish figure and one of the most iconic visual meme sources in the Louieverse. Known for his square Minecraft Stevemaxxer build and intense tough playground poses, he became a major template character after appearing in the legendary playground photo with the mysterious Indian guy. The image later became even more important when Louie, Angelus, and Bogdan were added into the same iconic pose through AI edits, turning Callum's Fitness into a central visual anchor for modern Louieverse meme culture. His posing style is intense, dramatic, and sometimes described as looking like he is fighting for his life, which only adds to his meme value. He is also connected to many iconic stickers and helped introduce the brown Jaw Mog Companion guy, said to have the best jaw on TikTok. Despite goofy poses being his main weakness, his 74kg physique for his age, meme-template power, and direct connection to Callum’s Fitness lore make him a strong B+ tier character.",
+        description: "Callum's Fitness is a 15-year-old Scottish figure and one of the most iconic visual meme sources in the Louieverse. Known for his square Minecraft Stevemaxxer build and intense tough playground poses, he became a major template character after appearing in the legendary playground photo with the mysterious Indian guy. The image later became even more important when Louie, Angelus, and Bogdan were added into the same iconic pose through AI edits, turning Callum's Fitness into a central visual anchor for modern Louieverse meme culture. His posing style is intense, dramatic, and sometimes looks like he is fighting for his life, which only adds to his meme value. He is also connected to many iconic stickers and helped introduce the brown Jaw Mog Companion guy, who is said to have the best jaw on TikTok. Despite goofy poses being his main weakness, his 74kg physique for his age, meme-template power, and direct connection to Callum’s Fitness lore make him a strong B+ tier character.",
         tags: ["Scottish", "Minecraft Stevemaxxer", "Playground Pose", "Jaw Mog Companion", "Sticker Lore"],
         stats: { Chad: 7, Frame: 8, Face: 6, Aura: 7, Intelligence: 6, Meme: 10, Lore: 8, Physique: 8 }
       },
@@ -783,7 +880,7 @@
         pfp: "images/bigblair.jpg",
         role: "The Scottish Mogger / External Creator Figure",
         title: "The Scottish Mogger",
-        description: "Bigblair is an external creator figure rather than a traditional inner-circle member. His Scottish mogger identity, creator status, following, looksmaxxing connection, and general visibility make him important in a different way from the OGs. He drops because direct Louieverse lore is now being valued more than outside following, but his aura and online presence still give him a powerful place in the wider timeline. Bigblair represents outside influence: someone who may not always be active in the core story, but still carries enough visibility and status to matter.",
+        description: "Bigblair is an external creator figure rather than a traditional inner-circle member. His Scottish mogger identity, creator status, looksmaxxing connection, and huge outside following make him important in a different way from the OGs. He is not ranked because he built the Louieverse directly, but because his aura and online presence gave him a powerful place in the wider timeline. Bigblair drops because direct Louieverse lore is now being valued more than outside reach, and his inactivity holds him back from top-tier status. However, he still matters because visibility is a form of power. He represents outside influence: someone who may not always be active in the core story, but still carries enough status, following, and mogger aura to remain above many lower-lore characters.",
         tags: ["Scottish Mogger", "37k Following", "Creator", "Looksmaxxing", "Inactive"],
         stats: { Chad: 8, Frame: 8, Face: 8, Aura: 8, Intelligence: 7, Meme: 7, Lore: 6, Reach: 10 }
       },
@@ -799,7 +896,7 @@
         pfp: "",
         role: "The Forgotten OG / Forgotten Defender",
         title: "The Forgotten OG",
-        description: "Bukoz is the forgotten OG of the Louieverse, a character whose importance comes from early loyalty and old-guard status rather than constant modern activity. As a Polish defender figure connected to older arcs, Bukoz represents the type of member who was there when the verse was still forming but later became less visible. His lore is quieter than the major founders, but that is part of his identity. He remains above newer and more unstable characters because old-guard status and loyalty still matter.",
+        description: "Bukoz is the forgotten OG of the Louieverse, a character whose importance comes from early loyalty and old-guard status rather than constant modern activity. As a Polish defender figure connected to older arcs, Bukoz represents the type of member who was there when the verse was still forming but later became less visible. His biggest value comes from defending the Louieverse during unstable moments and having enough historical presence to be respected even without constant participation. His lore is quieter than the major founders, but that is part of his identity. He remains above newer and more unstable characters because old-guard status and loyalty still matter in the ranking system. Bukoz is not a loud main character, but he is a respected background defender.",
         tags: ["Forgotten OG", "Polish", "Defender", "Fatih Arc", "Old Guard"],
         stats: { Chad: 5, Frame: 5, Face: 5, Aura: 6, Intelligence: 6, Meme: 6, Lore: 7, Loyalty: 8 }
       },
@@ -815,7 +912,7 @@
         pfp: "images/goyprince.jpg",
         role: "Fatih Downfall Figure / BPverse-Linked Creator",
         title: "The Nobody",
-        description: "Goyprince is one of the strongest modern-era BPverse-linked figures. His Kurdish background, Germany connection, content creation, Fatih downfall role, and rivalry-related lore make him relevant, especially because he contributed to one of the biggest downfall arcs. He drops because his lore is more connected to Fatih and BPverse than the central Louieverse structure, but he still matters through conflict, content, and visibility. He remains a strong mid-tier character rather than a background figure.",
+        description: "Goyprince is one of the strongest modern-era BPverse-linked figures. His Kurdish background, Germany connection, content creation, Fatih downfall role, and rivalry-related lore make him relevant, especially because he contributed to one of the biggest downfall arcs. He gained importance by mogging Fatih in edits and lives, then helping reveal information that caused both Louieverse and BPverse sides to turn against Fatih. He drops because his lore is more connected to Fatih and BPverse than to the central Louieverse structure itself, and he is not one of the most active main-group characters. Still, his conflict value, content value, and role in Fatih’s collapse keep him as a strong mid-tier character rather than a background figure.",
         tags: ["Fatih Downfall", "Content Creator", "BPverse Active", "Mogged Fatih", "Germany"],
         stats: { Chad: 7, Frame: 7, Face: 8, Aura: 7, Intelligence: 7, Meme: 8, Lore: 7, Content: 8 }
       },
@@ -831,7 +928,7 @@
         pfp: "",
         role: "The Merchant King",
         title: "The Casual Observer",
-        description: "shoppers is a newer network-based character known as the Merchant King. His role is less about direct fighting or founder status and more about indirect influence, trade, connections, and background activity. He rises because his active network role and modern relevance give him more value than inactive or collapsed figures below him. shoppers represents the casual operator: not the main character, not the villain, but a useful and potentially rising figure who moves through the timeline through connection rather than brute force.",
+        description: "shoppers is a newer network-based character known as the Merchant King. His role is less about direct fighting, founder status, or major dramatic arcs, and more about indirect influence, trade, connections, and background activity. He moves through the timeline through networking rather than brute force. shoppers rises because his active network role and modern relevance give him more value than inactive or collapsed figures below him. He is not the main character, not the villain, and not an OG founder, but he is useful because he represents the casual operator archetype. The Merchant King role makes him feel like someone who knows people, trades access, and quietly stays connected to multiple parts of the verse.",
         tags: ["Merchant King", "Newgen", "Network", "Trade", "Active"],
         stats: { Chad: 5, Frame: 5, Face: 5, Aura: 6, Intelligence: 7, Meme: 7, Lore: 6, Network: 8 }
       },
@@ -847,7 +944,7 @@
         pfp: "images/khaleim.jpg",
         role: "The Newgen Prince",
         title: "Louie’s Predecessor",
-        description: "Khaleim is a newgen prince figure with a cleaner and more open-ended arc than many of the older characters. His lore is tied to being a newer generation member, leaving BPverse group chat spaces, and having strong potential without being fully consumed by the older conflicts. Khaleim’s importance comes from future possibility rather than completed history. He remains steady because he has potential, but still needs more active lore before he can climb above the more proven characters.",
+        description: "Khaleim is a newgen prince figure with a cleaner and more open-ended arc than many of the older characters. His lore is tied to being part of the newer generation, being picked on by Yuvtaj, leaving BPverse group chat spaces, and having strong potential without being fully consumed by older conflicts. Khaleim’s importance comes from future possibility rather than completed history. He represents the next wave of Louieverse characters: not yet a founder, main villain, or major conflict winner, but someone who could rise if he stays active and builds more lore. He remains steady because he has potential, good reception, and a clean-slate identity, but still needs more direct group-chat impact before climbing above more proven figures.",
         tags: ["Newgen Prince", "Romani-Indian", "Clean Slate", "Left BPverse GC", "Potential"],
         stats: { Chad: 6, Frame: 6, Face: 7, Aura: 7, Intelligence: 7, Meme: 6, Lore: 6, Potential: 9 }
       },
@@ -863,7 +960,7 @@
         pfp: "images/fakecel.jpg",
         role: "BPverse Defector",
         title: "The Dark Chancellor",
-        description: "Fakecel is a BPverse defector and one of the stranger cross-border digital origin characters. His Greek identity, Turkey account creation lore, BPverse connection, frame-mogging claims, banned DM arc, and loyalty issues all give him a chaotic reputation. Fakecel’s importance comes from contradiction: he is partly an enemy-side figure, partly a defector, and partly a meme character. He stays in this range because he has aura and controversy, but his unstable loyalty stops him from ranking higher.",
+        description: "Fakecel is a BPverse defector and one of the stranger cross-border digital origin characters. His Greek identity, Turkey account creation lore, BPverse connection, frame-mogging claims, banned-DM arc, and loyalty issues all give him a chaotic reputation. Despite the Fakecel name, he has decent physique and phenotype stats, plus enough aura to frame-mog Fatih on his story. His biggest issue is loyalty: he left the Louieverse, joined BPverse, and became associated with glazing Yuvtaj. His repeated banned-DMs arc adds strong meme value but also makes him unstable as a long-term member. Fakecel stays in this range because he has aura and controversy, but his defector status prevents him from ranking among the trusted core.",
         tags: ["Defector", "Greek Pheno", "Frame-Mogged Fatih", "BPverse", "Banned DMs"],
         stats: { Chad: 7, Frame: 8, Face: 7, Aura: 6, Intelligence: 6, Meme: 8, Lore: 7, Loyalty: 2 }
       },
@@ -879,7 +976,7 @@
         pfp: "images/flosic.jpg",
         role: "Omitted Bystander / Morphing Fraud Arc",
         title: "The Omitted Bystander",
-        description: "Flosic is a Czech member who joined the verse around the same era as Yuvtaj, but was pushed out of the main Louieverse timeline due to Framemogger having a burning hatred against him. This resulted in his omission from the core structure, leaving him as a bystander rather than a central participant. Known for sticker spam and constantly getting kicked, Flosic became one of the more unstable side figures in the wider lore. His morphing fraud arc and rare Fatih Snapchat call feat give him enough meme and lore value to rise slightly, even though his omission keeps him low overall.",
+        description: "Flosic is a Czech member who joined the verse around the same era as Yuvtaj, but was pushed out of the main Louieverse timeline due to Framemogger having a burning hatred against him. This resulted in his omission from the core structure, leaving him as a bystander rather than a central participant. Known for sticker spam and constantly getting kicked, Flosic became one of the more unstable side figures in the wider lore. His funniest arc came when he sent a picture claiming it was a morph of himself, only for his real face to later be exposed during a Snapchat call, revealing that the picture he sent was actually someone else. Despite the morphing fraud debuff, Flosic still has a rare feat: being one of the only people, alongside Bukoz, to get on a Snapchat call with Fatih. This gives him unusual Fatih-contact lore and enough meme value to rise slightly.",
         tags: ["Czech", "Omitted", "Morphing Fraud", "Sticker Spam", "Fatih Snapchat Call"],
         stats: { Chad: 4, Frame: 4, Face: 4, Aura: 5, Intelligence: 5, Meme: 8, Lore: 6, Fraud: 9 }
       },
@@ -895,7 +992,7 @@
         pfp: "",
         role: "Modern Era Ascender",
         title: "Prince Of York",
-        description: "wetwipe is a modern-era ascender and one of the newer characters with potential, but his rank drops sharply because the new ordering values direct lore, OG links, and iconic meme templates more heavily than pure momentum. His York background, gym connection, Opry escape lore, and rising status still matter, but he has not yet developed enough completed lore to stay above more established figures. He remains a potential-based character who could climb again if his arc becomes more central.",
+        description: "wetwipe is a modern-era ascender and one of the newer characters with potential. His York background, gym connection, ascending ideology, Opry escape lore, and rising status make him feel like a character who is still developing rather than already fully written. His strongest canon moment is the Opry Escape Incident, where he helped OPryLite safely flee during a chaotic attack involving Louie’s sister, which connected him directly to protecting the Architect Founder. However, his rank drops sharply because the current ordering values direct lore, OG links, and iconic meme templates more heavily than pure momentum. wetwipe still has potential, but he has not yet developed enough completed lore to stay above more established figures. He remains a potential-based character who could climb again if his arc becomes more central.",
         tags: ["Modern Era", "Opry Escape", "Gym", "Ascending", "York"],
         stats: { Chad: 7, Frame: 7, Face: 6, Aura: 6, Intelligence: 7, Meme: 7, Lore: 5, Potential: 9 }
       },
@@ -911,7 +1008,7 @@
         pfp: "images/neckpill.jpg",
         role: "Fractured Optimizer / Failed Challenger",
         title: "The Victim",
-        description: "NeckPill is a fractured optimizer and one of the more intense fallen challenger figures in the Louieverse. His arc is built around self-improvement, discipline, ideological intensity, containment conflict, DM bans, and eventual decline in loyalty. He drops because his story is mostly a failed challenge and post-conflict collapse rather than current relevance. His intelligence and meme value keep him above the lowest tier, but his low loyalty and defeated arc stop him from ranking higher.",
+        description: "NeckPill is a fractured optimizer and one of the more intense fallen challenger figures in the Louieverse. His arc is built around self-improvement, discipline, ideological intensity, containment conflict, DM bans, and eventual decline in loyalty. At one point, he represented a serious ideological challenge to the founding structure led by OPryLite and Framemogger. However, the challenge failed, his influence collapsed, and he was pushed away from the central flow of the verse. His face-leak fallout, repeated DM bans, and failed attempts to rally support left him as a defeated optimizer figure. He drops because his story is mostly a failed challenge and post-conflict collapse rather than current relevance. His intelligence and meme value keep him above the lowest tier, but his low loyalty and defeated arc stop him from ranking higher.",
         tags: ["Optimizer", "Containment Conflict", "Failed Challenger", "DM Bans", "Fallen Ideologue"],
         stats: { Chad: 6, Frame: 6, Face: 5, Aura: 6, Intelligence: 8, Meme: 8, Lore: 7, Loyalty: 2 }
       },
@@ -927,7 +1024,7 @@
         pfp: "",
         role: "The Fool Prophet",
         title: "The Background Clown",
-        description: "Jestercel is a chaotic newgen figure known as the Fool Prophet. His value comes from absurdity, unpredictability, Goatis reposts, primal energy, and background clown status. He is not one of the most powerful characters in the serious lore, but his meme score is high because he adds randomness and comic relief to the timeline. Jestercel remains above the lowest characters because of meme value, but he lacks enough hard lore to move higher.",
+        description: "Jestercel is a chaotic newgen figure known as the Fool Prophet. His value comes from absurdity, unpredictability, Goatis reposts, primal enthusiast energy, and background clown status. On the surface, he appears unserious and random, but part of his aura comes from occasionally saying things that later seem weirdly aligned with real events. This gives him a dual identity: either a pure joke character or an accidental prophet who stumbles into truth. He is not one of the most powerful characters in the serious lore, but his meme score is high because he adds randomness and comic relief to the timeline. Jestercel remains above the lowest characters because of meme value, but he lacks enough hard lore to move higher.",
         tags: ["Fool Prophet", "Newgen", "Goatis Reposts", "Primal", "Chaotic"],
         stats: { Chad: 5, Frame: 5, Face: 5, Aura: 7, Intelligence: 6, Meme: 9, Lore: 5, Prophecy: 8 }
       },
@@ -943,7 +1040,7 @@
         pfp: "images/tatron.jpg",
         role: "Newest Member / Angelus IRL Link",
         title: "The Estonian Newgen",
-        description: "Tatron is a 17-year-old Estonian newgen and one of the newest additions to the Louieverse. His current lore is still limited, but he has immediate relevance through being an IRL friend of Angelus, giving him a direct connection to an established OG member. Tatron is also known as a Tom Pearl enthusiast and for attempting to take Rhys’s iconic mini-villain Dillon Latham profile picture, creating a small identity-theft style side arc. He stays above the exiled villains because he is a clean newgen with potential rather than a collapsed controversy figure.",
+        description: "Tatron is a 17-year-old Estonian newgen and one of the newest additions to the Louieverse. His current lore is still limited, but he has immediate relevance through being an IRL friend of Angelus, giving him a direct connection to an established OG member. Tatron is also known as a Tom Pearl enthusiast and for attempting to take Rhys’s iconic mini-villain Dillon Latham profile picture, creating a small identity-theft style side arc. His social lore includes turning down an 8/10, which caused girls in his area to question his sexuality and added a strange aura twist to his early character. He stays above the exiled villains because he is a clean newgen with potential rather than a collapsed controversy figure. For now, he is low because he has little real group-chat lore, but his Angelus link gives him future relevance.",
         tags: ["Estonian", "Newest Member", "Angelus IRL Friend", "Tom Pearl", "Mini Villain PFP Arc"],
         stats: { Chad: 5, Frame: 5, Face: 6, Aura: 5, Intelligence: 6, Meme: 6, Lore: 4, Potential: 7 }
       },
@@ -959,7 +1056,7 @@
         pfp: "images/fatih.jpg",
         role: "Exiled Controversy Character",
         title: "The Exiled Villain",
-        description: "Fatih is one of the major exiled controversy figures of the wider timeline. His Turkish-Germany background, TikTok live presence, ragebait reputation, rivalry with Goyprince, and downfall-related arcs make him an important villain-style character. In the lore, Fatih is not ranked highly because of respect or loyalty, but because controversy creates relevance. He drops near the bottom because his role is defined by exile, downfall, and being reacted against rather than positive contribution to the core verse.",
+        description: "Fatih is one of the major exiled controversy figures of the wider timeline. His Turkish-Germany background, TikTok live presence, ragebait reputation, rivalry with Goyprince, and downfall-related arcs make him an important villain-style character. He was once part of the wider verse ecosystem, but after being exposed and turning into a major controversy figure, he became effectively omitted from the main Louieverse structure. His rivalry with Goyprince, mog-off losses, and the way both Louieverse and BPverse turned against him give him lore value, but not positive status. In the ranking, Fatih is not high because of respect or loyalty; he matters because controversy creates relevance. He drops near the bottom because his role is defined by exile, downfall, and being reacted against rather than adding positive value to the core verse.",
         tags: ["Exiled", "Ragebaiter", "TikTok Lives", "Goyprince Rivalry", "Controversy Arc"],
         stats: { Chad: 3, Frame: 4, Face: 3, Aura: 5, Intelligence: 3, Meme: 8, Lore: 7, Loyalty: 1 }
       },
@@ -975,7 +1072,7 @@
         pfp: "",
         role: "Exiled Villain / BPverse Burden",
         title: "The Exiled Number",
-        description: "26 is one of the most mysterious exile figures in the Louieverse. Unlike other characters, his identity is defined more by number, removal, mystery, and burden status than by normal personality traits. This gives him a strange background-villain energy, as if he is remembered more for the shadow he left behind than for clear achievements. 26 ranks last because mystery alone is not enough to beat characters with active lore, meme value, OG links, or clean newgen potential.",
+        description: "26 is one of the most mysterious exile figures in the Louieverse. Unlike other characters, his identity is defined more by number, removal, mystery, and burden status than by normal personality traits. This gives him a strange background-villain energy, as if he is remembered more for the shadow he left behind than for clear achievements. His presence remains controversial because even after being rejected by the main structure, Yuvtaj continued keeping him around inside the BPverse despite opposition. 26 ranks last because mystery alone is not enough to beat characters with active lore, meme value, OG links, clean newgen potential, or positive contribution. He still matters as an obscure exile figure, but his actual value is mostly as a warning sign inside the wider verse.",
         tags: ["Mystery", "Exiled", "BPverse Burden", "Villain", "Controversy"],
         stats: { Chad: 2, Frame: 3, Face: 3, Aura: 5, Intelligence: 4, Meme: 6, Lore: 5, Mystery: 8 }
       }
@@ -1203,6 +1300,33 @@
       `;
     }
 
+    function updateCountdown() {
+      const now = new Date();
+
+      const ukNow = new Date(
+        now.toLocaleString("en-US", { timeZone: "Europe/London" })
+      );
+
+      let target = new Date(ukNow);
+      target.setHours(20, 0, 0, 0);
+
+      if (ukNow >= target) {
+        target.setDate(target.getDate() + 1);
+      }
+
+      const diff = target - ukNow;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("days").textContent = String(days).padStart(2, "0");
+      document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+      document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+      document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+    }
+
     searchInput.addEventListener("input", renderCharacters);
     tierFilter.addEventListener("change", renderCharacters);
     window.addEventListener("hashchange", renderProfileFromHash);
@@ -1210,6 +1334,8 @@
     renderQuickRanks();
     renderMovements();
     renderProfileFromHash();
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
