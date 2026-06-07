@@ -1,1841 +1,2189 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Louieverse Rankings</title>
-
-  <style>
-    :root {
-      --bg:#070712;
-      --card:#151528;
-      --card2:#20203a;
-      --text:#f7f4ff;
-      --muted:#bcb6d4;
-      --gold:#ffd166;
-      --red:#ff5c7a;
-      --green:#55e6a5;
-      --line:rgba(255,255,255,.13);
-    }
-
-    * { box-sizing:border-box; }
-
-    html { scroll-behavior:smooth; }
-
-    body {
-      margin:0;
-      font-family:Arial, Helvetica, sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at top left,rgba(143,92,255,.25),transparent 35%),
-        radial-gradient(circle at top right,rgba(255,92,122,.16),transparent 30%),
-        var(--bg);
-    }
-
-    header {
-      text-align:center;
-      padding:44px 18px 24px;
-      border-bottom:1px solid var(--line);
-    }
-
-    h1 {
-      margin:0;
-      font-size:clamp(2.5rem,8vw,5.7rem);
-      letter-spacing:-.08em;
-      text-transform:uppercase;
-      line-height:.95;
-    }
-
-    .topbar {
-      position:sticky;
-      top:0;
-      z-index:20;
-      display:flex;
-      gap:12px;
-      justify-content:center;
-      flex-wrap:wrap;
-      padding:15px;
-      background:rgba(7,7,18,.86);
-      backdrop-filter:blur(14px);
-      border-bottom:1px solid var(--line);
-    }
-
-    input, select, button {
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.07);
-      color:var(--text);
-      padding:12px 14px;
-      border-radius:13px;
-      font-size:.95rem;
-      outline:none;
-    }
-
-    input { width:min(450px,90vw); }
-    select { cursor:pointer; }
-    option { background:#11111e; color:white; }
-
-    button {
-      cursor:pointer;
-      font-weight:900;
-      background:var(--gold);
-      color:#111;
-      border:none;
-    }
-
-    main {
-      width:min(1220px,calc(100% - 24px));
-      margin:28px auto 70px;
-    }
-
-    .news-section, .countdown-section, .compare-section, .archive-section, .article-page {
-      border-radius:24px;
-      margin-bottom:24px;
-      box-shadow:0 18px 70px rgba(0,0,0,.22);
-    }
-
-    .news-section, .article-page {
-      background:linear-gradient(135deg,rgba(255,92,122,.16),rgba(255,209,102,.08));
-      border:1px solid rgba(255,92,122,.35);
-      overflow:hidden;
-    }
-
-    .news-header {
-      text-align:center;
-      padding:18px 16px 14px;
-      background:rgba(255,92,122,.12);
-      border-bottom:1px solid var(--line);
-    }
-
-    .news-label {
-      color:var(--red);
-      font-weight:900;
-      letter-spacing:.12em;
-      font-size:.8rem;
-      text-transform:uppercase;
-      margin-bottom:8px;
-    }
-
-    .news-title {
-      margin:0;
-      font-size:clamp(1.35rem,4vw,2rem);
-      color:var(--text);
-      letter-spacing:-.04em;
-    }
-
-    .news-date {
-      margin-top:8px;
-      color:var(--muted);
-      font-size:.88rem;
-      font-weight:800;
-    }
-
-    .news-image-wrap {
-      width:100%;
-      background:rgba(0,0,0,.25);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .news-image {
-      width:100%;
-      max-height:430px;
-      object-fit:cover;
-      display:block;
-    }
-
-    .article-page .news-image {
-      max-height:560px;
-    }
-
-    .news-placeholder {
-      width:100%;
-      min-height:260px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--muted);
-      font-weight:900;
-      border-top:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-    }
-
-    .news-body {
-      padding:22px;
-    }
-
-    .news-body p {
-      margin:0 0 14px;
-      color:var(--text);
-      line-height:1.7;
-      font-weight:800;
-      font-size:1rem;
-    }
-
-    .news-body p:last-child { margin-bottom:0; }
-    .news-body strong { color:var(--gold); }
-
-    .back-button, .profile-back-button {
-      display:inline-block;
-      color:var(--gold);
-      text-decoration:none;
-      font-weight:900;
-    }
-
-    .back-button { margin:18px 22px 0; }
-    .profile-back-button { margin-bottom:18px; }
-
-    .archive-section {
-      background:rgba(255,255,255,.045);
-      border:1px solid var(--line);
-      padding:18px;
-    }
-
-    .archive-section h2 {
-      margin:0 0 12px;
-      color:var(--gold);
-      letter-spacing:-.03em;
-    }
-
-    .archive-list {
-      display:grid;
-      gap:10px;
-    }
-
-    .archive-item {
-      display:block;
-      text-decoration:none;
-      color:var(--text);
-      border:1px solid var(--line);
-      background:rgba(0,0,0,.18);
-      border-radius:16px;
-      padding:14px;
-      transition:transform .15s ease,border-color .15s ease;
-    }
-
-    .archive-item:hover {
-      transform:translateY(-2px);
-      border-color:var(--gold);
-    }
-
-    .archive-item strong {
-      display:block;
-      color:var(--text);
-      margin-bottom:5px;
-    }
-
-    .archive-item span {
-      color:var(--muted);
-      font-size:.87rem;
-    }
-
-    .countdown-section {
-      background:rgba(255,255,255,.045);
-      border:1px solid rgba(255,209,102,.35);
-      padding:24px 18px;
-      text-align:center;
-    }
-
-    .countdown-label {
-      color:var(--gold);
-      font-weight:900;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      font-size:.9rem;
-      margin-bottom:16px;
-    }
-
-    .countdown-timer {
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .time-box {
-      background:rgba(7,7,18,.85);
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:13px 18px;
-      min-width:72px;
-    }
-
-    .time-box span {
-      display:block;
-      font-size:1.75rem;
-      font-weight:900;
-      color:var(--text);
-    }
-
-    .time-box small {
-      display:block;
-      margin-top:6px;
-      color:var(--muted);
-      font-size:.72rem;
-      text-transform:uppercase;
-    }
-
-    .colon {
-      color:var(--gold);
-      font-weight:900;
-      font-size:1.4rem;
-    }
-
-    .countdown-note {
-      color:var(--muted);
-      margin:14px 0 0;
-      font-size:.88rem;
-    }
-
-    .compare-section {
-      background:linear-gradient(135deg,rgba(143,92,255,.18),rgba(255,92,122,.10));
-      border:1px solid var(--line);
-      overflow:hidden;
-    }
-
-    .compare-toggle {
-      width:100%;
-      padding:18px 20px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      cursor:pointer;
-      user-select:none;
-    }
-
-    .compare-toggle h2 {
-      margin:0;
-      color:var(--gold);
-      letter-spacing:-.03em;
-    }
-
-    .compare-toggle span {
-      color:var(--muted);
-      font-weight:900;
-    }
-
-    .compare-content {
-      display:none;
-      padding:0 20px 20px;
-      border-top:1px solid var(--line);
-    }
-
-    .compare-section.open .compare-content {
-      display:block;
-    }
-
-    .compare-content p {
-      margin:16px 0 0;
-      color:var(--muted);
-      line-height:1.6;
-    }
-
-    .compare-controls {
-      display:grid;
-      grid-template-columns:1fr 1fr auto;
-      gap:12px;
-      margin-top:16px;
-    }
-
-    .compare-result {
-      margin-top:18px;
-      display:none;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:16px;
-    }
-
-    .compare-result.active {
-      display:grid;
-    }
-
-    .compare-card {
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:rgba(0,0,0,.20);
-      padding:16px;
-    }
-
-    .compare-card h3 {
-      margin:0 0 10px;
-      color:var(--gold);
-      font-size:1.25rem;
-    }
-
-    .compare-row {
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      padding:8px 0;
-      border-bottom:1px solid rgba(255,255,255,.08);
-      color:var(--muted);
-    }
-
-    .compare-row strong { color:var(--text); }
-
-    .winner-box {
-      grid-column:1/-1;
-      border:1px solid rgba(255,209,102,.35);
-      border-radius:18px;
-      padding:16px;
-      background:rgba(255,209,102,.08);
-      text-align:center;
-      font-weight:900;
-      color:var(--gold);
-    }
-
-    .movement-grid {
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:16px;
-      margin-bottom:24px;
-    }
-
-    .movement-box {
-      border:1px solid var(--line);
-      border-radius:22px;
-      padding:18px;
-      background:linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.025));
-      box-shadow:0 14px 45px rgba(0,0,0,.20);
-    }
-
-    .movement-box.risers {
-      border-color:rgba(85,230,165,.25);
-      background:linear-gradient(135deg,rgba(85,230,165,.08),rgba(255,255,255,.025));
-    }
-
-    .movement-box.drops {
-      border-color:rgba(255,92,122,.25);
-      background:linear-gradient(135deg,rgba(255,92,122,.08),rgba(255,255,255,.025));
-    }
-
-    .movement-title {
-      font-weight:900;
-      margin-bottom:14px;
-      color:var(--gold);
-    }
-
-    .movement-box.risers .movement-title { color:var(--green); }
-    .movement-box.drops .movement-title { color:var(--red); }
-
-    .movement-item {
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:10px 0;
-    }
-
-    .movement-rank {
-      color:#8290b6;
-      font-weight:900;
-      width:42px;
-      flex-shrink:0;
-    }
-
-    .movement-name {
-      font-weight:900;
-      flex:1;
-      min-width:0;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .change-badge {
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width:48px;
-      border-radius:999px;
-      padding:6px 9px;
-      font-weight:900;
-      font-size:.82rem;
-      white-space:nowrap;
-    }
-
-    .change-up {
-      color:var(--green);
-      background:rgba(85,230,165,.13);
-    }
-
-    .change-down {
-      color:var(--red);
-      background:rgba(255,92,122,.13);
-    }
-
-    .change-same {
-      color:var(--muted);
-      background:rgba(255,255,255,.08);
-    }
-
-    .profile-list {
-      display:grid;
-      gap:14px;
-    }
-
-    .profile-card {
-      display:flex;
-      align-items:center;
-      gap:14px;
-      text-decoration:none;
-      color:var(--text);
-      background:linear-gradient(135deg,var(--card2),var(--card));
-      border:1px solid var(--line);
-      border-radius:22px;
-      padding:14px;
-      box-shadow:0 14px 45px rgba(0,0,0,.22);
-      transition:transform .15s ease,border-color .15s ease;
-    }
-
-    .profile-card:hover {
-      transform:translateY(-2px);
-      border-color:var(--gold);
-    }
-
-    .profile-pfp, .big-pfp {
-      border-radius:50%;
-      object-fit:cover;
-      border:2px solid rgba(255,255,255,.16);
-      background:rgba(255,255,255,.08);
-      flex-shrink:0;
-    }
-
-    .profile-pfp {
-      width:58px;
-      height:58px;
-    }
-
-    .profile-info {
-      flex:1;
-      min-width:0;
-    }
-
-    .profile-name {
-      font-size:1.25rem;
-      font-weight:900;
-      margin-bottom:4px;
-      letter-spacing:-.03em;
-    }
-
-    .profile-role {
-      color:var(--muted);
-      font-size:.9rem;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .badge-row {
-      display:flex;
-      flex-wrap:wrap;
-      gap:6px;
-      margin-top:8px;
-    }
-
-    .badge {
-      display:inline-flex;
-      align-items:center;
-      border-radius:999px;
-      padding:5px 8px;
-      font-size:.68rem;
-      font-weight:900;
-      letter-spacing:.04em;
-      text-transform:uppercase;
-      border:1px solid rgba(255,255,255,.13);
-      background:rgba(255,255,255,.07);
-      color:var(--text);
-    }
-
-    .badge-founder { color:var(--gold); background:rgba(255,209,102,.12); }
-    .badge-og { color:#9ad8ff; background:rgba(90,180,255,.12); }
-    .badge-newgen { color:var(--green); background:rgba(85,230,165,.12); }
-    .badge-villain { color:var(--red); background:rgba(255,92,122,.12); }
-    .badge-bpverse { color:#d9b8ff; background:rgba(143,92,255,.14); }
-    .badge-gym { color:#a8ffcf; background:rgba(85,230,165,.10); }
-    .badge-exiled { color:#ff9cae; background:rgba(255,92,122,.10); }
-    .badge-observer { color:#cbd5ff; background:rgba(130,144,182,.15); }
-
-    .profile-side {
-      display:flex;
-      flex-direction:column;
-      gap:7px;
-      align-items:flex-end;
-    }
-
-    .profile-rating {
-      font-weight:900;
-      color:#121212;
-      background:var(--gold);
-      border-radius:999px;
-      padding:8px 11px;
-      white-space:nowrap;
-    }
-
-    .full-profile {
-      display:none;
-      background:linear-gradient(135deg,var(--card2),var(--card));
-      border:1px solid var(--line);
-      border-radius:26px;
-      padding:22px;
-      box-shadow:0 18px 70px rgba(0,0,0,.26);
-    }
-
-    .full-profile.active { display:block; }
-
-    .profile-header {
-      display:flex;
-      gap:18px;
-      align-items:center;
-      margin-bottom:18px;
-    }
-
-    .big-pfp {
-      width:105px;
-      height:105px;
-      border-width:3px;
-    }
-
-    .rank-badge {
-      display:inline-block;
-      background:var(--gold);
-      color:#121212;
-      font-weight:900;
-      padding:10px 14px;
-      border-radius:999px;
-      font-size:.9rem;
-      margin-bottom:8px;
-    }
-
-    .name {
-      font-size:clamp(1.8rem,5vw,3.05rem);
-      margin:6px 0 8px;
-      letter-spacing:-.055em;
-    }
-
-    .meta {
-      color:var(--gold);
-      font-weight:bold;
-      margin-bottom:7px;
-      line-height:1.4;
-    }
-
-    .description {
-      color:var(--muted);
-      line-height:1.65;
-      font-size:1rem;
-      margin-bottom:0;
-    }
-
-    .tags {
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin:16px 0;
-    }
-
-    .tag {
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.06);
-      color:var(--text);
-      border-radius:999px;
-      padding:7px 10px;
-      font-size:.82rem;
-    }
-
-    .history-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
-      gap:10px;
-      margin:16px 0;
-    }
-
-    .history-box {
-      background:rgba(0,0,0,.22);
-      border:1px solid var(--line);
-      border-radius:15px;
-      padding:12px;
-    }
-
-    .history-box span {
-      display:block;
-      color:var(--muted);
-      font-size:.78rem;
-      text-transform:uppercase;
-      margin-bottom:5px;
-    }
-
-    .history-box strong {
-      font-size:1.25rem;
-      color:var(--text);
-    }
-
-    .stats {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(205px,1fr));
-      gap:10px;
-      margin-top:16px;
-    }
-
-    .stat {
-      background:rgba(0,0,0,.20);
-      border:1px solid var(--line);
-      border-radius:15px;
-      padding:10px;
-    }
-
-    .stat-row {
-      display:flex;
-      justify-content:space-between;
-      margin-bottom:7px;
-      color:var(--muted);
-      font-size:.88rem;
-    }
-
-    .stat-row strong { color:var(--text); }
-
-    .bar {
-      height:8px;
-      border-radius:999px;
-      background:rgba(255,255,255,.09);
-      overflow:hidden;
-    }
-
-    .fill {
-      height:100%;
-      width:var(--value);
-      background:linear-gradient(90deg,var(--red),var(--gold),var(--green));
-      border-radius:999px;
-    }
-
-    .footer {
-      text-align:center;
-      color:var(--muted);
-      margin-top:30px;
-      font-size:.9rem;
-      line-height:1.5;
-    }
-
-    @media (max-width:650px) {
-      header { padding-top:34px; }
-      .movement-grid, .compare-result { grid-template-columns:1fr; }
-      .compare-controls { grid-template-columns:1fr; }
-
-      .profile-card {
-        padding:12px;
-        gap:11px;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Louieverse Rankings</title>
+
+    <style>
+      :root {
+        --bg: #070712;
+        --card: #151528;
+        --card2: #20203a;
+        --text: #f7f4ff;
+        --muted: #bcb6d4;
+        --gold: #ffd166;
+        --red: #ff5c7a;
+        --green: #55e6a5;
+        --line: rgba(255, 255, 255, 0.13);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(143, 92, 255, 0.25),
+            transparent 35%
+          ),
+          radial-gradient(
+            circle at top right,
+            rgba(255, 92, 122, 0.16),
+            transparent 30%
+          ),
+          var(--bg);
+      }
+      header {
+        text-align: center;
+        padding: 44px 18px 24px;
+        border-bottom: 1px solid var(--line);
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(2.5rem, 8vw, 5.7rem);
+        letter-spacing: -0.08em;
+        text-transform: uppercase;
+        line-height: 0.95;
+      }
+      main {
+        width: min(1220px, calc(100% - 24px));
+        margin: 28px auto 70px;
+      }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 15px;
+        background: rgba(7, 7, 18, 0.86);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--line);
+      }
+      input,
+      select,
+      button {
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.07);
+        color: var(--text);
+        padding: 12px 14px;
+        border-radius: 13px;
+        font-size: 0.95rem;
+        outline: none;
+      }
+      input {
+        width: min(450px, 90vw);
+      }
+      select {
+        cursor: pointer;
+      }
+      option {
+        background: #11111e;
+        color: #fff;
+      }
+      button {
+        cursor: pointer;
+        font-weight: 900;
+        background: var(--gold);
+        color: #111;
+        border: none;
       }
 
-      .profile-pfp {
-        width:52px;
-        height:52px;
+      .news-section,
+      .countdown-section,
+      .compare-section,
+      .archive-section,
+      .article-page,
+      .movement-box,
+      .full-profile {
+        border-radius: 24px;
+        margin-bottom: 24px;
+        box-shadow: 0 18px 70px rgba(0, 0, 0, 0.22);
+      }
+      .news-section,
+      .article-page {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 92, 122, 0.16),
+          rgba(255, 209, 102, 0.08)
+        );
+        border: 1px solid rgba(255, 92, 122, 0.35);
+        overflow: hidden;
+      }
+      .news-header {
+        text-align: center;
+        padding: 18px 16px 14px;
+        background: rgba(255, 92, 122, 0.12);
+        border-bottom: 1px solid var(--line);
+      }
+      .news-label {
+        color: var(--red);
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .news-title {
+        margin: 0;
+        font-size: clamp(1.35rem, 4vw, 2rem);
+        letter-spacing: -0.04em;
+      }
+      .news-date {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 0.88rem;
+        font-weight: 800;
+      }
+      .news-image-wrap {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .news-image {
+        width: 100%;
+        max-height: 430px;
+        object-fit: cover;
+        display: block;
+      }
+      .article-page .news-image {
+        max-height: 560px;
+      }
+      .news-placeholder {
+        width: 100%;
+        min-height: 240px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted);
+        font-weight: 900;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+      .news-body {
+        padding: 22px;
+      }
+      .news-body p {
+        margin: 0 0 14px;
+        color: var(--text);
+        line-height: 1.7;
+        font-weight: 800;
+        font-size: 1rem;
+      }
+      .news-body p:last-child {
+        margin-bottom: 0;
+      }
+      .news-body strong {
+        color: var(--gold);
       }
 
-      .profile-name { font-size:1.05rem; }
-
-      .profile-rating {
-        font-size:.85rem;
-        padding:7px 9px;
+      .archive-section,
+      .countdown-section {
+        background: rgba(255, 255, 255, 0.045);
+        border: 1px solid var(--line);
+        padding: 18px;
+      }
+      .archive-section h2 {
+        margin: 0 0 12px;
+        color: var(--gold);
+        letter-spacing: -0.03em;
+      }
+      .archive-list {
+        display: grid;
+        gap: 10px;
+      }
+      .archive-item {
+        display: block;
+        text-decoration: none;
+        color: var(--text);
+        border: 1px solid var(--line);
+        background: rgba(0, 0, 0, 0.18);
+        border-radius: 16px;
+        padding: 14px;
+        transition: 0.15s;
+      }
+      .archive-item:hover {
+        transform: translateY(-2px);
+        border-color: var(--gold);
+      }
+      .archive-item strong {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .archive-item span {
+        color: var(--muted);
+        font-size: 0.87rem;
       }
 
-      .change-badge {
-        font-size:.78rem;
-        min-width:42px;
-        padding:5px 8px;
+      .countdown-section {
+        text-align: center;
+        border-color: rgba(255, 209, 102, 0.35);
+        padding: 24px 18px;
       }
-
-      .profile-header { align-items:flex-start; }
-
-      .big-pfp {
-        width:82px;
-        height:82px;
+      .countdown-label {
+        color: var(--gold);
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        margin-bottom: 16px;
       }
-
-      .news-body { padding:16px; }
-      .news-body p { font-size:.92rem; }
-      .news-placeholder { min-height:190px; }
-      .news-image { max-height:300px; }
-
+      .countdown-timer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
       .time-box {
-        min-width:60px;
-        padding:11px 12px;
+        background: rgba(7, 7, 18, 0.85);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 13px 18px;
+        min-width: 72px;
+      }
+      .time-box span {
+        display: block;
+        font-size: 1.75rem;
+        font-weight: 900;
+      }
+      .time-box small {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+      }
+      .colon {
+        color: var(--gold);
+        font-weight: 900;
+        font-size: 1.4rem;
+      }
+      .countdown-note {
+        color: var(--muted);
+        margin: 14px 0 0;
+        font-size: 0.88rem;
       }
 
-      .time-box span { font-size:1.35rem; }
-      .colon { display:none; }
-    }
-  </style>
-</head>
+      .movement-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+      .movement-box {
+        border: 1px solid var(--line);
+        padding: 18px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.055),
+          rgba(255, 255, 255, 0.025)
+        );
+      }
+      .movement-box.risers {
+        border-color: rgba(85, 230, 165, 0.25);
+        background: linear-gradient(
+          135deg,
+          rgba(85, 230, 165, 0.08),
+          rgba(255, 255, 255, 0.025)
+        );
+      }
+      .movement-box.drops {
+        border-color: rgba(255, 92, 122, 0.25);
+        background: linear-gradient(
+          135deg,
+          rgba(255, 92, 122, 0.08),
+          rgba(255, 255, 255, 0.025)
+        );
+      }
+      .movement-title {
+        font-weight: 900;
+        margin-bottom: 14px;
+        color: var(--gold);
+      }
+      .movement-box.risers .movement-title {
+        color: var(--green);
+      }
+      .movement-box.drops .movement-title {
+        color: var(--red);
+      }
+      .movement-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+      }
+      .movement-rank {
+        color: #8290b6;
+        font-weight: 900;
+        width: 42px;
+        flex-shrink: 0;
+      }
+      .movement-name {
+        font-weight: 900;
+        flex: 1;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .change-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 48px;
+        border-radius: 999px;
+        padding: 6px 9px;
+        font-weight: 900;
+        font-size: 0.82rem;
+        white-space: nowrap;
+      }
+      .change-up {
+        color: var(--green);
+        background: rgba(85, 230, 165, 0.13);
+      }
+      .change-down {
+        color: var(--red);
+        background: rgba(255, 92, 122, 0.13);
+      }
+      .change-same {
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.08);
+      }
 
-<body>
-  <header>
-    <h1>Louieverse Rankings</h1>
-  </header>
+      .profile-list {
+        display: grid;
+        gap: 14px;
+      }
+      .profile-card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        text-decoration: none;
+        color: var(--text);
+        background: linear-gradient(135deg, var(--card2), var(--card));
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 14px;
+        box-shadow: 0 14px 45px rgba(0, 0, 0, 0.22);
+        transition: 0.15s;
+      }
+      .profile-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--gold);
+      }
+      .profile-pfp,
+      .big-pfp {
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.08);
+        flex-shrink: 0;
+      }
+      .profile-pfp {
+        width: 58px;
+        height: 58px;
+      }
+      .big-pfp {
+        width: 105px;
+        height: 105px;
+        border-width: 3px;
+      }
+      .profile-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .profile-name {
+        font-size: 1.25rem;
+        font-weight: 900;
+        margin-bottom: 4px;
+        letter-spacing: -0.03em;
+      }
+      .profile-role {
+        color: var(--muted);
+        font-size: 0.9rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .profile-side {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        align-items: flex-end;
+      }
+      .profile-rating {
+        font-weight: 900;
+        color: #121212;
+        background: var(--gold);
+        border-radius: 999px;
+        padding: 8px 11px;
+        white-space: nowrap;
+      }
 
-  <section class="topbar" id="topbar">
-    <input id="searchInput" type="text" placeholder="Search character names..." />
-    <select id="tierFilter">
-      <option value="all">All tiers</option>
-      <option value="S++">S++ Tier</option>
-      <option value="S+">S+ Tier</option>
-      <option value="S">S Tier</option>
-      <option value="A">A Tier</option>
-      <option value="B+">B+ Tier</option>
-      <option value="B">B Tier</option>
-      <option value="C+">C+ Tier</option>
-      <option value="C">C Tier</option>
-    </select>
-  </section>
+      .badge-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 999px;
+        padding: 5px 8px;
+        font-size: 0.68rem;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        border: 1px solid rgba(255, 255, 255, 0.13);
+        background: rgba(255, 255, 255, 0.07);
+      }
+      .badge-founder {
+        color: var(--gold);
+        background: rgba(255, 209, 102, 0.12);
+      }
+      .badge-og {
+        color: #9ad8ff;
+        background: rgba(90, 180, 255, 0.12);
+      }
+      .badge-newgen {
+        color: var(--green);
+        background: rgba(85, 230, 165, 0.12);
+      }
+      .badge-villain {
+        color: var(--red);
+        background: rgba(255, 92, 122, 0.12);
+      }
+      .badge-bpverse {
+        color: #d9b8ff;
+        background: rgba(143, 92, 255, 0.14);
+      }
+      .badge-gym {
+        color: #a8ffcf;
+        background: rgba(85, 230, 165, 0.1);
+      }
+      .badge-exiled {
+        color: #ff9cae;
+        background: rgba(255, 92, 122, 0.1);
+      }
+      .badge-observer {
+        color: #cbd5ff;
+        background: rgba(130, 144, 182, 0.15);
+      }
 
-  <main>
-    <section class="news-section home-section" id="mainNews"></section>
+      .full-profile {
+        display: none;
+        background: linear-gradient(135deg, var(--card2), var(--card));
+        border: 1px solid var(--line);
+        padding: 22px;
+      }
+      .full-profile.active {
+        display: block;
+      }
+      .profile-header {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+        margin-bottom: 18px;
+      }
+      .rank-badge {
+        display: inline-block;
+        background: var(--gold);
+        color: #121212;
+        font-weight: 900;
+        padding: 10px 14px;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+      }
+      .name {
+        font-size: clamp(1.8rem, 5vw, 3.05rem);
+        margin: 6px 0 8px;
+        letter-spacing: -0.055em;
+      }
+      .meta {
+        color: var(--gold);
+        font-weight: bold;
+        margin-bottom: 7px;
+        line-height: 1.4;
+      }
+      .description {
+        color: var(--muted);
+        line-height: 1.65;
+        font-size: 1rem;
+        margin-bottom: 0;
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 16px 0;
+      }
+      .tag {
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 999px;
+        padding: 7px 10px;
+        font-size: 0.82rem;
+      }
+      .history-grid,
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+        gap: 10px;
+        margin: 16px 0;
+      }
+      .stats {
+        grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
+        margin-top: 16px;
+      }
+      .history-box,
+      .stat {
+        background: rgba(0, 0, 0, 0.22);
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        padding: 12px;
+      }
+      .history-box span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+      }
+      .history-box strong {
+        font-size: 1.25rem;
+      }
+      .stat-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 7px;
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+      .stat-row strong {
+        color: var(--text);
+      }
+      .bar {
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.09);
+        overflow: hidden;
+      }
+      .fill {
+        height: 100%;
+        width: var(--value);
+        background: linear-gradient(90deg, var(--red), var(--gold), var(--green));
+        border-radius: 999px;
+      }
 
-    <section class="archive-section home-section" id="archiveSection">
-      <h2>Past Articles</h2>
-      <div class="archive-list" id="archiveList"></div>
+      .compare-section {
+        background: linear-gradient(
+          135deg,
+          rgba(143, 92, 255, 0.18),
+          rgba(255, 92, 122, 0.1)
+        );
+        border: 1px solid var(--line);
+        overflow: hidden;
+      }
+      .compare-toggle {
+        width: 100%;
+        padding: 18px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+      }
+      .compare-toggle h2 {
+        margin: 0;
+        color: var(--gold);
+        letter-spacing: -0.03em;
+      }
+      .compare-toggle span {
+        color: var(--muted);
+        font-weight: 900;
+      }
+      .compare-content {
+        display: none;
+        padding: 0 20px 20px;
+        border-top: 1px solid var(--line);
+      }
+      .compare-section.open .compare-content {
+        display: block;
+      }
+      .compare-content p {
+        margin: 16px 0 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .compare-controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr auto;
+        gap: 12px;
+        margin-top: 16px;
+      }
+      .compare-result {
+        margin-top: 18px;
+        display: none;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .compare-result.active {
+        display: grid;
+      }
+      .compare-card {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 16px;
+      }
+      .compare-card h3 {
+        margin: 0 0 10px;
+        color: var(--gold);
+        font-size: 1.25rem;
+      }
+      .compare-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--muted);
+      }
+      .compare-row strong {
+        color: var(--text);
+      }
+      .winner-box {
+        grid-column: 1 / -1;
+        border: 1px solid rgba(255, 209, 102, 0.35);
+        border-radius: 18px;
+        padding: 16px;
+        background: rgba(255, 209, 102, 0.08);
+        text-align: center;
+        font-weight: 900;
+        color: var(--gold);
+      }
+      .back-button,
+      .profile-back-button {
+        display: inline-block;
+        color: var(--gold);
+        text-decoration: none;
+        font-weight: 900;
+      }
+      .back-button {
+        margin: 18px 22px 0;
+      }
+      .profile-back-button {
+        margin-bottom: 18px;
+      }
+      .footer {
+        text-align: center;
+        color: var(--muted);
+        margin-top: 30px;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 650px) {
+        header {
+          padding-top: 34px;
+        }
+        .movement-grid,
+        .compare-result {
+          grid-template-columns: 1fr;
+        }
+        .compare-controls {
+          grid-template-columns: 1fr;
+        }
+        .profile-card {
+          padding: 12px;
+          gap: 11px;
+        }
+        .profile-pfp {
+          width: 52px;
+          height: 52px;
+        }
+        .profile-name {
+          font-size: 1.05rem;
+        }
+        .profile-rating {
+          font-size: 0.85rem;
+          padding: 7px 9px;
+        }
+        .change-badge {
+          font-size: 0.78rem;
+          min-width: 42px;
+          padding: 5px 8px;
+        }
+        .profile-header {
+          align-items: flex-start;
+        }
+        .big-pfp {
+          width: 82px;
+          height: 82px;
+        }
+        .news-body {
+          padding: 16px;
+        }
+        .news-body p {
+          font-size: 0.92rem;
+        }
+        .news-placeholder {
+          min-height: 190px;
+        }
+        .news-image {
+          max-height: 300px;
+        }
+        .time-box {
+          min-width: 60px;
+          padding: 11px 12px;
+        }
+        .time-box span {
+          font-size: 1.35rem;
+        }
+        .colon {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Louieverse Rankings</h1>
+    </header>
+
+    <section class="topbar" id="topbar">
+      <input id="searchInput" type="text" placeholder="Search character names..." />
+      <select id="tierFilter">
+        <option value="all">All tiers</option>
+        <option value="S++">S++ Tier</option>
+        <option value="S+">S+ Tier</option>
+        <option value="S">S Tier</option>
+        <option value="A">A Tier</option>
+        <option value="B+">B+ Tier</option>
+        <option value="B">B Tier</option>
+        <option value="C+">C+ Tier</option>
+        <option value="C">C Tier</option>
+      </select>
     </section>
 
-    <section class="countdown-section home-section" id="countdownSection">
-      <div class="countdown-label">⏱ Next Rankings Update</div>
-      <div class="countdown-timer">
-        <div class="time-box"><span id="days">00</span><small>Days</small></div>
-        <div class="colon">:</div>
-        <div class="time-box"><span id="hours">00</span><small>Hours</small></div>
-        <div class="colon">:</div>
-        <div class="time-box"><span id="minutes">00</span><small>Mins</small></div>
-        <div class="colon">:</div>
-        <div class="time-box"><span id="seconds">00</span><small>Secs</small></div>
-      </div>
-      <p class="countdown-note">Daily rankings refresh at 8PM UK time</p>
-    </section>
+    <main>
+      <section class="news-section home-section" id="mainNews"></section>
 
-    <section class="compare-section home-section" id="compareSection">
-      <div class="compare-toggle" id="compareToggle">
-        <h2>Compare Characters</h2>
-        <span id="compareArrow">Open ↓</span>
-      </div>
+      <section class="archive-section home-section" id="archiveSection">
+        <h2>Past Articles</h2>
+        <div class="archive-list" id="archiveList"></div>
+      </section>
 
-      <div class="compare-content">
-        <p>Pick two characters to compare score, lore, aura, meme value, loyalty, and rank history.</p>
-
-        <div class="compare-controls">
-          <select id="compareA"></select>
-          <select id="compareB"></select>
-          <button id="compareButton">Compare</button>
+      <section class="countdown-section home-section" id="countdownSection">
+        <div class="countdown-label">⏱ Next Rankings Update</div>
+        <div class="countdown-timer">
+          <div class="time-box"><span id="days">00</span><small>Days</small></div>
+          <div class="colon">:</div>
+          <div class="time-box"><span id="hours">00</span><small>Hours</small></div>
+          <div class="colon">:</div>
+          <div class="time-box"><span id="minutes">00</span><small>Mins</small></div>
+          <div class="colon">:</div>
+          <div class="time-box"><span id="seconds">00</span><small>Secs</small></div>
         </div>
+        <p class="countdown-note">Daily rankings refresh at 8PM UK time</p>
+      </section>
 
-        <div class="compare-result" id="compareResult"></div>
-      </div>
-    </section>
+      <section class="movement-grid home-section" id="movementGrid"></section>
+      <section id="rankingGrid" class="profile-list home-section"></section>
 
-    <section class="movement-grid home-section" id="movementGrid"></section>
-    <section id="rankingGrid" class="profile-list home-section"></section>
-    <section id="fullProfile" class="full-profile"></section>
-    <section id="articlePage" class="article-page" style="display:none;"></section>
-
-    <p class="footer">
-      Parody lore page. Rankings are based on Louieverse storyline importance, not real-life worth.
-    </p>
-  </main>
-
-  <script>
-    const articles = [
-      {
-        id: "lord-angelus-birthday-lordship",
-        date: "Today",
-        label: "🚨 Breaking News 🚨",
-        title: "Lord Angelus Crowned #1 After Birthday Lordship Surprise",
-        image: "images/angelusnews.jpg",
-        body: [
-          "<strong>Angelus</strong> has officially turned <strong>17</strong>, and his birthday has become one of the most historic moments in recent Louieverse history. The celebration became even bigger after his dad surprised him with <strong>lordship status</strong>.",
-          "The surprise came after Angelus’s dad bought a few feet of land in <strong>Scotland</strong>, which made his son eligible for the honorary title. From that moment, Angelus was no longer just Angelus — he became <strong>Lord Angelus</strong>.",
-          "In honour of this birthday ascension, <strong>Lord Angelus</strong> has been ranked <strong>#1 in today’s Louieverse rankings</strong>. His new lordship status, birthday aura, gymmaxxed presence, and chad energy have pushed him to the top of the verse.",
-          "Happy birthday, <strong>Lord Angelus</strong>. The Louieverse has officially entered the lordship era."
-        ]
-      },
-      {
-        id: "yuvtaj-freudian-slip",
-        date: "Previous Article",
-        label: "Archived News",
-        title: "Yuvtaj Freudian Slip Damages Yuvvy's Image",
-        image: "images/yuvtajnews.jpg",
-        body: [
-          "<strong>Yuvtaj</strong>, also known as <strong>Yuvvy</strong>, was hit with one of the most damaging slips in recent Louieverse history after accidentally creating a major age contradiction. The moment happened when Yuvtaj claimed that <strong>25-year-old NeckPill</strong> was <strong>13 years older than him</strong>.",
-          "If NeckPill is 25 and is 13 years older, that would make Yuvtaj <strong>12 years old</strong>. The statement immediately grabbed the attention of <strong>OPryLite</strong>, <strong>Framemogger</strong>, and <strong>Abdi</strong>, who caught onto the implication quickly.",
-          "The scandal created an <strong>everlasting hole in his image</strong>, damaging his already unstable reputation and giving his rivals permanent ammunition."
-        ]
-      },
-      {
-        id: "framemogger-leaves-louieverse",
-        date: "Previous Article",
-        label: "Archived News",
-        title: "Framemogger Leaves The Louieverse",
-        image: "images/framemoggernews.jpg",
-        body: [
-          "<strong>Framemogger</strong> suddenly left the Louieverse without giving a clear explanation, causing confusion across the timeline. After disappearing from the main structure, he reportedly started going by the new alias <strong>“Zygomatics”</strong>.",
-          "Even more suspiciously, he allegedly tried to get information from <strong>Abdi</strong> about the newest <strong>Fatih</strong> and <strong>Callum’s Fitness</strong> lore, suggesting he may still be watching the Louieverse from the outside despite abandoning his original founder role.",
-          "The move seriously damaged Framemogger’s loyalty image. Once seen as a founder-level force and early timeline conqueror, his sudden disappearance created a major question mark around whether he had truly left the Louieverse behind or was simply observing it from the shadows."
-        ]
-      }
-    ];
-
-    const characters = [
-      {
-        rank: 1,
-        previousRank: 4,
-        peakRank: 1,
-        lowestRank: 8,
-        id: "angelus",
-        name: "Lord Angelus",
-        age: "17",
-        background: "Austrian-Slovenian",
-        tier: "S++",
-        score: 100,
-        pfp: "images/angelus.jpg",
-        role: "Lordship Chad / Gymmaxxed JordanLite",
-        title: "The Birthday Lord",
-        badges: ["Lordship", "Birthday Buff", "Gym Arc", "Riser"],
-        description: "Lord Angelus has reached the top of the Louieverse after turning 17 and receiving lordship status from his dad as a birthday surprise. His dad bought a few feet of land in Scotland, making Angelus eligible for the honorary title and transforming him from a gymmaxxed Austrian titan into Lord Angelus. With birthday aura, noble status, and chad momentum, he becomes today's #1 ranked Louieverse chad.",
-        tags: ["Lordship Era", "Birthday Buff", "Scottish Land", "Gymmaxxed", "#1 Chad"],
-        stats: { Chad: 10, Frame: 9, Face: 8, Aura: 10, Intelligence: 6, Meme: 9, Lore: 10, Loyalty: 8 }
-      },
-      {
-        rank: 2,
-        previousRank: 1,
-        peakRank: 1,
-        lowestRank: 2,
-        id: "louie",
-        name: "Louie",
-        age: "23",
-        background: "Romani-English",
-        tier: "S++",
-        score: 98,
-        pfp: "images/louie.jpg",
-        role: "True Adam / Verse Originator",
-        title: "Main protagonist",
-        badges: ["Founder", "OG", "Main Character", "Gym Arc"],
-        description: "Louie is the true origin point of the Louieverse, the figure everything secretly or openly revolves around. Every major conflict, alliance, meme, rivalry, edit, live moment, and ranking eventually connects back to him. Even when he is not #1 on a specific daily ranking, his origin status remains unmatched.",
-        tags: ["True Adam", "Gym Lives", "Final Boss", "GTA Arc", "Favourite Frame"],
-        stats: { Chad: 10, Frame: 8, Face: 9, Aura: 10, Intelligence: 7, Meme: 10, Lore: 10, Loyalty: 10 }
-      },
-      {
-        rank: 3,
-        previousRank: 2,
-        peakRank: 2,
-        lowestRank: 3,
-        id: "oprylite",
-        name: "OPryLite",
-        age: "17",
-        background: "Irish-British",
-        tier: "S+",
-        score: 94,
-        pfp: "images/oprylite.jpg",
-        role: "Founder / AI King",
-        title: "The creator of the verse",
-        badges: ["Founder", "OG", "Strategist", "AI King"],
-        description: "OPryLite is one of the core founder figures and the technical brain behind much of the Louieverse. Known as the AI king, he builds, edits, plans, exposes, organises, and reshapes the timeline from behind the scenes.",
-        tags: ["Founder", "AI King", "BPverse Crusher", "Fatih Exposer", "Strategist"],
-        stats: { Chad: 8, Frame: 7, Face: 8, Aura: 9, Intelligence: 10, Meme: 10, Lore: 10, Loyalty: 9 }
-      },
-      {
-        rank: 4,
-        previousRank: 3,
-        peakRank: 3,
-        lowestRank: 4,
-        id: "abdi-singhstein",
-        name: "Abdi Singhstein",
-        age: "18",
-        background: "Israeli-Somali-Indian",
-        tier: "S+",
-        score: 92,
-        pfp: "images/abdi-singhstein.jpg",
-        role: "Lore Architect / Anti-Larp Enforcer",
-        title: "The Keeper of Structure",
-        badges: ["OG", "Lore Keeper", "AI King", "Anti-Larp"],
-        description: "Abdi Singhstein is one of the most active and structurally important members of the Louieverse. He builds, spreads, defends, and documents the lore, acting like the historian, propaganda minister, and intelligence officer of the verse.",
-        tags: ["Legend", "AI User", "Comment Spammer", "Yuvtaj Lore", "Cookie King Repost"],
-        stats: { Chad: 9, Frame: 8, Face: 9, Aura: 10, Intelligence: 9, Meme: 10, Lore: 10, Loyalty: 10 }
-      },
-      {
-        rank: 5,
-        previousRank: 5,
-        peakRank: 3,
-        lowestRank: 6,
-        id: "framemogger",
-        name: "Framemogger",
-        age: "17",
-        background: "Moroccan-Dutch",
-        tier: "S",
-        score: 86,
-        pfp: "images/framemogger.jpg",
-        role: "Founder / Former Viral Hitmaker",
-        title: "The Retired Conqueror",
-        badges: ["Founder", "OG", "Fallen", "Zygomatics"],
-        description: "Framemogger is an original founder and one of the earliest high-impact figures in the Louieverse. His sudden exit and Zygomatics alias damaged his loyalty score, but his founder status still keeps him high.",
-        tags: ["Founder", "Frame Blessed", "First Viral Hit", "Zygomatics Arc", "Left the Verse"],
-        stats: { Chad: 8, Frame: 9, Face: 8, Aura: 8, Intelligence: 8, Meme: 10, Lore: 9, Loyalty: 3 }
-      },
-      {
-        rank: 6,
-        previousRank: 10,
-        peakRank: 4,
-        lowestRank: 10,
-        id: "yuvtaj",
-        name: "Yuvtaj",
-        age: "Disputed lore age",
-        background: "Indian, living in London",
-        tier: "S",
-        score: 84,
-        pfp: "images/yuvtaj.jpg",
-        role: "BPverse Separatist / Damaged Lore Figure",
-        title: "The Freudian Slip Victim",
-        badges: ["BPverse", "Meme Engine", "Separatist", "Damaged Image"],
-        description: "Yuvtaj is one of the most lore-dense and chaotic figures in the Louieverse. His importance comes from the BPverse separatist arc, disputed age claims, Italian larp accusations, school attendance jokes, barbershop sightings, and constant contradiction lore.",
-        tags: ["BPverse", "Freudian Slip", "Damaged Image", "42% Attendance", "GCSE CS"],
-        stats: { Chad: 5, Frame: 4, Face: 6, Aura: 8, Intelligence: 5, Meme: 10, Lore: 10, Loyalty: 3 }
-      },
-      {
-        rank: 7,
-        previousRank: 7,
-        peakRank: 7,
-        lowestRank: 10,
-        id: "bogdan",
-        name: "Bogdan",
-        age: "16",
-        background: "Moldovan, living in the UK",
-        tier: "A",
-        score: 80,
-        pfp: "images/bogdan.jpg",
-        role: "Frame-Maxxed OG",
-        title: "The Still Standing",
-        badges: ["OG", "Gym Arc", "Frame Maxxed"],
-        description: "Bogdan is one of the classic frame-maxxed OG figures of the Louieverse. His Moldovan background, raw milk lore, strength, physique reputation, and Callum’s Fitness link make him one of the most recognisable physical-aura characters.",
-        tags: ["Frame-Maxxed", "Physique-Maxxed", "Raw Milk", "Callum Fitness Arc", "Strong"],
-        stats: { Chad: 8, Frame: 10, Face: 7, Aura: 8, Intelligence: 6, Meme: 7, Lore: 8, Loyalty: 8 }
-      },
-      {
-        rank: 8,
-        previousRank: 6,
-        peakRank: 6,
-        lowestRank: 12,
-        id: "bigblair",
-        name: "BigBlair",
-        age: "19",
-        background: "Scottish",
-        tier: "A",
-        score: 79,
-        pfp: "images/bigblair.jpg",
-        role: "The Scottish Mogger / External Creator Figure",
-        title: "The Scottish Mogger",
-        badges: ["Creator", "External Influence", "Reach"],
-        description: "BigBlair is a modern-era creator figure who gained recognition outside the original OG structure. His influence comes from visibility, audience reach, looksmaxxing culture, and external creator aura.",
-        tags: ["Scottish Mogger", "37k Following", "Creator", "Looksmaxxing", "External Reach"],
-        stats: { Chad: 8, Frame: 8, Face: 8, Aura: 8, Intelligence: 7, Meme: 7, Lore: 7, Reach: 10 }
-      },
-      {
-        rank: 9,
-        previousRank: 11,
-        peakRank: 9,
-        lowestRank: 11,
-        id: "rhys",
-        name: "Rhys",
-        age: "14",
-        background: "British",
-        tier: "A",
-        score: 78,
-        pfp: "images/rhys.jpg",
-        role: "The Observer / OG Information Access",
-        title: "Angeluslite",
-        badges: ["OG", "Observer", "Info Access"],
-        description: "Rhys is the observer of the Louieverse, a character whose strength comes from information access rather than direct dominance. His cross-faction awareness and BPverse connection make him valuable.",
-        tags: ["Observer", "OG", "Cross-Faction Access", "BPverse", "Information"],
-        stats: { Chad: 5, Frame: 5, Face: 5, Aura: 6, Intelligence: 7, Meme: 6, Lore: 8, Access: 9 }
-      },
-      {
-        rank: 10,
-        previousRank: 8,
-        peakRank: 7,
-        lowestRank: 10,
-        id: "jack",
-        name: "Jack",
-        age: "17",
-        background: "English-Indian, from Nottingham",
-        tier: "A",
-        score: 77,
-        pfp: "images/jack.jpg",
-        role: "Loyal OG / Inner Circle",
-        title: "The Ascender",
-        badges: ["OG", "Loyalist", "Inner Circle"],
-        description: "Jack is one of the most loyal OG figures and a major inner-circle character. His importance comes from loyalty, consistency, and proximity to Louie rather than controversy.",
-        tags: ["Loyal OG", "Louie Inner Circle", "McDonald's Arc", "Brawl Stars Lore", "Nottingham"],
-        stats: { Chad: 7, Frame: 7, Face: 7, Aura: 7, Intelligence: 7, Meme: 8, Lore: 8, Loyalty: 10 }
-      },
-      {
-        rank: 11,
-        previousRank: 9,
-        peakRank: 5,
-        lowestRank: 11,
-        id: "itstrulyover",
-        name: "ItsTruly0ver",
-        age: "21",
-        background: "British-Italian-Irish",
-        tier: "B+",
-        score: 76,
-        pfp: "images/cieran.jpg",
-        role: "Pre-Lore Remnant / Severed Link to Louie’s Past",
-        title: "The Truly Over",
-        badges: ["Pre-Lore", "Origin", "Fallen Link"],
-        description: "ItsTruly0ver is a pre-lore remnant, meaning his importance comes from being connected to Louie before the Louieverse fully became organised into rankings and arcs.",
-        tags: ["Pre-Lore", "Louie Past", "Roblox Arc", "Gym Sighting", "Origin Figure"],
-        stats: { Chad: 6, Frame: 6, Face: 6, Aura: 7, Intelligence: 6, Meme: 7, Lore: 9, Loyalty: 4 }
-      },
-      {
-        rank: 12,
-        previousRank: 14,
-        peakRank: 12,
-        lowestRank: 14,
-        id: "bukoz",
-        name: "Bukoz",
-        age: "14",
-        background: "Polish",
-        tier: "B+",
-        score: 75,
-        pfp: "",
-        role: "The Forgotten OG / Forgotten Defender",
-        title: "The Forgotten OG",
-        badges: ["OG", "Defender", "Old Guard"],
-        description: "Bukoz is the forgotten OG of the Louieverse, a character whose importance comes from early loyalty and old-guard status rather than constant modern activity.",
-        tags: ["Forgotten OG", "Polish", "Defender", "Fatih Arc", "Old Guard"],
-        stats: { Chad: 5, Frame: 5, Face: 5, Aura: 6, Intelligence: 6, Meme: 6, Lore: 7, Loyalty: 8 }
-      },
-      {
-        rank: 13,
-        previousRank: 15,
-        peakRank: 13,
-        lowestRank: 18,
-        id: "shoppers",
-        name: "Shoppers",
-        age: "17",
-        background: "British",
-        tier: "B+",
-        score: 74,
-        pfp: "",
-        role: "The Merchant King",
-        title: "The Casual Observer",
-        badges: ["Newgen", "Network", "Merchant"],
-        description: "Shoppers is a newer network-based character known as the Merchant King. His influence comes from trade, connections, background activity, and indirect access rather than direct conflict.",
-        tags: ["Merchant King", "Newgen", "Network", "Trade", "Active"],
-        stats: { Chad: 5, Frame: 5, Face: 5, Aura: 6, Intelligence: 7, Meme: 7, Lore: 6, Network: 8 }
-      },
-      {
-        rank: 14,
-        previousRank: 16,
-        peakRank: 14,
-        lowestRank: 16,
-        id: "khaleim",
-        name: "Khaleim",
-        age: "14",
-        background: "Romani-Indian",
-        tier: "B",
-        score: 73,
-        pfp: "images/khaleim.jpg",
-        role: "The Newgen Prince",
-        title: "Louie’s Predecessor",
-        badges: ["Newgen", "Potential", "BPverse Exit"],
-        description: "Khaleim is a newgen prince figure with a cleaner and more open-ended arc than many older characters. His lore is tied to the newer generation, BPverse group chat spaces, and strong future potential.",
-        tags: ["Newgen Prince", "Romani-Indian", "Clean Slate", "Left BPverse GC", "Potential"],
-        stats: { Chad: 6, Frame: 6, Face: 7, Aura: 7, Intelligence: 7, Meme: 6, Lore: 6, Potential: 9 }
-      },
-      {
-        rank: 15,
-        previousRank: 18,
-        peakRank: 15,
-        lowestRank: 19,
-        id: "flosic",
-        name: "flosic",
-        age: "16",
-        background: "Czech",
-        tier: "B",
-        score: 72,
-        pfp: "images/flosic.jpg",
-        role: "Omitted Bystander / Morphing Fraud Arc",
-        title: "The Omitted Bystander",
-        badges: ["Newgen", "Fraud Arc", "Fatih Contact"],
-        description: "flosic is a Czech member who joined the verse around the same era as Yuvtaj, but was pushed out of the core structure. His funniest arc came when he claimed a morph was himself before his real face was exposed.",
-        tags: ["Czech", "Omitted", "Morphing Fraud", "Sticker Spam", "Fatih Snapchat Call"],
-        stats: { Chad: 4, Frame: 4, Face: 4, Aura: 5, Intelligence: 5, Meme: 8, Lore: 6, Fraud: 9 }
-      },
-      {
-        rank: 16,
-        previousRank: 13,
-        peakRank: 11,
-        lowestRank: 16,
-        id: "callums-fitness",
-        name: "Callum's Fitness",
-        age: "15",
-        background: "Scottish",
-        tier: "B",
-        score: 71,
-        pfp: "images/callum.jpg",
-        role: "Iconic Pose Template / Playground Mogger",
-        title: "The Minecraft Stevemaxxer",
-        badges: ["Gym Arc", "Meme Template", "Sticker Lore"],
-        description: "Callum's Fitness is one of the most iconic visual meme sources in the Louieverse. Known for his square Minecraft Stevemaxxer build and tough playground poses, he became a major template character.",
-        tags: ["Scottish", "Minecraft Stevemaxxer", "Playground Pose", "Jaw Mog Companion", "Sticker Lore"],
-        stats: { Chad: 7, Frame: 8, Face: 6, Aura: 7, Intelligence: 6, Meme: 10, Lore: 8, Physique: 8 }
-      },
-      {
-        rank: 17,
-        previousRank: 21,
-        peakRank: 17,
-        lowestRank: 21,
-        id: "jestercel",
-        name: "jestercel",
-        age: "Unknown",
-        background: "Unknown",
-        tier: "B",
-        score: 70,
-        pfp: "",
-        role: "The Fool Prophet",
-        title: "The Background Clown",
-        badges: ["Newgen", "Meme", "Prophet"],
-        description: "jestercel is a chaotic newgen figure known as the Fool Prophet. His value comes from absurdity, unpredictability, Goatis reposts, primal enthusiast energy, and background clown status.",
-        tags: ["Fool Prophet", "Newgen", "Goatis Reposts", "Primal", "Chaotic"],
-        stats: { Chad: 5, Frame: 5, Face: 5, Aura: 7, Intelligence: 6, Meme: 9, Lore: 5, Prophecy: 8 }
-      },
-      {
-        rank: 18,
-        previousRank: 12,
-        peakRank: 12,
-        lowestRank: 18,
-        id: "companion",
-        name: "companion",
-        age: "16",
-        background: "Pakistani-Syrian-Polish",
-        tier: "C+",
-        score: 69,
-        pfp: "images/companion.jpg",
-        role: "Sticker Protagonist / Method Figure",
-        title: "The Companion Sticker",
-        badges: ["Sticker Lore", "Callum Arc"],
-        description: "companion is best known as the protagonist of the Companion sticker and for being heavily linked with the Callum’s Fitness arc. His Habsburg forward growth method became attached to Fatih ascension lore.",
-        tags: ["Companion Sticker", "Habsburg Method", "Callum Fitness Arc", "Forward Growth", "Legacy"],
-        stats: { Chad: 6, Frame: 6, Face: 7, Aura: 7, Intelligence: 7, Meme: 9, Lore: 8, Loyalty: 6 }
-      },
-      {
-        rank: 19,
-        previousRank: 20,
-        peakRank: 17,
-        lowestRank: 20,
-        id: "fakecel",
-        name: "Fakecel",
-        age: "17",
-        background: "Greek, account created in Turkey",
-        tier: "C+",
-        score: 68,
-        pfp: "images/fakecel.jpg",
-        role: "BPverse Defector",
-        title: "The Dark Chancellor",
-        badges: ["BPverse", "Defector", "Banned DMs"],
-        description: "Fakecel is a BPverse defector and one of the stranger digital-origin characters. His Greek identity, Turkey account creation lore, BPverse connection, frame-mogging claims, banned-DM arc, and loyalty issues give him a chaotic reputation.",
-        tags: ["Defector", "Greek Pheno", "Frame-Mogged Fatih", "BPverse", "Banned DMs"],
-        stats: { Chad: 7, Frame: 8, Face: 7, Aura: 6, Intelligence: 6, Meme: 8, Lore: 7, Loyalty: 2 }
-      },
-      {
-        rank: 20,
-        previousRank: 22,
-        peakRank: 12,
-        lowestRank: 22,
-        id: "wetwipe",
-        name: "wetwipe",
-        age: "17",
-        background: "British, from York",
-        tier: "C+",
-        score: 67,
-        pfp: "",
-        role: "Modern Era Ascender",
-        title: "Prince Of York",
-        badges: ["Newgen", "Fallen", "Potential"],
-        description: "wetwipe is a modern-era ascender and one of the newer characters with potential. His York background, gym connection, ascending ideology, Opry escape lore, and rising status keep him relevant.",
-        tags: ["Modern Era", "Opry Escape", "Gym", "Ascending", "York"],
-        stats: { Chad: 7, Frame: 7, Face: 6, Aura: 6, Intelligence: 7, Meme: 7, Lore: 5, Potential: 9 }
-      },
-      {
-        rank: 21,
-        previousRank: 23,
-        peakRank: 14,
-        lowestRank: 23,
-        id: "neckpill",
-        name: "Neckpill",
-        age: "25",
-        background: "USA",
-        tier: "C+",
-        score: 66,
-        pfp: "images/neckpill.jpg",
-        role: "Fractured Optimizer / Failed Challenger",
-        title: "The Victim",
-        badges: ["Failed Challenger", "Fallen", "Optimizer"],
-        description: "Neckpill is a fractured optimizer and fallen challenger figure. His arc is built around self-improvement, discipline, ideological intensity, containment conflict, DM bans, and the Yuvtaj Freudian slip scandal.",
-        tags: ["Optimizer", "Containment Conflict", "Failed Challenger", "DM Bans", "Yuvtaj Slip"],
-        stats: { Chad: 6, Frame: 6, Face: 5, Aura: 6, Intelligence: 8, Meme: 8, Lore: 7, Loyalty: 2 }
-      },
-      {
-        rank: 22,
-        previousRank: 17,
-        peakRank: 17,
-        lowestRank: 22,
-        id: "defaultchud",
-        name: "defaultchud",
-        age: "Unknown",
-        background: "Unknown",
-        tier: "C",
-        score: 65,
-        pfp: "images/defaultchud.jpg",
-        role: "Default Template Figure",
-        title: "The Default Chud",
-        badges: ["Meme", "Template"],
-        description: "defaultchud is a template-style figure whose value comes from meme recognisability and the ability to represent a whole category of background characters.",
-        tags: ["Default", "Template", "Meme Figure", "Background Aura", "New Entry"],
-        stats: { Chad: 5, Frame: 5, Face: 5, Aura: 6, Intelligence: 5, Meme: 8, Lore: 5, Potential: 7 }
-      },
-      {
-        rank: 23,
-        previousRank: 19,
-        peakRank: 19,
-        lowestRank: 23,
-        id: "dylan",
-        name: "Dylan",
-        age: "Unknown",
-        background: "Unknown",
-        tier: "C",
-        score: 64,
-        pfp: "images/dylan.jpg",
-        role: "Modern Timeline Figure",
-        title: "The Quiet Placement",
-        badges: ["Modern Era"],
-        description: "Dylan is a modern timeline figure whose ranking suggests enough relevance to stand above the lowest exile tier, but not enough current lore to break into the major arc positions.",
-        tags: ["Modern Era", "Developing Lore", "Quiet Figure", "Potential", "New Entry"],
-        stats: { Chad: 5, Frame: 5, Face: 5, Aura: 5, Intelligence: 6, Meme: 6, Lore: 5, Potential: 7 }
-      },
-      {
-        rank: 24,
-        previousRank: 24,
-        peakRank: 24,
-        lowestRank: 24,
-        id: "jarion",
-        name: "Jarion",
-        age: "30",
-        background: "USA",
-        tier: "C",
-        score: 62,
-        pfp: "images/jarion.jpg",
-        role: "Fallen Angel / Outside Villain",
-        title: "The Fallen Angel",
-        badges: ["Villain", "Fallen", "Outside Lore"],
-        description: "Jarion is known as the Fallen Angel. He recently joined the group chat, but most of his lore exists outside the main Louieverse. He carries villain status due to exposure arcs and controversy.",
-        tags: ["Fallen Angel", "Villain", "Looksmaxxing Course", "Outside Lore", "Controversy"],
-        stats: { Chad: 4, Frame: 4, Face: 4, Aura: 6, Intelligence: 6, Meme: 8, Lore: 6, Controversy: 9 }
-      },
-      {
-        rank: 25,
-        previousRank: 26,
-        peakRank: 22,
-        lowestRank: 26,
-        id: "tatron",
-        name: "Tatron",
-        age: "17",
-        background: "Estonian",
-        tier: "C",
-        score: 60,
-        pfp: "images/tatron.jpg",
-        role: "Newest Member / Angelus IRL Link",
-        title: "The Estonian Newgen",
-        badges: ["Newgen", "Angelusline", "Potential"],
-        description: "Tatron is a 17-year-old Estonian newgen. His lore is still limited, but he has relevance through being an IRL friend of Lord Angelus and through early profile-picture side quests.",
-        tags: ["Estonian", "Newest Member", "Angelus IRL Friend", "Tom Pearl", "Mini Villain PFP Arc"],
-        stats: { Chad: 5, Frame: 5, Face: 6, Aura: 5, Intelligence: 6, Meme: 6, Lore: 4, Potential: 7 }
-      },
-      {
-        rank: 26,
-        previousRank: 27,
-        peakRank: 19,
-        lowestRank: 27,
-        id: "26",
-        name: "26",
-        age: "Unknown",
-        background: "Mystery",
-        tier: "C",
-        score: 58,
-        pfp: "",
-        role: "Exiled Villain / BPverse Burden",
-        title: "The Exiled Number",
-        badges: ["Villain", "Exiled", "Mystery"],
-        description: "26 is one of the most mysterious exile figures in the Louieverse. His identity is defined by number, removal, mystery, and burden status rather than normal personality traits.",
-        tags: ["Mystery", "Exiled", "BPverse Burden", "Villain", "Controversy"],
-        stats: { Chad: 2, Frame: 3, Face: 3, Aura: 5, Intelligence: 4, Meme: 6, Lore: 5, Mystery: 8 }
-      },
-      {
-        rank: 27,
-        previousRank: 25,
-        peakRank: 22,
-        lowestRank: 27,
-        id: "fatih",
-        name: "Fatih",
-        age: "23",
-        background: "Turkish, living in Germany",
-        tier: "C",
-        score: 55,
-        pfp: "images/fatih.jpg",
-        role: "Exiled Controversy Character",
-        title: "The Exiled Villain",
-        badges: ["Villain", "Exiled", "Controversy"],
-        description: "Fatih is one of the major exiled controversy figures of the wider timeline. His Turkish-Germany background, TikTok live presence, ragebait reputation, rivalry arcs, and downfall-related lore make him an important villain-style character, but his main-verse status has collapsed.",
-        tags: ["Exiled", "Ragebaiter", "TikTok Lives", "Downfall Arc", "Controversy"],
-        stats: { Chad: 3, Frame: 4, Face: 3, Aura: 5, Intelligence: 3, Meme: 8, Lore: 7, Loyalty: 1 }
-      }
-    ];
-
-    const topbar = document.getElementById("topbar");
-    const grid = document.getElementById("rankingGrid");
-    const fullProfile = document.getElementById("fullProfile");
-    const articlePage = document.getElementById("articlePage");
-    const searchInput = document.getElementById("searchInput");
-    const tierFilter = document.getElementById("tierFilter");
-    const movementGrid = document.getElementById("movementGrid");
-    const compareA = document.getElementById("compareA");
-    const compareB = document.getElementById("compareB");
-    const compareButton = document.getElementById("compareButton");
-    const compareResult = document.getElementById("compareResult");
-    const compareSection = document.getElementById("compareSection");
-    const compareToggle = document.getElementById("compareToggle");
-    const compareArrow = document.getElementById("compareArrow");
-    const mainNews = document.getElementById("mainNews");
-    const archiveList = document.getElementById("archiveList");
-    const homeSections = document.querySelectorAll(".home-section");
-
-    function safeId(character) {
-      return (character.id || character.name)
-        .toLowerCase()
-        .trim()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "");
-    }
-
-    function getChange(character) {
-      if (!character.previousRank) return 0;
-      return character.previousRank - character.rank;
-    }
-
-    function changeBadge(character) {
-      const change = getChange(character);
-
-      if (change > 0) return `<span class="change-badge change-up">↗ +${change}</span>`;
-      if (change < 0) return `<span class="change-badge change-down">↘ ${change}</span>`;
-      return `<span class="change-badge change-same">— 0</span>`;
-    }
-
-    function badgeClass(label) {
-      const value = label.toLowerCase();
-      if (value.includes("founder")) return "badge-founder";
-      if (value.includes("og") || value.includes("old guard")) return "badge-og";
-      if (value.includes("newgen") || value.includes("new entry")) return "badge-newgen";
-      if (value.includes("villain")) return "badge-villain";
-      if (value.includes("bpverse")) return "badge-bpverse";
-      if (value.includes("gym") || value.includes("frame")) return "badge-gym";
-      if (value.includes("exiled") || value.includes("fallen")) return "badge-exiled";
-      if (value.includes("observer") || value.includes("info")) return "badge-observer";
-      return "";
-    }
-
-    function renderBadges(character) {
-      return `
-        <div class="badge-row">
-          ${(character.badges || []).map(badge => `<span class="badge ${badgeClass(badge)}">${badge}</span>`).join("")}
+      <section class="compare-section home-section" id="compareSection">
+        <div class="compare-toggle" id="compareToggle">
+          <h2>Compare Characters</h2>
+          <span id="compareArrow">Open ↓</span>
         </div>
-      `;
-    }
-
-    function initials(name) {
-      return name
-        .split(" ")
-        .map(word => word[0])
-        .join("")
-        .slice(0, 2)
-        .toUpperCase();
-    }
-
-    function imageOrInitials(character, className) {
-      const src = character.pfp && character.pfp.trim() !== "" ? character.pfp : "";
-
-      if (!src) {
-        return `
-          <div class="${className}" style="display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--gold);">
-            ${initials(character.name)}
+        <div class="compare-content">
+          <p>Pick two characters to compare score, lore, aura, meme value, loyalty, and rank history.</p>
+          <div class="compare-controls">
+            <select id="compareA"></select>
+            <select id="compareB"></select>
+            <button id="compareButton">Compare</button>
           </div>
-        `;
+          <div class="compare-result" id="compareResult"></div>
+        </div>
+      </section>
+
+      <section id="fullProfile" class="full-profile"></section>
+      <section id="articlePage" class="article-page" style="display: none;"></section>
+
+      <p class="footer">
+        Parody lore page. Rankings are based on Louieverse storyline importance, not real-life worth.
+      </p>
+    </main>
+
+    <script>
+      const articles = [
+        {
+          id: "oprylite-viral-hit-ai-girlfriend",
+          date: "Today",
+          label: "🚨 Breaking News 🚨",
+          title: "OpryLite Goes Viral With Louie AI Girlfriend Hit",
+          image: "images/oprynews.jpg",
+          body: [
+            "<strong>OpryLite</strong> has delivered one of the biggest modern Louieverse content wins after creating a viral TikTok hit that gained <strong>over half a million views</strong>.",
+            "The video featured <strong>Louie</strong> alongside an <strong>AI girlfriend</strong>, combining OpryLite’s strongest weapons: AI editing, Louieverse character power, viral bait timing, and perfect understanding of what the timeline reacts to.",
+            "This moment proves that OpryLite is not just a founder from old lore, but still one of the most dangerous active creators in the modern timeline. By turning Louie and AI girlfriend lore into a mainstream viral hit, he strengthened the Louieverse’s reach beyond the group chat.",
+            "Today’s news confirms OpryLite’s ongoing dominance in AI content, gives the Louieverse another major viral milestone, and proves why he remains one of the highest ranked figures in the entire verse."
+          ]
+        },
+        {
+          id: "lord-angelus-birthday-lordship",
+          date: "Previous Article",
+          label: "Archived News",
+          title: "Lord Angelus Crowned #1 After Birthday Lordship Surprise",
+          image: "images/angelusnews.jpg",
+          body: [
+            "<strong>Angelus</strong> officially turned <strong>17</strong>, and his birthday became one of the most historic moments in recent Louieverse history after his dad surprised him with <strong>lordship status</strong>.",
+            "The surprise came after Angelus’s dad bought a few feet of land in <strong>Scotland</strong>, making him eligible for the honorary title. From that moment, Angelus was no longer just Angelus — he became <strong>Lord Angelus</strong>.",
+            "In honour of this birthday ascension, <strong>Lord Angelus</strong> was ranked <strong>#1 in the Louieverse rankings</strong>. His lordship status, birthday aura, gymmaxxed presence, and chad energy pushed him to the top of the verse.",
+            "The Louieverse officially entered the lordship era."
+          ]
+        },
+        {
+          id: "yuvtaj-freudian-slip",
+          date: "Previous Article",
+          label: "Archived News",
+          title: "Yuvtaj Freudian Slip Damages Yuvvy's Image",
+          image: "images/yuvtajnews.jpg",
+          body: [
+            "<strong>Yuvtaj</strong>, also known as <strong>Yuvvy</strong>, was hit with one of the most damaging slips in recent Louieverse history after accidentally creating a major age contradiction. The moment happened when Yuvtaj claimed that <strong>25-year-old NeckPill</strong> was <strong>13 years older than him</strong>.",
+            "If NeckPill is 25 and is 13 years older, that would make Yuvtaj <strong>12 years old</strong>. The statement immediately grabbed the attention of <strong>OpryLite</strong>, <strong>Framemogger</strong>, and <strong>Abdi</strong>, who caught onto the implication quickly.",
+            "The scandal created an <strong>everlasting hole in his image</strong>, damaging his already unstable reputation and giving his rivals permanent ammunition."
+          ]
+        },
+        {
+          id: "framemogger-leaves-louieverse",
+          date: "Previous Article",
+          label: "Archived News",
+          title: "Framemogger Leaves The Louieverse",
+          image: "images/framemoggernews.jpg",
+          body: [
+            "<strong>Framemogger</strong> suddenly left the Louieverse without giving a clear explanation, causing confusion across the timeline. After disappearing from the main structure, he reportedly started going by the new alias <strong>“Zygomatics”</strong>.",
+            "Even more suspiciously, he allegedly tried to get information from <strong>Abdi</strong> about the newest <strong>Fatih</strong> and <strong>Callum’s Fitness</strong> lore, suggesting he may still be watching the Louieverse from the outside despite abandoning his original founder role.",
+            "The move seriously damaged Framemogger’s loyalty image. Once seen as a founder-level force and early timeline conqueror, his sudden disappearance created a major question mark around whether he had truly left the Louieverse behind or was simply observing it from the shadows."
+          ]
+        }
+      ];
+
+      const characters = [
+        {
+          rank: 1,
+          previousRank: 1,
+          peakRank: 1,
+          lowestRank: 2,
+          id: "louie",
+          name: "Louie",
+          age: "23",
+          background: "Romani-English",
+          tier: "S++",
+          score: 100,
+          pfp: "images/louie.jpg",
+          role: "True Adam / Verse Originator",
+          title: "Main Protagonist",
+          badges: ["Founder", "OG", "Main Character", "Gym Arc"],
+          description: "Louie returns to #1 as the true origin point of the Louieverse and the figure everything secretly or openly revolves around. His importance does not come from one isolated event, but from being the reason the entire system exists. Every major conflict, alliance, meme, rivalry, edit, live moment, ranking change, and mythological arc eventually connects back to Louie. His entertaining gym lives, iconic reactions, GTA lifestyle arc, favourite-frame status, unemployed king energy, and larger-than-life presence made him the natural centre of the verse. Even when another character temporarily takes the daily crown, Louie remains the final reference point for everyone else’s status.",
+          tags: ["True Adam", "Gym Lives", "Final Boss", "GTA Arc", "Favourite Frame"],
+          stats: {
+            Chad: 10,
+            Frame: 8,
+            Face: 9,
+            Aura: 10,
+            Intelligence: 7,
+            Meme: 10,
+            Lore: 10,
+            Loyalty: 10
+          }
+        },
+        {
+          rank: 2,
+          previousRank: 2,
+          peakRank: 2,
+          lowestRank: 3,
+          id: "oprylite",
+          name: "OpryLite",
+          age: "17",
+          background: "Irish-British",
+          tier: "S+",
+          score: 96,
+          pfp: "images/oprylite.jpg",
+          role: "Founder / AI King",
+          title: "The Viral AI Architect",
+          badges: ["Founder", "OG", "AI King", "Viral Hit"],
+          description: "OpryLite remains #2 after producing a viral Louieverse TikTok hit that gained over half a million views with a video featuring Louie and an AI girlfriend. This reinforces his role as the AI king, founder, strategist, and content architect of the verse. OpryLite does not just participate in lore; he turns random moments into official canon, edits them into viral formats, and expands the Louieverse beyond the group chat. From crushing BPverse independence to exposing Fatih and building the visual identity of the verse, he has one of the strongest resumes in the rankings. His only reason for not being #1 is that Louie remains the origin point.",
+          tags: ["Founder", "AI King", "Viral Hit", "Louie AI Girlfriend", "Strategist"],
+          stats: {
+            Chad: 8,
+            Frame: 7,
+            Face: 8,
+            Aura: 10,
+            Intelligence: 10,
+            Meme: 10,
+            Lore: 10,
+            Loyalty: 9
+          }
+        },
+        {
+          rank: 3,
+          previousRank: 3,
+          peakRank: 3,
+          lowestRank: 4,
+          id: "abdi-singhstein",
+          name: "Abdi Singhstein",
+          age: "18",
+          background: "Israeli-Somali-Indian",
+          tier: "S+",
+          score: 93,
+          pfp: "images/abdi-singhstein.jpg",
+          role: "Lore Architect / Anti-Larp Enforcer",
+          title: "The Keeper of Structure",
+          badges: ["OG", "Lore Keeper", "AI King", "Anti-Larp"],
+          description: "Abdi Singhstein is one of the most active and structurally important members of the Louieverse. His role is not just being present, but actively building, spreading, defending, and documenting the lore. He is heavily linked to Yuvtaj lore, AI content, reposts, comment spam, chad rankings, anti-larp enforcement, Callum’s Fitness developments, and spreading Fatih-related information. Abdi works almost like the historian, propaganda minister, and intelligence officer of the verse, turning chaotic events into official memory. His confrontation of Yuvtaj’s larp arc made one of the strongest meme-lore storylines in the system, and his consistency keeps him above almost everyone.",
+          tags: ["Legend", "AI User", "Comment Spammer", "Yuvtaj Lore", "Cookie King Repost"],
+          stats: {
+            Chad: 9,
+            Frame: 8,
+            Face: 9,
+            Aura: 10,
+            Intelligence: 9,
+            Meme: 10,
+            Lore: 10,
+            Loyalty: 10
+          }
+        },
+        {
+          rank: 4,
+          previousRank: 4,
+          peakRank: 1,
+          lowestRank: 8,
+          id: "angelus",
+          name: "Angelus",
+          age: "17",
+          background: "Austrian-Slovenian",
+          tier: "S",
+          score: 88,
+          pfp: "images/angelus.jpg",
+          role: "Gymmaxxed JordanLite / Lordship Figure",
+          title: "Austrian Titan",
+          badges: ["OG", "Gym Arc", "Lordship", "Angelusline"],
+          description: "Angelus holds #4 after his recent lordship and birthday arc pushed him into the strongest modern version of his character. He is a gymmaxxed Austrian-Slovenian JordanLite figure with strong physique stats, blonde-blue-eyed aura, caffeine chaos, group chat video spam, ex-thinking side quests, and constant gym-cycle questions. His funniest lore includes getting trolled by Abdi after asking whether his heart would explode if he pinned topical minoxidil and GHK-Cu. The lordship surprise from his dad gave him one of the biggest single-day boosts in Louieverse history, and even after falling from the temporary #1 spot, his OG status, physical aura, and direct connections to Tatron and Callum’s Fitness keep him top 5.",
+          tags: ["Gymmaxxed", "Lordship Arc", "JordanLite", "Caffeine Arc", "OG"],
+          stats: {
+            Chad: 9,
+            Frame: 9,
+            Face: 8,
+            Aura: 9,
+            Intelligence: 6,
+            Meme: 9,
+            Lore: 9,
+            Loyalty: 8
+          }
+        },
+        {
+          rank: 5,
+          previousRank: 5,
+          peakRank: 3,
+          lowestRank: 6,
+          id: "framemogger",
+          name: "Framemogger",
+          age: "17",
+          background: "Moroccan-Dutch",
+          tier: "S",
+          score: 86,
+          pfp: "images/framemogger.jpg",
+          role: "Founder / Former Viral Hitmaker",
+          title: "The Retired Conqueror",
+          badges: ["Founder", "OG", "Fallen", "Zygomatics"],
+          description: "Framemogger is an original founder and one of the earliest high-impact figures in the Louieverse. Alongside OpryLite, he helped establish the first version of the verse and gave the early timeline much of its initial energy. His early presence was defined by frame-based aura, viral hits, explosive behaviour, controversy, e-girl side quests, and his role in the first major internal conflicts. His sudden exit from the Louieverse and later alias as Zygomatics damaged his loyalty score, especially after he tried to get information from Abdi about new Fatih and Callum’s Fitness lore. Still, founder status and first-era impact keep him high.",
+          tags: ["Founder", "Frame Blessed", "First Viral Hit", "Zygomatics Arc", "Left the Verse"],
+          stats: {
+            Chad: 8,
+            Frame: 9,
+            Face: 8,
+            Aura: 8,
+            Intelligence: 8,
+            Meme: 10,
+            Lore: 9,
+            Loyalty: 3
+          }
+        },
+        {
+          rank: 6,
+          previousRank: 12,
+          peakRank: 6,
+          lowestRank: 12,
+          id: "bigblair",
+          name: "BigBlair",
+          age: "19",
+          background: "Scottish",
+          tier: "A",
+          score: 84,
+          pfp: "images/bigblair.jpg",
+          role: "The Scottish Mogger / External Creator Figure",
+          title: "The Scottish Mogger",
+          badges: ["Creator", "External Influence", "Reach", "Riser"],
+          description: "BigBlair rises hard to #6 because the ranking is now giving more value to outside reach, creator status, and visibility. He is a modern-era Scottish mogger who gained recognition outside the original OG structure, carrying the largest following in the verse at around 37k. His influence is not built through group chat politics or founder history, but through audience reach, looksmaxxing culture, public visibility, and external creator aura. He is very inactive compared to core members, which stops him from being top 5, but his scale and recognisability make him impossible to keep low. BigBlair represents outside influence entering the Louieverse system.",
+          tags: ["Scottish Mogger", "37k Following", "Creator", "Looksmaxxing", "External Reach"],
+          stats: {
+            Chad: 8,
+            Frame: 8,
+            Face: 8,
+            Aura: 9,
+            Intelligence: 7,
+            Meme: 8,
+            Lore: 7,
+            Reach: 10
+          }
+        }
+                {
+          rank: 7,
+          previousRank: 7,
+          peakRank: 4,
+          lowestRank: 8,
+          id: "yuvtaj",
+          name: "Yuvtaj",
+          age: "Disputed lore age",
+          background: "Indian, living in London",
+          tier: "A",
+          score: 83,
+          pfp: "images/yuvtaj.jpg",
+          role: "BPverse Separatist / Lore-Density Merchant",
+          title: "The Damaged Meme Engine",
+          badges: ["BPverse", "Meme Engine", "Separatist", "Damaged Image"],
+          description: "Yuvtaj remains one of the most lore-dense and chaotic figures in the entire Louieverse, but drops to #7 because his image has taken repeated damage from contradictions, larp accusations, and the Freudian slip arc. His importance comes from the BPverse separatist movement, disputed age claims, Italian larp accusations, school attendance jokes, barbershop sightings, GCSE Computer Science lore, ancestry contradictions, and his ability to accidentally become central to multiple storylines at once. He is not ranked this high because of dominance or loyalty, but because his presence creates investigations, memes, faction splits, and endless discussion. Yuvtaj is a failed challenger, but a legendary meme engine.",
+          tags: ["BPverse", "Italian Larp Arc", "Freudian Slip", "42% Attendance", "GCSE CS"],
+          stats: {
+            Chad: 5,
+            Frame: 4,
+            Face: 6,
+            Aura: 8,
+            Intelligence: 5,
+            Meme: 10,
+            Lore: 10,
+            Loyalty: 3
+          }
+        },
+        {
+          rank: 8,
+          previousRank: 10,
+          peakRank: 8,
+          lowestRank: 14,
+          id: "rhys",
+          name: "Rhys",
+          age: "14",
+          background: "British",
+          tier: "A",
+          score: 81,
+          pfp: "images/rhys.jpg",
+          role: "The Observer / OG Information Access",
+          title: "Angeluslite",
+          badges: ["OG", "Observer", "Info Access", "Riser"],
+          description: "Rhys rises to #8 as the observer of the Louieverse, a character whose strength comes from information access rather than direct dominance. His British background, Angeluslite title, OG awareness, BPverse connection, and cross-faction knowledge make him valuable because he can see multiple sides of the timeline while staying slightly outside the main chaos. Rhys was one of the rare figures with access to both Louieverse and BPverse spaces during conflict, giving him a unique observer role most characters never had. He is not the loudest, strongest, or most controversial character, but information access and OG relevance now give him a strong ranking.",
+          tags: ["Observer", "OG", "Cross-Faction Access", "BPverse", "Information"],
+          stats: {
+            Chad: 5,
+            Frame: 5,
+            Face: 5,
+            Aura: 7,
+            Intelligence: 7,
+            Meme: 7,
+            Lore: 8,
+            Access: 9
+          }
+        },
+        {
+          rank: 9,
+          previousRank: 9,
+          peakRank: 7,
+          lowestRank: 10,
+          id: "bogdan",
+          name: "Bogdan",
+          age: "16",
+          background: "Moldovan, living in the UK",
+          tier: "A",
+          score: 80,
+          pfp: "images/bogdan.jpg",
+          role: "Frame-Maxxed OG",
+          title: "The Still Standing",
+          badges: ["OG", "Gym Arc", "Frame Maxxed"],
+          description: "Bogdan is one of the classic frame-maxxed OG figures of the Louieverse. His Moldovan background, UK connection, raw milk lore, strength, physique reputation, and Callum’s Fitness playground-mogging link make him one of the clearest physical-aura characters in the ranking. Bogdan’s role is not built around schemes, betrayal, or constant drama; it is built around presence. He represents the strongman archetype: less politically central than the founders, but respected because of his frame, gym-adjacent lore, raw-milk aura, and original connection to the group. His place inside the Callum’s Fitness visual mythology keeps him firmly top 10.",
+          tags: ["Frame-Maxxed", "Physique-Maxxed", "Raw Milk", "Callum Fitness Arc", "Strong"],
+          stats: {
+            Chad: 8,
+            Frame: 10,
+            Face: 7,
+            Aura: 8,
+            Intelligence: 6,
+            Meme: 7,
+            Lore: 8,
+            Loyalty: 8
+          }
+        },
+        {
+          rank: 10,
+          previousRank: 13,
+          peakRank: 10,
+          lowestRank: 14,
+          id: "bukoz",
+          name: "Bukoz",
+          age: "14",
+          background: "Polish",
+          tier: "A",
+          score: 78,
+          pfp: "",
+          role: "The Forgotten OG / Forgotten Defender",
+          title: "The Forgotten OG",
+          badges: ["OG", "Defender", "Old Guard", "Riser"],
+          description: "Bukoz climbs into the top 10 because OG defender status is being valued heavily again. He is the forgotten OG of the Louieverse, a character whose importance comes from early loyalty and old-guard presence rather than constant modern activity. As a Polish defender figure connected to older arcs, Bukoz represents the type of member who was there when the verse was still forming but later became less visible. His biggest value comes from defending the Louieverse during unstable moments and having enough historical presence to be respected even without constant participation. He is not a loud main character, but he is a trusted background defender.",
+          tags: ["Forgotten OG", "Polish", "Defender", "Fatih Arc", "Old Guard"],
+          stats: {
+            Chad: 5,
+            Frame: 5,
+            Face: 5,
+            Aura: 6,
+            Intelligence: 6,
+            Meme: 6,
+            Lore: 8,
+            Loyalty: 9
+          }
+        },
+        {
+          rank: 11,
+          previousRank: 11,
+          peakRank: 7,
+          lowestRank: 11,
+          id: "jack",
+          name: "Jack",
+          age: "17",
+          background: "English-Indian, from Nottingham",
+          tier: "B+",
+          score: 77,
+          pfp: "images/jack.jpg",
+          role: "Loyal OG / Inner Circle",
+          title: "The Loyal Ascender",
+          badges: ["OG", "Loyalist", "Inner Circle"],
+          description: "Jack is one of the most loyal OG figures and a major inner-circle character. His importance comes from loyalty, consistency, and proximity to Louie rather than controversy. Unlike characters who gain relevance through betrayal, larping, conflict, or exile, Jack’s role is built on staying connected to the core group through multiple arcs. His Nottingham background, McDonald’s grind, test-saving storyline, Brawl Stars in Mumbai joke, and inner-circle status make him feel like a grounded but important character. He drops just outside the top 10 because other characters gained more dramatic movement, but loyalty keeps him extremely respected.",
+          tags: ["Loyal OG", "Louie Inner Circle", "McDonald's Arc", "Brawl Stars Lore", "Nottingham"],
+          stats: {
+            Chad: 7,
+            Frame: 7,
+            Face: 7,
+            Aura: 7,
+            Intelligence: 7,
+            Meme: 8,
+            Lore: 8,
+            Loyalty: 10
+          }
+        },
+        {
+          rank: 12,
+          previousRank: 12,
+          peakRank: 5,
+          lowestRank: 12,
+          id: "itstrulyover",
+          name: "Itstruly0ver",
+          age: "21",
+          background: "British-Italian-Irish",
+          tier: "B+",
+          score: 76,
+          pfp: "images/cieran.jpg",
+          role: "Pre-Lore Remnant / Severed Link to Louie’s Past",
+          title: "The Truly Over",
+          badges: ["Pre-Lore", "Origin", "Fallen Link"],
+          description: "Itstruly0ver is a pre-lore remnant, meaning his importance comes from being connected to Louie before the Louieverse fully became organised into rankings and arcs. He represents the older, half-forgotten era of the timeline: Roblox connections, early friendships, gym sightings, and links to Louie’s past before everything became public and mythologised. His decision to cut ties with Louie marked an emotional break between Louie’s private past and the public Louieverse identity being built around him. He has less current activity than higher-ranked characters, but his historical value remains strong because he proves the verse had roots before anyone realised it was becoming a verse.",
+          tags: ["Pre-Lore", "Louie Past", "Roblox Arc", "Gym Sighting", "Origin Figure"],
+          stats: {
+            Chad: 6,
+            Frame: 6,
+            Face: 6,
+            Aura: 7,
+            Intelligence: 6,
+            Meme: 7,
+            Lore: 9,
+            Loyalty: 4
+          }
+        },
+        {
+          rank: 13,
+          previousRank: 16,
+          peakRank: 13,
+          lowestRank: 16,
+          id: "khaleim",
+          name: "Khaleim",
+          age: "14",
+          background: "Romani-Indian",
+          tier: "B+",
+          score: 74,
+          pfp: "images/khaleim.jpg",
+          role: "The Newgen Prince",
+          title: "Louie’s Predecessor",
+          badges: ["Newgen", "Potential", "BPverse Exit", "Riser"],
+          description: "Khaleim rises to #13 as one of the cleaner and more promising newgen figures. His lore is tied to being part of the newer generation, being picked on by Yuvtaj, leaving BPverse group chat spaces, and having strong potential without being fully consumed by older conflicts. Khaleim’s importance comes from future possibility rather than completed history. He represents the next wave of Louieverse characters: not yet a founder, main villain, or major conflict winner, but someone who could rise if he stays active and builds more lore. He is ranked above several more chaotic figures because his profile is cleaner and his potential is stronger.",
+          tags: ["Newgen Prince", "Romani-Indian", "Clean Slate", "Left BPverse GC", "Potential"],
+          stats: {
+            Chad: 6,
+            Frame: 6,
+            Face: 7,
+            Aura: 7,
+            Intelligence: 7,
+            Meme: 6,
+            Lore: 6,
+            Potential: 9
+          }
+        },
+        {
+          rank: 14,
+          previousRank: 18,
+          peakRank: 14,
+          lowestRank: 19,
+          id: "flosic",
+          name: "Flosic",
+          age: "16",
+          background: "Czech",
+          tier: "B",
+          score: 73,
+          pfp: "images/flosic.jpg",
+          role: "Omitted Bystander / Morphing Fraud Arc",
+          title: "The Omitted Bystander",
+          badges: ["Newgen", "Fraud Arc", "Fatih Contact", "Riser"],
+          description: "Flosic rises strongly because his lore has become more appreciated. He is a Czech member who joined the verse around the same era as Yuvtaj, but was pushed out of the main Louieverse timeline due to Framemogger having a burning hatred against him. This resulted in his omission from the core structure, leaving him as a bystander rather than a central participant. Known for sticker spam and constantly getting kicked, Flosic became one of the more unstable side figures in the wider lore. His funniest arc came when he sent a picture claiming it was a morph of himself, only for his real face to later be exposed during a Snapchat call. His rare Fatih contact feat also boosts him.",
+          tags: ["Czech", "Omitted", "Morphing Fraud", "Sticker Spam", "Fatih Snapchat Call"],
+          stats: {
+            Chad: 4,
+            Frame: 4,
+            Face: 4,
+            Aura: 5,
+            Intelligence: 5,
+            Meme: 8,
+            Lore: 7,
+            Fraud: 9
+          }
+        },
+        {
+          rank: 15,
+          previousRank: 21,
+          peakRank: 15,
+          lowestRank: 21,
+          id: "jestercel",
+          name: "Jestercel",
+          age: "Unknown",
+          background: "Unknown",
+          tier: "B",
+          score: 72,
+          pfp: "",
+          role: "The Fool Prophet",
+          title: "The Background Clown",
+          badges: ["Newgen", "Meme", "Prophet", "Riser"],
+          description: "Jestercel rises to #15 because his meme value and chaotic prophet identity have become more useful to the verse. He is a chaotic newgen figure known as the Fool Prophet. His value comes from absurdity, unpredictability, Goatis reposts, primal enthusiast energy, and background clown status. On the surface, he appears unserious and random, but part of his aura comes from occasionally saying things that later seem weirdly aligned with real events. This gives him a dual identity: either a pure joke character or an accidental prophet who stumbles into truth. He lacks deep hard lore, but his comic relief value is now rated highly.",
+          tags: ["Fool Prophet", "Newgen", "Goatis Reposts", "Primal", "Chaotic"],
+          stats: {
+            Chad: 5,
+            Frame: 5,
+            Face: 5,
+            Aura: 7,
+            Intelligence: 6,
+            Meme: 9,
+            Lore: 6,
+            Prophecy: 8
+          }
+        },
+        {
+          rank: 16,
+          previousRank: 15,
+          peakRank: 15,
+          lowestRank: 18,
+          id: "shoppers",
+          name: "Shoppers",
+          age: "17",
+          background: "British",
+          tier: "B",
+          score: 71,
+          pfp: "",
+          role: "The Merchant King",
+          title: "The Casual Observer",
+          badges: ["Newgen", "Network", "Merchant"],
+          description: "Shoppers sits at #16 as a newer network-based character known as the Merchant King. His role is less about direct fighting, founder status, or major dramatic arcs, and more about indirect influence, trade, connections, and background activity. He moves through the timeline through networking rather than brute force. Shoppers represents the casual operator archetype: not the main character, not a villain, and not an OG founder, but someone useful because he knows people, trades access, and stays connected to multiple parts of the verse. He falls slightly only because more dramatic lore characters surged ahead of him today.",
+          tags: ["Merchant King", "Newgen", "Network", "Trade", "Active"],
+          stats: {
+            Chad: 5,
+            Frame: 5,
+            Face: 5,
+            Aura: 6,
+            Intelligence: 7,
+            Meme: 7,
+            Lore: 6,
+            Network: 8
+          }
+        },
+        {
+          rank: 17,
+          previousRank: 17,
+          peakRank: 11,
+          lowestRank: 17,
+          id: "callums-fitness",
+          name: "Callum's Fitness",
+          age: "15",
+          background: "Scottish",
+          tier: "B",
+          score: 70,
+          pfp: "images/callum.jpg",
+          role: "Iconic Pose Template / Playground Mogger",
+          title: "The Minecraft Stevemaxxer",
+          badges: ["Gym Arc", "Meme Template", "Sticker Lore"],
+          description: "Callum's Fitness is one of the most iconic visual meme sources in the Louieverse. Known for his square Minecraft Stevemaxxer build and intense tough playground poses, he became a major template character after appearing in the legendary playground photo with the mysterious Indian guy. The image later became even more important when Louie, Angelus, and Bogdan were added into the same iconic pose through AI edits, turning Callum's Fitness into a central visual anchor for modern meme culture. His posing style is intense, dramatic, and goofy, which only adds to his meme value. He remains important, but drops because the ranking is currently favouring direct members and active lore.",
+          tags: ["Scottish", "Minecraft Stevemaxxer", "Playground Pose", "Jaw Mog Companion", "Sticker Lore"],
+          stats: {
+            Chad: 7,
+            Frame: 8,
+            Face: 6,
+            Aura: 7,
+            Intelligence: 6,
+            Meme: 10,
+            Lore: 8,
+            Physique: 8
+          }
+        },
+        {
+          rank: 18,
+          previousRank: 18,
+          peakRank: 14,
+          lowestRank: 18,
+          id: "companion",
+          name: "Companion",
+          age: "16",
+          background: "Pakistani-Syrian-Polish",
+          tier: "C+",
+          score: 69,
+          pfp: "images/companion.jpg",
+          role: "Sticker Protagonist / Callum’s Fitness Arc Legend",
+          title: "The Jaw Mog Companion",
+          badges: ["Sticker Lore", "Callum Arc", "Outside Lore"],
+          description: "Companion is a 16-year-old Pakistani-Syrian-Polish figure best known as the protagonist of the legendary Companion sticker and one of the most important outside-linked figures connected to the Callum’s Fitness arc. Although he was never directly in contact with the Louieverse, his visual legacy became extremely strong through sticker culture, Jaw Mog Companion lore, and the wider Callum’s Fitness playground mythology. His most important contribution is the Habsburg forward growth method, a cursed but iconic ascension technique said to have been used by figures like Fatih in an attempt to improve. He ranks high for an outside character because his influence is symbolic rather than social.",
+          tags: ["Companion Sticker", "Jaw Mog Companion", "Callum Fitness Arc", "Habsburg Method", "Outside Lore"],
+          stats: {
+            Chad: 6,
+            Frame: 6,
+            Face: 8,
+            Aura: 7,
+            Intelligence: 6,
+            Meme: 10,
+            Lore: 8,
+            Legacy: 9
+          }
+        },
+        {
+          rank: 19,
+          previousRank: 19,
+          peakRank: 12,
+          lowestRank: 19,
+          id: "wetwipe",
+          name: "Wetwipe",
+          age: "17",
+          background: "British, from York",
+          tier: "C+",
+          score: 68,
+          pfp: "",
+          role: "Modern Era Ascender",
+          title: "Prince Of York",
+          badges: ["Newgen", "Potential", "Gym Arc"],
+          description: "Wetwipe is a modern-era ascender and one of the newer characters with potential. His York background, gym connection, ascending ideology, Opry escape lore, and rising status make him feel like a character who is still developing rather than already fully written. His strongest canon moment is the Opry Escape Incident, where he helped OpryLite safely flee during a chaotic attack involving Louie’s sister, connecting him directly to protecting the Architect Founder. However, he remains lower today because the ranking is currently valuing completed lore, OG links, and iconic meme templates more heavily than pure momentum. He could rise again if his arc becomes more central.",
+          tags: ["Modern Era", "Opry Escape", "Gym", "Ascending", "York"],
+          stats: {
+            Chad: 7,
+            Frame: 7,
+            Face: 6,
+            Aura: 6,
+            Intelligence: 7,
+            Meme: 7,
+            Lore: 6,
+            Potential: 9
+          }
+        },
+        {
+          rank: 20,
+          previousRank: 20,
+          peakRank: 17,
+          lowestRank: 20,
+          id: "fakecel",
+          name: "Fakecel",
+          age: "17",
+          background: "Greek, account created in Turkey",
+          tier: "C+",
+          score: 67,
+          pfp: "images/fakecel.jpg",
+          role: "BPverse Defector",
+          title: "The Dark Chancellor",
+          badges: ["BPverse", "Defector", "Banned DMs"],
+          description: "Fakecel is a BPverse defector and one of the stranger cross-border digital origin characters. His Greek identity, Turkey account creation lore, BPverse connection, frame-mogging claims, banned-DM arc, and loyalty issues all give him a chaotic reputation. Despite the Fakecel name, he has decent physique and phenotype stats, plus enough aura to frame-mog Fatih on his story. His biggest issue is loyalty: he left the Louieverse, joined BPverse, and became associated with glazing Yuvtaj. His repeated banned-DMs arc adds strong meme value but also makes him unstable as a long-term member. He remains mid-low because aura cannot fully overcome defector status.",
+          tags: ["Defector", "Greek Pheno", "Frame-Mogged Fatih", "BPverse", "Banned DMs"],
+          stats: {
+            Chad: 7,
+            Frame: 8,
+            Face: 7,
+            Aura: 6,
+            Intelligence: 6,
+            Meme: 8,
+            Lore: 7,
+            Loyalty: 2
+          }
+        }
+              {
+          rank: 21,
+          previousRank: null,
+          peakRank: 21,
+          lowestRank: 21,
+          id: "dylan",
+          name: "Dylan",
+          age: "16",
+          background: "German",
+          tier: "C",
+          score: 66,
+          pfp: "images/dylan.jpg",
+          role: "Silver Surfer Newgen / Confused Arrival",
+          title: "The Silver Surfer Newgen",
+          badges: ["Newgen", "Silver Surfer", "Yuvtaj Link"],
+          description: "Dylan is a 16-year-old German newgen whose early identity is built around his Silver Surfer profile picture and his instant connection with Yuvtaj over their shared love for the Silver Surfer. His funniest early mistake came when he thought Abdi was Fatih, instantly marking him as a confused arrival figure who entered the timeline without fully understanding the hierarchy, history, or major faces of the verse. He also recently posted what was meant to be a viral IShowSpeed clip, only for it to achieve a legendary total of 0 likes, giving him a failed-content arc. Dylan ranks above some older fallen figures because his newgen meme potential is fresh.",
+          tags: ["German", "Silver Surfer", "Newgen", "Mistook Abdi For Fatih", "0 Likes Speed Clip"],
+          stats: {
+            Chad: 4,
+            Frame: 4,
+            Face: 5,
+            Aura: 5,
+            Intelligence: 4,
+            Meme: 8,
+            Lore: 5,
+            Potential: 7
+          }
+        },
+        {
+          rank: 22,
+          previousRank: null,
+          peakRank: 18,
+          lowestRank: 22,
+          id: "defaultchud",
+          name: "Defaultchud",
+          age: "Unknown",
+          background: "USA",
+          tier: "C",
+          score: 65,
+          pfp: "images/defaultchud.jpg",
+          role: "Returned OG / Primal Goatis Enthusiast",
+          title: "The Returning Chud",
+          badges: ["OG", "Return Arc", "Primal", "Goatis"],
+          description: "Defaultchud is an American OG member of the Louieverse who disappeared for a very long time before recently returning after commenting on BigBlair’s new Louie post. His return gives him immediate old-guard value, even though his active lore is still limited compared to central characters. Defaultchud is known as a primal Goatis enthusiast, giving him a distinct ideology-based identity inside the wider verse. His ranking is carried by OG status, comeback potential, and the fact that his reappearance connects old Louieverse history with the current era. He is not high yet because he needs fresh group-chat impact, but the return arc gives him room to climb.",
+          tags: ["USA", "Returned OG", "Primal", "Goatis Enthusiast", "Comeback Arc"],
+          stats: {
+            Chad: 5,
+            Frame: 5,
+            Face: 5,
+            Aura: 6,
+            Intelligence: 6,
+            Meme: 6,
+            Lore: 6,
+            Loyalty: 7
+          }
+        },
+        {
+          rank: 23,
+          previousRank: 23,
+          peakRank: 14,
+          lowestRank: 23,
+          id: "neckpill",
+          name: "NeckPill",
+          age: "25",
+          background: "USA",
+          tier: "C",
+          score: 64,
+          pfp: "images/neckpill.jpg",
+          role: "Fractured Optimizer / Failed Challenger",
+          title: "The Victim",
+          badges: ["Failed Challenger", "Fallen", "Optimizer"],
+          description: "NeckPill is a fractured optimizer and one of the more intense fallen challenger figures in the Louieverse. His arc is built around self-improvement, discipline, ideological intensity, containment conflict, DM bans, and eventual decline in loyalty. At one point, he represented a serious ideological challenge to the founding structure led by OpryLite and Framemogger, but the challenge failed, his influence collapsed, and he was pushed away from the central flow. His face-leak fallout, repeated DM bans, and failed attempts to rally support left him as a defeated optimizer figure. He still has intelligence and meme value, but today he drops because the verse has moved past his challenge.",
+          tags: ["Optimizer", "Containment Conflict", "Failed Challenger", "DM Bans", "Yuvtaj Slip"],
+          stats: {
+            Chad: 6,
+            Frame: 6,
+            Face: 5,
+            Aura: 6,
+            Intelligence: 8,
+            Meme: 8,
+            Lore: 7,
+            Loyalty: 2
+          }
+        },
+        {
+          rank: 24,
+          previousRank: 24,
+          peakRank: 21,
+          lowestRank: 24,
+          id: "tatron",
+          name: "Tatron",
+          age: "17",
+          background: "Estonian",
+          tier: "C",
+          score: 62,
+          pfp: "images/tatron.jpg",
+          role: "Newest Member / Angelus IRL Link",
+          title: "The Estonian Newgen",
+          badges: ["Newgen", "Angelusline", "Potential"],
+          description: "Tatron is a 17-year-old Estonian newgen and one of the newest additions to the Louieverse. His current lore is still limited, but he has immediate relevance through being an IRL friend of Angelus, giving him a direct connection to an established OG member. Tatron is also known as a Tom Pearl enthusiast and for attempting to take Rhys’s iconic mini-villain Dillon Latham profile picture, creating a small identity-theft style side arc. His social lore includes turning down an 8/10, which caused girls in his area to question his sexuality and added a strange aura twist to his early character. He remains low because he needs more real group chat impact.",
+          tags: ["Estonian", "Newest Member", "Angelus IRL Friend", "Tom Pearl", "Mini Villain PFP Arc"],
+          stats: {
+            Chad: 5,
+            Frame: 5,
+            Face: 6,
+            Aura: 5,
+            Intelligence: 6,
+            Meme: 6,
+            Lore: 4,
+            Potential: 7
+          }
+        },
+        {
+          rank: 25,
+          previousRank: null,
+          peakRank: 25,
+          lowestRank: 25,
+          id: "jarion",
+          name: "Jarion",
+          age: "30",
+          background: "USA",
+          tier: "C",
+          score: 60,
+          pfp: "images/jarion.jpg",
+          role: "Fallen Angel / Outside-Lore Villain",
+          title: "The Fallen Angel",
+          badges: ["Villain", "New Entry", "Controversy", "Outside Lore"],
+          description: "Jarion is a 30-year-old USA-based figure known as the Fallen Angel. He recently joined the group chat, but most of his lore exists outside the core Louieverse timeline rather than inside it. His reputation is built around controversy, villain status, and repeated accusations from others in the wider looksmaxxing sphere, giving him a dark outsider-antagonist role rather than a respected member role. He is also controversial for selling a looksmaxxing course despite being mocked for his yam status and greycel reputation, which makes him a strange mix of self-improvement salesman, fallen figure, and outside-lore villain. He ranks low because his contribution is negative and mostly external.",
+          tags: ["USA", "Fallen Angel", "Outside Lore", "Looksmaxxing Course", "Controversy"],
+          stats: {
+            Chad: 3,
+            Frame: 4,
+            Face: 3,
+            Aura: 5,
+            Intelligence: 5,
+            Meme: 7,
+            Lore: 5,
+            Loyalty: 1
+          }
+        },
+        {
+          rank: 26,
+          previousRank: 26,
+          peakRank: 21,
+          lowestRank: 26,
+          id: "26",
+          name: "26",
+          age: "Unknown",
+          background: "Mystery",
+          tier: "C",
+          score: 56,
+          pfp: "",
+          role: "Exiled Villain / BPverse Burden",
+          title: "The Exiled Number",
+          badges: ["Villain", "Exiled", "Mystery"],
+          description: "26 is one of the most mysterious exile figures in the Louieverse. Unlike other characters, his identity is defined more by number, removal, mystery, and burden status than by normal personality traits. This gives him a strange background-villain energy, as if he is remembered more for the shadow he left behind than for clear achievements. His presence remains controversial because even after being rejected by the main structure, Yuvtaj continued keeping him around inside BPverse despite opposition. 26 ranks near the bottom because mystery alone is not enough to beat characters with active lore, meme value, OG links, clean newgen potential, or positive contribution.",
+          tags: ["Mystery", "Exiled", "BPverse Burden", "Villain", "Controversy"],
+          stats: {
+            Chad: 2,
+            Frame: 3,
+            Face: 3,
+            Aura: 5,
+            Intelligence: 4,
+            Meme: 6,
+            Lore: 5,
+            Mystery: 8
+          }
+        },
+        {
+          rank: 27,
+          previousRank: 27,
+          peakRank: 22,
+          lowestRank: 27,
+          id: "fatih",
+          name: "Fatih",
+          age: "23",
+          background: "Turkish, living in Germany",
+          tier: "C",
+          score: 52,
+          pfp: "images/fatih.jpg",
+          role: "Exiled Controversy Character",
+          title: "The Exiled Villain",
+          badges: ["Villain", "Exiled", "Controversy"],
+          description: "Fatih falls to last place as one of the major exiled controversy figures of the wider timeline. His Turkish-Germany background, TikTok live presence, ragebait reputation, rivalry with Goyprince, and downfall-related arcs make him an important villain-style character, but not a respected one. He was once part of the wider verse ecosystem, but after being exposed and turning into a major controversy figure, he became effectively omitted from the main Louieverse structure. His rivalry with Goyprince, mog-off losses, and the way both Louieverse and BPverse turned against him give him lore value, but his main-verse status has collapsed completely. He ranks last because exile and negative contribution now outweigh relevance.",
+          tags: ["Exiled", "Ragebaiter", "TikTok Lives", "Downfall Arc", "Controversy"],
+          stats: {
+            Chad: 3,
+            Frame: 4,
+            Face: 3,
+            Aura: 5,
+            Intelligence: 3,
+            Meme: 8,
+            Lore: 7,
+            Loyalty: 1
+          }
+        }
+      ];
+
+      const topbar = document.getElementById("topbar");
+      const grid = document.getElementById("rankingGrid");
+      const fullProfile = document.getElementById("fullProfile");
+      const articlePage = document.getElementById("articlePage");
+      const searchInput = document.getElementById("searchInput");
+      const tierFilter = document.getElementById("tierFilter");
+      const movementGrid = document.getElementById("movementGrid");
+      const compareA = document.getElementById("compareA");
+      const compareB = document.getElementById("compareB");
+      const compareButton = document.getElementById("compareButton");
+      const compareResult = document.getElementById("compareResult");
+      const compareSection = document.getElementById("compareSection");
+      const compareToggle = document.getElementById("compareToggle");
+      const compareArrow = document.getElementById("compareArrow");
+      const mainNews = document.getElementById("mainNews");
+      const archiveList = document.getElementById("archiveList");
+      const homeSections = document.querySelectorAll(".home-section");
+
+      function safeId(character) {
+        return (character.id || character.name)
+          .toLowerCase()
+          .trim()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
       }
 
-      return `
-        <img
-          class="${className}"
-          src="${src}"
-          alt="${character.name}"
-          onerror="this.outerHTML='<div class=&quot;${className}&quot; style=&quot;display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--gold);&quot;>${initials(character.name)}</div>'"
-        >
-      `;
-    }
-
-    function createStat(name, value) {
-      return `
-        <div class="stat">
-          <div class="stat-row">
-            <span>${name}</span>
-            <strong>${value}/10</strong>
-          </div>
-          <div class="bar">
-            <div class="fill" style="--value:${value * 10}%"></div>
-          </div>
-        </div>
-      `;
-    }
-
-    function getStat(character, stat) {
-      return character.stats && typeof character.stats[stat] === "number" ? character.stats[stat] : 0;
-    }
-
-    function articleImageHTML(article) {
-      return `
-        <div class="news-image-wrap">
-          <img
-            class="news-image"
-            src="${article.image}"
-            alt="${article.title}"
-            onerror="this.outerHTML='<div class=&quot;news-placeholder&quot;>Article image missing: ${article.image}</div>'"
-          >
-        </div>
-      `;
-    }
-
-    function renderMainArticle() {
-      const article = articles[0];
-
-      mainNews.innerHTML = `
-        <div class="news-header">
-          <div class="news-label">${article.label}</div>
-          <h2 class="news-title">${article.title}</h2>
-          <div class="news-date">${article.date}</div>
-        </div>
-
-        ${articleImageHTML(article)}
-
-        <div class="news-body">
-          ${article.body.map(paragraph => `<p>${paragraph}</p>`).join("")}
-        </div>
-      `;
-    }
-
-    function renderArchive() {
-      const pastArticles = articles.slice(1);
-
-      archiveList.innerHTML = pastArticles.map(article => `
-        <a class="archive-item" href="#article-${article.id}">
-          <strong>${article.title}</strong>
-          <span>${article.date}</span>
-        </a>
-      `).join("");
-    }
-
-    function renderArticlePage(article) {
-      articlePage.innerHTML = `
-        <a class="back-button" href="#">← Back to main page</a>
-
-        <div class="news-header">
-          <div class="news-label">${article.label}</div>
-          <h2 class="news-title">${article.title}</h2>
-          <div class="news-date">${article.date}</div>
-        </div>
-
-        ${articleImageHTML(article)}
-
-        <div class="news-body">
-          ${article.body.map(paragraph => `<p>${paragraph}</p>`).join("")}
-        </div>
-      `;
-    }
-
-    function renderCompareOptions() {
-      const options = characters.map(character => `
-        <option value="${safeId(character)}">#${character.rank} ${character.name}</option>
-      `).join("");
-
-      compareA.innerHTML = options;
-      compareB.innerHTML = options;
-
-      compareA.value = "angelus";
-      compareB.value = "louie";
-    }
-
-    function compareCharacters() {
-      const first = characters.find(character => safeId(character) === compareA.value);
-      const second = characters.find(character => safeId(character) === compareB.value);
-
-      if (!first || !second) return;
-
-      const firstTotal =
-        first.score +
-        getStat(first, "Lore") * 3 +
-        getStat(first, "Meme") * 2 +
-        getStat(first, "Aura") * 2 +
-        getStat(first, "Loyalty");
-
-      const secondTotal =
-        second.score +
-        getStat(second, "Lore") * 3 +
-        getStat(second, "Meme") * 2 +
-        getStat(second, "Aura") * 2 +
-        getStat(second, "Loyalty");
-
-      const winner = firstTotal > secondTotal
-        ? first.name
-        : secondTotal > firstTotal
-          ? second.name
-          : "Draw";
-
-      function comparisonCard(character) {
-        return `
-          <div class="compare-card">
-            <h3>#${character.rank} ${character.name}</h3>
-            ${renderBadges(character)}
-            <div class="compare-row"><span>Score</span><strong>${character.score}/100</strong></div>
-            <div class="compare-row"><span>Current Rank</span><strong>#${character.rank}</strong></div>
-            <div class="compare-row"><span>Previous Rank</span><strong>${character.previousRank ? "#" + character.previousRank : "NEW"}</strong></div>
-            <div class="compare-row"><span>Peak Rank</span><strong>#${character.peakRank}</strong></div>
-            <div class="compare-row"><span>Lowest Rank</span><strong>#${character.lowestRank}</strong></div>
-            <div class="compare-row"><span>Lore</span><strong>${getStat(character, "Lore") || "N/A"}</strong></div>
-            <div class="compare-row"><span>Aura</span><strong>${getStat(character, "Aura") || "N/A"}</strong></div>
-            <div class="compare-row"><span>Meme</span><strong>${getStat(character, "Meme") || "N/A"}</strong></div>
-            <div class="compare-row"><span>Loyalty</span><strong>${getStat(character, "Loyalty") || "N/A"}</strong></div>
-          </div>
-        `;
+      function getChange(character) {
+        return character.previousRank ? character.previousRank - character.rank : 0;
       }
 
-      compareResult.classList.add("active");
-      compareResult.innerHTML = `
-        ${comparisonCard(first)}
-        ${comparisonCard(second)}
-        <div class="winner-box">Overall comparison winner: ${winner}</div>
-      `;
-    }
+      function changeBadge(character) {
+        const change = getChange(character);
 
-    function renderMovements() {
-      const movers = characters
-        .map(character => ({ ...character, change: getChange(character) }))
-        .filter(character => character.change !== 0);
-
-      const risers = movers
-        .filter(character => character.change > 0)
-        .sort((a, b) => b.change - a.change)
-        .slice(0, 3);
-
-      const drops = movers
-        .filter(character => character.change < 0)
-        .sort((a, b) => a.change - b.change)
-        .slice(0, 3);
-
-      function movementItems(list) {
-        if (list.length === 0) {
-          return `<div class="movement-item"><span class="movement-name">No changes yet</span></div>`;
+        if (change > 0) {
+          return `<span class="change-badge change-up">↗ +${change}</span>`;
         }
 
-        return list.map(character => `
-          <a class="movement-item" href="#profile-${safeId(character)}" style="text-decoration:none;color:var(--text);">
-            <span class="movement-rank">#${character.rank}</span>
-            <span class="movement-name">${character.name}</span>
-            ${changeBadge(character)}
-          </a>
-        `).join("");
+        if (change < 0) {
+          return `<span class="change-badge change-down">↘ ${change}</span>`;
+        }
+
+        return `<span class="change-badge change-same">— 0</span>`;
       }
 
-      movementGrid.innerHTML = `
-        <div class="movement-box risers">
-          <div class="movement-title">↗ Biggest Risers</div>
-          ${movementItems(risers)}
-        </div>
+      function badgeClass(label) {
+        const value = label.toLowerCase();
 
-        <div class="movement-box drops">
-          <div class="movement-title">↘ Biggest Drops</div>
-          ${movementItems(drops)}
-        </div>
-      `;
-    }
+        if (value.includes("founder")) return "badge-founder";
+        if (value.includes("og") || value.includes("old guard")) return "badge-og";
+        if (value.includes("newgen") || value.includes("new entry")) return "badge-newgen";
+        if (value.includes("villain")) return "badge-villain";
+        if (value.includes("bpverse")) return "badge-bpverse";
+        if (value.includes("gym") || value.includes("frame")) return "badge-gym";
+        if (value.includes("exiled") || value.includes("fallen")) return "badge-exiled";
+        if (value.includes("observer") || value.includes("info")) return "badge-observer";
 
-    function renderCharacters() {
-      const search = searchInput.value.toLowerCase().trim();
-      const tier = tierFilter.value;
+        return "";
+      }
 
-      const filtered = characters.filter(character => {
-        const name = character.name.toLowerCase();
-        return name.includes(search) && (tier === "all" || character.tier === tier);
+      function renderBadges(character) {
+        return `
+          <div class="badge-row">
+            ${(character.badges || [])
+              .map(badge => `<span class="badge ${badgeClass(badge)}">${badge}</span>`)
+              .join("")}
+          </div>
+        `;
+      }
+
+      function initials(name) {
+        return name
+          .split(" ")
+          .map(word => word[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase();
+      }
+
+      function imageOrInitials(character, className) {
+        const src = character.pfp && character.pfp.trim() ? character.pfp : "";
+
+        if (!src) {
+          return `
+            <div class="${className}" style="display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--gold);">
+              ${initials(character.name)}
+            </div>
+          `;
+        }
+
+        return `
+          <img
+            class="${className}"
+            src="${src}"
+            alt="${character.name}"
+            onerror="this.outerHTML='<div class=&quot;${className}&quot; style=&quot;display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--gold);&quot;>${initials(character.name)}</div>'"
+          >
+        `;
+      }
+
+      function createStat(name, value) {
+        return `
+          <div class="stat">
+            <div class="stat-row">
+              <span>${name}</span>
+              <strong>${value}/10</strong>
+            </div>
+            <div class="bar">
+              <div class="fill" style="--value:${value * 10}%"></div>
+            </div>
+          </div>
+        `;
+      }
+
+      function getStat(character, stat) {
+        return character.stats && typeof character.stats[stat] === "number"
+          ? character.stats[stat]
+          : 0;
+      }
+
+      function articleImageHTML(article) {
+        return `
+          <div class="news-image-wrap">
+            <img
+              class="news-image"
+              src="${article.image}"
+              alt="${article.title}"
+              onerror="this.outerHTML='<div class=&quot;news-placeholder&quot;>Article image missing: ${article.image}</div>'"
+            >
+          </div>
+        `;
+      }
+
+      function renderMainArticle() {
+        const article = articles[0];
+
+        mainNews.innerHTML = `
+          <div class="news-header">
+            <div class="news-label">${article.label}</div>
+            <h2 class="news-title">${article.title}</h2>
+            <div class="news-date">${article.date}</div>
+          </div>
+
+          ${articleImageHTML(article)}
+
+          <div class="news-body">
+            ${article.body.map(paragraph => `<p>${paragraph}</p>`).join("")}
+          </div>
+        `;
+      }
+
+      function renderArchive() {
+        archiveList.innerHTML = articles
+          .slice(1)
+          .map(article => `
+            <a class="archive-item" href="#article-${article.id}">
+              <strong>${article.title}</strong>
+              <span>${article.date}</span>
+            </a>
+          `)
+          .join("");
+      }
+
+      function renderArticlePage(article) {
+        articlePage.innerHTML = `
+          <a class="back-button" href="#">← Back to main page</a>
+
+          <div class="news-header">
+            <div class="news-label">${article.label}</div>
+            <h2 class="news-title">${article.title}</h2>
+            <div class="news-date">${article.date}</div>
+          </div>
+
+          ${articleImageHTML(article)}
+
+          <div class="news-body">
+            ${article.body.map(paragraph => `<p>${paragraph}</p>`).join("")}
+          </div>
+        `;
+      }
+
+      function renderCompareOptions() {
+        const options = characters
+          .map(character => `
+            <option value="${safeId(character)}">#${character.rank} ${character.name}</option>
+          `)
+          .join("");
+
+        compareA.innerHTML = options;
+        compareB.innerHTML = options;
+
+        compareA.value = "oprylite";
+        compareB.value = "louie";
+      }
+
+      function compareCharacters() {
+        const first = characters.find(character => safeId(character) === compareA.value);
+        const second = characters.find(character => safeId(character) === compareB.value);
+
+        if (!first || !second) return;
+
+        const firstTotal =
+          first.score +
+          getStat(first, "Lore") * 3 +
+          getStat(first, "Meme") * 2 +
+          getStat(first, "Aura") * 2 +
+          getStat(first, "Loyalty");
+
+        const secondTotal =
+          second.score +
+          getStat(second, "Lore") * 3 +
+          getStat(second, "Meme") * 2 +
+          getStat(second, "Aura") * 2 +
+          getStat(second, "Loyalty");
+
+        const winner =
+          firstTotal > secondTotal
+            ? first.name
+            : secondTotal > firstTotal
+              ? second.name
+              : "Draw";
+
+        function card(character) {
+          return `
+            <div class="compare-card">
+              <h3>#${character.rank} ${character.name}</h3>
+              ${renderBadges(character)}
+
+              <div class="compare-row">
+                <span>Score</span>
+                <strong>${character.score}/100</strong>
+              </div>
+
+              <div class="compare-row">
+                <span>Current Rank</span>
+                <strong>#${character.rank}</strong>
+              </div>
+
+              <div class="compare-row">
+                <span>Previous Rank</span>
+                <strong>${character.previousRank ? "#" + character.previousRank : "NEW"}</strong>
+              </div>
+
+              <div class="compare-row">
+                <span>Peak Rank</span>
+                <strong>#${character.peakRank}</strong>
+              </div>
+
+              <div class="compare-row">
+                <span>Lowest Rank</span>
+                <strong>#${character.lowestRank}</strong>
+              </div>
+
+              <div class="compare-row">
+                <span>Lore</span>
+                <strong>${getStat(character, "Lore") || "N/A"}</strong>
+              </div>
+
+              <div class="compare-row">
+                <span>Aura</span>
+                <strong>${getStat(character, "Aura") || "N/A"}</strong>
+              </div>
+
+              <div class="compare-row">
+                <span>Meme</span>
+                <strong>${getStat(character, "Meme") || "N/A"}</strong>
+              </div>
+
+              <div class="compare-row">
+                <span>Loyalty</span>
+                <strong>${getStat(character, "Loyalty") || "N/A"}</strong>
+              </div>
+            </div>
+          `;
+        }
+
+        compareResult.classList.add("active");
+        compareResult.innerHTML = `
+          ${card(first)}
+          ${card(second)}
+          <div class="winner-box">Overall comparison winner: ${winner}</div>
+        `;
+      }
+
+      function renderMovements() {
+        const movers = characters
+          .map(character => ({
+            ...character,
+            change: getChange(character)
+          }))
+          .filter(character => character.change !== 0);
+
+        const risers = movers
+          .filter(character => character.change > 0)
+          .sort((a, b) => b.change - a.change)
+          .slice(0, 3);
+
+        const drops = movers
+          .filter(character => character.change < 0)
+          .sort((a, b) => a.change - b.change)
+          .slice(0, 3);
+
+        function items(list) {
+          if (!list.length) {
+            return `<div class="movement-item"><span class="movement-name">No changes yet</span></div>`;
+          }
+
+          return list
+            .map(character => `
+              <a class="movement-item" href="#profile-${safeId(character)}" style="text-decoration:none;color:var(--text);">
+                <span class="movement-rank">#${character.rank}</span>
+                <span class="movement-name">${character.name}</span>
+                ${changeBadge(character)}
+              </a>
+            `)
+            .join("");
+        }
+
+        movementGrid.innerHTML = `
+          <div class="movement-box risers">
+            <div class="movement-title">↗ Biggest Risers</div>
+            ${items(risers)}
+          </div>
+
+          <div class="movement-box drops">
+            <div class="movement-title">↘ Biggest Drops</div>
+            ${items(drops)}
+          </div>
+        `;
+      }
+
+      function renderCharacters() {
+        const search = searchInput.value.toLowerCase().trim();
+        const tier = tierFilter.value;
+
+        const filtered = characters.filter(character => {
+          return (
+            character.name.toLowerCase().includes(search) &&
+            (tier === "all" || character.tier === tier)
+          );
+        });
+
+        if (!filtered.length) {
+          grid.innerHTML = `
+            <div class="archive-section">
+              <h2>No characters found</h2>
+              <p style="color:var(--muted);margin:0;">Try a different name or tier filter.</p>
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = filtered
+          .map(character => `
+            <a class="profile-card" href="#profile-${safeId(character)}">
+              ${imageOrInitials(character, "profile-pfp")}
+
+              <div class="profile-info">
+                <div class="profile-name">#${character.rank} ${character.name}</div>
+                <div class="profile-role">${character.title}</div>
+                ${renderBadges(character)}
+              </div>
+
+              <div class="profile-side">
+                <div class="profile-rating">${character.score}/100</div>
+                ${changeBadge(character)}
+              </div>
+            </a>
+          `)
+          .join("");
+      }
+
+      function renderProfile(character) {
+        fullProfile.innerHTML = `
+          <a class="profile-back-button" href="#">← Back to rankings</a>
+
+          <div class="profile-header">
+            ${imageOrInitials(character, "big-pfp")}
+
+            <div>
+              <div class="rank-badge">#${character.rank} • ${character.score}/100</div>
+              <h2 class="name">#${character.rank} ${character.name}</h2>
+              <div class="meta">${character.title}</div>
+              <div class="meta">Age: ${character.age} • ${character.background}</div>
+              <div class="meta">${character.tier} Tier • ${character.role}</div>
+              <div class="meta">Movement: ${changeBadge(character)}</div>
+              ${renderBadges(character)}
+            </div>
+          </div>
+
+          <div class="history-grid">
+            <div class="history-box">
+              <span>Current Rank</span>
+              <strong>#${character.rank}</strong>
+            </div>
+
+            <div class="history-box">
+              <span>Previous Rank</span>
+              <strong>${character.previousRank ? "#" + character.previousRank : "NEW"}</strong>
+            </div>
+
+            <div class="history-box">
+              <span>Peak Rank</span>
+              <strong>#${character.peakRank}</strong>
+            </div>
+
+            <div class="history-box">
+              <span>Lowest Rank</span>
+              <strong>#${character.lowestRank}</strong>
+            </div>
+          </div>
+
+          <p class="description">${character.description}</p>
+
+          <div class="tags">
+            ${(character.tags || [])
+              .map(tag => `<span class="tag">${tag}</span>`)
+              .join("")}
+          </div>
+
+          <div class="stats">
+            ${Object.entries(character.stats || {})
+              .map(([name, value]) => createStat(name, value))
+              .join("")}
+          </div>
+        `;
+      }
+
+      function showHome() {
+        topbar.style.display = "flex";
+
+        homeSections.forEach(section => {
+          section.style.display = "";
+        });
+
+        fullProfile.classList.remove("active");
+        articlePage.style.display = "none";
+
+        renderCharacters();
+      }
+
+      function showProfile(character) {
+        topbar.style.display = "none";
+
+        homeSections.forEach(section => {
+          section.style.display = "none";
+        });
+
+        articlePage.style.display = "none";
+        fullProfile.classList.add("active");
+
+        renderProfile(character);
+      }
+
+      function showArticle(article) {
+        topbar.style.display = "none";
+
+        homeSections.forEach(section => {
+          section.style.display = "none";
+        });
+
+        fullProfile.classList.remove("active");
+        articlePage.style.display = "block";
+
+        renderArticlePage(article);
+      }
+
+      function handleRoute() {
+        const hash = window.location.hash;
+
+        if (hash.startsWith("#profile-")) {
+          const id = hash.replace("#profile-", "");
+          const character = characters.find(character => safeId(character) === id);
+
+          if (character) {
+            showProfile(character);
+            return;
+          }
+        }
+
+        if (hash.startsWith("#article-")) {
+          const id = hash.replace("#article-", "");
+          const article = articles.find(article => article.id === id);
+
+          if (article) {
+            showArticle(article);
+            return;
+          }
+        }
+
+        showHome();
+      }
+
+      function updateCountdown() {
+        const now = new Date();
+
+        const ukNow = new Date(
+          now.toLocaleString("en-US", {
+            timeZone: "Europe/London"
+          })
+        );
+
+        let target = new Date(ukNow);
+        target.setHours(20, 0, 0, 0);
+
+        if (ukNow >= target) {
+          target.setDate(target.getDate() + 1);
+        }
+
+        const diff = target - ukNow;
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        document.getElementById("days").textContent = String(days).padStart(2, "0");
+        document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+        document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+        document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+      }
+
+      compareToggle.addEventListener("click", () => {
+        compareSection.classList.toggle("open");
+        compareArrow.textContent = compareSection.classList.contains("open")
+          ? "Close ↑"
+          : "Open ↓";
       });
 
-      if (filtered.length === 0) {
-        grid.innerHTML = `
-          <div class="archive-section">
-            <h2>No characters found</h2>
-            <p style="color:var(--muted);margin:0;">Try a different name or tier filter.</p>
-          </div>
-        `;
-        return;
-      }
+      searchInput.addEventListener("input", renderCharacters);
+      tierFilter.addEventListener("change", renderCharacters);
+      window.addEventListener("hashchange", handleRoute);
+      compareButton.addEventListener("click", compareCharacters);
 
-      grid.innerHTML = filtered.map(character => `
-        <a class="profile-card" href="#profile-${safeId(character)}">
-          ${imageOrInitials(character, "profile-pfp")}
-
-          <div class="profile-info">
-            <div class="profile-name">#${character.rank} ${character.name}</div>
-            <div class="profile-role">${character.title || "Title coming soon"}</div>
-            ${renderBadges(character)}
-          </div>
-
-          <div class="profile-side">
-            <div class="profile-rating">${character.score}/100</div>
-            ${changeBadge(character)}
-          </div>
-        </a>
-      `).join("");
-    }
-
-    function renderProfile(character) {
-      fullProfile.innerHTML = `
-        <a class="profile-back-button" href="#">← Back to rankings</a>
-
-        <div class="profile-header">
-          ${imageOrInitials(character, "big-pfp")}
-
-          <div>
-            <div class="rank-badge">#${character.rank} • ${character.score}/100</div>
-            <h2 class="name">#${character.rank} ${character.name}</h2>
-            <div class="meta">${character.title || "Title coming soon"}</div>
-            <div class="meta">Age: ${character.age} • ${character.background}</div>
-            <div class="meta">${character.tier} Tier • ${character.role}</div>
-            <div class="meta">Movement: ${changeBadge(character)}</div>
-            ${renderBadges(character)}
-          </div>
-        </div>
-
-        <div class="history-grid">
-          <div class="history-box"><span>Current Rank</span><strong>#${character.rank}</strong></div>
-          <div class="history-box"><span>Previous Rank</span><strong>${character.previousRank ? "#" + character.previousRank : "NEW"}</strong></div>
-          <div class="history-box"><span>Peak Rank</span><strong>#${character.peakRank}</strong></div>
-          <div class="history-box"><span>Lowest Rank</span><strong>#${character.lowestRank}</strong></div>
-        </div>
-
-        <p class="description">${character.description}</p>
-
-        <div class="tags">
-          ${(character.tags || []).map(tag => `<span class="tag">${tag}</span>`).join("")}
-        </div>
-
-        <div class="stats">
-          ${Object.entries(character.stats || {}).map(([name, value]) => createStat(name, value)).join("")}
-        </div>
-      `;
-    }
-
-    function showHome() {
-      topbar.style.display = "flex";
-      homeSections.forEach(section => section.style.display = "");
-      fullProfile.classList.remove("active");
-      articlePage.style.display = "none";
-      renderCharacters();
-    }
-
-    function showProfile(character) {
-      topbar.style.display = "none";
-      homeSections.forEach(section => section.style.display = "none");
-      articlePage.style.display = "none";
-      fullProfile.classList.add("active");
-      renderProfile(character);
-    }
-
-    function showArticle(article) {
-      topbar.style.display = "none";
-      homeSections.forEach(section => section.style.display = "none");
-      fullProfile.classList.remove("active");
-      articlePage.style.display = "block";
-      renderArticlePage(article);
-    }
-
-    function handleRoute() {
-      const hash = window.location.hash;
-
-      if (hash.startsWith("#profile-")) {
-        const id = hash.replace("#profile-", "");
-        const character = characters.find(character => safeId(character) === id);
-
-        if (character) {
-          showProfile(character);
-          return;
-        }
-      }
-
-      if (hash.startsWith("#article-")) {
-        const id = hash.replace("#article-", "");
-        const article = articles.find(article => article.id === id);
-
-        if (article) {
-          showArticle(article);
-          return;
-        }
-      }
-
-      showHome();
-    }
-
-    function updateCountdown() {
-      const now = new Date();
-
-      const ukNow = new Date(
-        now.toLocaleString("en-US", { timeZone: "Europe/London" })
-      );
-
-      let target = new Date(ukNow);
-      target.setHours(20, 0, 0, 0);
-
-      if (ukNow >= target) {
-        target.setDate(target.getDate() + 1);
-      }
-
-      const diff = target - ukNow;
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      document.getElementById("days").textContent = String(days).padStart(2, "0");
-      document.getElementById("hours").textContent = String(hours).padStart(2, "0");
-      document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
-      document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
-    }
-
-    compareToggle.addEventListener("click", () => {
-      compareSection.classList.toggle("open");
-      compareArrow.textContent = compareSection.classList.contains("open") ? "Close ↑" : "Open ↓";
-    });
-
-    searchInput.addEventListener("input", renderCharacters);
-    tierFilter.addEventListener("change", renderCharacters);
-    window.addEventListener("hashchange", handleRoute);
-    compareButton.addEventListener("click", compareCharacters);
-
-    renderMainArticle();
-    renderArchive();
-    renderCompareOptions();
-    renderMovements();
-    handleRoute();
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-  </script>
-</body>
+      renderMainArticle();
+      renderArchive();
+      renderCompareOptions();
+      renderMovements();
+      handleRoute();
+      compareCharacters();
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    </script>
+  </body>
 </html>
